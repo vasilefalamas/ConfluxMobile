@@ -11,7 +11,7 @@ namespace Conflux.UI.Views
 {
     public sealed partial class LoadingPage
     {
-        private readonly IFacebookProvider facebookProvider;
+        private IFacebookProvider facebookProvider;
 
         public LoadingPage()
         {
@@ -64,7 +64,7 @@ namespace Conflux.UI.Views
         private async Task<LocationInfo> GetUserLocationAsync()
         {
             Location currentLocation = await LocationFinder.GetLocationInfoAsync();
-
+            
             var locationInfo = new LocationInfo
             {
                 Name = currentLocation.City,

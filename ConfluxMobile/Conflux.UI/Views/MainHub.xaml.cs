@@ -12,8 +12,6 @@ using Conflux.Core.Models;
 using Conflux.UI.Common;
 using Conflux.UI.ViewModels;
 
-// The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
-
 namespace Conflux.UI.Views
 {
     public sealed partial class MainHub
