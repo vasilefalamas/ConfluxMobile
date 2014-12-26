@@ -7,7 +7,7 @@ namespace Conflux.Connectivity.GraphApi
     {
         private const string AppId = "278580629014544";
 
-        private const string ProductId = "efdeec5752b2447fb843d355a7b57ac0";
+        private const string ProductId = "df1610dbf5a740b9ac70d28cc2ff4b2b";
 
         public static Uri GetConnectionUri()
         {
