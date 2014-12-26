@@ -6,9 +6,49 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="OnPageLoaded">
 
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" x:Name="LogoGrid" VerticalAlignment="Center">
+            <Grid.Resources>
+                <Storyboard x:Name="GlyphStoryboard"
+                                    AutoReverse="True" RepeatBehavior="Forever">
+                    <DoubleAnimation From="1" To="0.2"
+                                             Storyboard.TargetName="LogoGrid"
+                                             Storyboard.TargetProperty="Opacity"
+                                             BeginTime="00:00:03" Duration="00:00:0.15">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </Grid.Resources>
+            <TextBlock x:Name="TopGlyph" Text="&#xE015;" FontFamily="Segoe Ui Symbol" FontSize="100"
+                               Margin="1, 70, 0, 0" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="MiddleGlyph" Text="&#xE0A1;" FontFamily="Segoe Ui Symbol" FontSize="200"
+                               Margin="0, 0, 0, 0" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="BottomGlyph" Text="&#xE015;" FontFamily="Segoe Ui Symbol" FontSize="150"
+                               Margin="1, 80, 0, 0" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="conflux"
+                       FontSize="50" FontFamily="Calibri" FontWeight="Light"
+                       VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <StackPanel Grid.Row="1" 
+                        Margin="0, 0, 0, 100"
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock x:Name="StatusTextBlock" Text="Getting ready..."
+                           FontSize="20" FontFamily="Calibri" FontWeight="Light"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

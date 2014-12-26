@@ -1,39 +1,83 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
+using Conflux.Connectivity;
+using Conflux.Connectivity.Authentication;
+using Conflux.Connectivity.GraphApi;
+using Conflux.Core.Maps;
 
 namespace Conflux.UI.Views
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class LoadingPage : Page
+    public sealed partial class LoadingPage
     {
+        private readonly IFacebookProvider facebookProvider;
+
         public LoadingPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            RemovedPageTransition();
+
+            facebookProvider = new FacebookProvider();
         }
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.
-        /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+        }
+
+        private void RemovedPageTransition()
+        {
+            var mainFrame = Window.Current.Content as Frame;
+            if (mainFrame != null)
+            {
+                mainFrame.ContentTransitions = null;
+            }
+        }
+
+        private async void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            await GetUserData(App.AccessToken);
+
+            Frame.Navigate(typeof (MainHub));
+        }
+
+        private async Task GetUserData(AccessToken accessToken)
+        {
+            var userInfoTask = facebookProvider.GetUserNameInfoAsync(accessToken);
+            var profilePictureTask = facebookProvider.GetProfilePictureAsync(accessToken);
+
+            NotifyStatus("Connecting to Facebook...");
+
+            var userInfo = await userInfoTask;
+            var profilePicture = await profilePictureTask;
+
+            NotifyStatus("Finding your location...");
+
+            App.User = userInfo;
+            App.User.ProfilePicture = profilePicture;
+            App.User.LocationInfo = await GetUserLocationAsync();
+
+            NotifyStatus("Getting ready...");
+        }
+
+        private async Task<LocationInfo> GetUserLocationAsync()
+        {
+            Location currentLocation = await LocationFinder.GetLocationInfoAsync();
+
+            var locationInfo = new LocationInfo
+            {
+                Name = currentLocation.City,
+                Longitude = currentLocation.Longitude,
+                Latitude = currentLocation.Latitude
+            };
+
+            return locationInfo;
+        }
+
+        private void NotifyStatus(string statusMessage)
+        {
+            StatusTextBlock.Text = statusMessage;
         }
     }
 }
