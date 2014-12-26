@@ -5,11 +5,23 @@
     xmlns:local="using:Conflux.UI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Conflux.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid x:Name="LayoutRoot">
+    <Page.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    </Page.Resources>
 
+    <Page.BottomAppBar>
+        <CommandBar IsSticky="True" Background="#991C1C1C">
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="log out" Click="OnLogOutButtonClick"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
@@ -21,15 +33,88 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Title Panel -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="MY APPLICATION" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="page title" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
-        </StackPanel>
+        <!--CONTENT-->
+        <Grid Grid.Row="1">
+            <Hub Header="conflux">
+                <Hub.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="conflux" />
+                    </DataTemplate>
+                </Hub.HeaderTemplate>
+                <HubSection Header="ME">
+                    <DataTemplate>
+                        <StackPanel>
+                            <Image Width="150" Height="150"
+                                   HorizontalAlignment="Left"
+                                   Source="{Binding ProfilePicture}"/>
+                            <TextBlock Text="{Binding Name}" FontSize="22"/>
+                            <TextBlock Text="{Binding Location}" FontSize="20"/>
+                            <ListView Margin="0, 30, 0, 0" 
+                                      ItemsSource="{Binding UserSectionLinks}"
+                                      SelectionChanged="OnLinkSelectionChanged">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Title}"
+                                                   Style="{StaticResource ListViewItemTextBlockStyle}"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </DataTemplate>
+                </HubSection>
+                <HubSection Header="WHAT'S NEW" Loaded="OnNewestEventsSectionLoaded">
+                    <DataTemplate>
+                        <ListView x:Name="NewestEventsListView" ItemsSource="{Binding NewestEvents}">
+                            <ListView.Items>
+                                <TransitionCollection>
+                                    <EdgeUIThemeTransition Edge="Top"/>
+                                </TransitionCollection>
+                            </ListView.Items>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0, 10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="5"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="0, 5, 0, 3"
+                                              Background="{StaticResource PhoneAccentBrush}">
+                                        </Grid>
+                                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                                   Padding="10, 0, 5, 2"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   FontSize="22"
+                                                   Text="{Binding Title}"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Padding="10, 2, 5, 5"
+                                                   Visibility="{Binding StartTime, Converter={StaticResource NullToVisibilityConverter}}"
+                                                   Text="{Binding StartTime}"
+                                                   Opacity="0.8"/>
+                                        <TextBlock Grid.Row="2" Grid.Column="1" Padding="10, 2, 5, 5"
+                                                   Visibility="{Binding EndTime, Converter={StaticResource NullToVisibilityConverter}}"
+                                                   Text="{Binding EndTime}"
+                                                   Opacity="0.8"/>
+                                        <TextBlock Grid.Row="3" Grid.Column="1" Padding="10, 2, 5, 2"
+                                                   Visibility="{Binding Location, Converter={StaticResource NullToVisibilityConverter}}"
+                                                   TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                                                   FontSize="16"
+                                                   Text="{Binding Location}"
+                                                   MaxLines="2"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </DataTemplate>
+                </HubSection>
+                <HubSection Header="EVENTS">
 
-        <!--TODO: Content should be placed within the following grid-->
-        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
-
+                </HubSection>
+            </Hub>
         </Grid>
     </Grid>
 </Page>

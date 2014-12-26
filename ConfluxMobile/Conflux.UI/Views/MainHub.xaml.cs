@@ -1,111 +1,112 @@
-﻿using Conflux.UI.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using Windows.UI.ViewManagement;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Conflux.Connectivity;
+using Conflux.Connectivity.Authentication;
+using Conflux.Connectivity.GraphApi;
+using Conflux.Core;
+using Conflux.Core.Models;
+using Conflux.UI.Common;
+using Conflux.UI.ViewModels;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace Conflux.UI.Views
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainHub : Page
+    public sealed partial class MainHub
     {
-        private NavigationHelper navigationHelper;
-        private ObservableDictionary defaultViewModel = new ObservableDictionary();
+        private readonly NavigationHelper navigationHelper;
+        private readonly ConfluxHubViewModel confluxHubViewModel;
+        private readonly FacebookProvider facebookClient;
 
         public MainHub()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.navigationHelper = new NavigationHelper(this);
-            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
-            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+            NavigationCacheMode = NavigationCacheMode.Required;
+
+            navigationHelper = new NavigationHelper(this);
+            navigationHelper.LoadState += NavigationHelper_LoadState;
+            navigationHelper.SaveState += NavigationHelper_SaveState;
+
+            confluxHubViewModel = new ConfluxHubViewModel();
+            facebookClient = new FacebookProvider();
+
+            DataContext = confluxHubViewModel;
         }
 
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
         public NavigationHelper NavigationHelper
         {
-            get { return this.navigationHelper; }
+            get { return navigationHelper; }
         }
 
-        /// <summary>
-        /// Gets the view model for this <see cref="Page"/>.
-        /// This can be changed to a strongly typed view model.
-        /// </summary>
-        public ObservableDictionary DefaultViewModel
-        {
-            get { return this.defaultViewModel; }
-        }
-
-        /// <summary>
-        /// Populates the page with content passed during navigation.  Any saved state is also
-        /// provided when recreating a page from a prior session.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event; typically <see cref="NavigationHelper"/>
-        /// </param>
-        /// <param name="e">Event data that provides both the navigation parameter passed to
-        /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
-        /// a dictionary of state preserved by this page during an earlier
-        /// session.  The state will be null the first time a page is visited.</param>
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
         }
 
-        /// <summary>
-        /// Preserves state associated with this page in case the application is suspended or the
-        /// page is discarded from the navigation cache.  Values must conform to the serialization
-        /// requirements of <see cref="SuspensionManager.SessionState"/>.
-        /// </summary>
-        /// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/></param>
-        /// <param name="e">Event data that provides an empty dictionary to be populated with
-        /// serializable state.</param>
+
         private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
         {
         }
 
         #region NavigationHelper registration
 
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// <para>
-        /// Page specific logic should be placed in event handlers for the  
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method 
-        /// in addition to page state preserved during an earlier session.
-        /// </para>
-        /// </summary>
-        /// <param name="e">Provides data for navigation methods and event
-        /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.navigationHelper.OnNavigatedTo(e);
+            confluxHubViewModel.Name = App.User.FullName;
+            confluxHubViewModel.Location = App.User.LocationInfo.Name;
+            confluxHubViewModel.ProfilePicture = App.User.ProfilePicture;
+
+            navigationHelper.OnNavigatedTo(e);
+
+            //Clear navigation history.
+            Frame.BackStack.Clear();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            this.navigationHelper.OnNavigatedFrom(e);
+            navigationHelper.OnNavigatedFrom(e);
         }
 
         #endregion
+
+        private void OnLinkSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var itemsList = sender as ListView;
+
+            if (itemsList != null)
+            {
+                var selectedLink = (NavigationLink)itemsList.SelectedItem;
+
+                if (selectedLink != null)
+                {
+                    Frame.Navigate(selectedLink.Destination);
+                }
+
+                itemsList.SelectedItem = null;
+            }
+        }
+
+        private async Task<IEnumerable<Event>> GetNewestEvents(AccessToken accessToken, string searchedKeyword, int offset = 0, int? limit = null)
+        {
+            var newestEvents = await facebookClient.GetEventsByKeywordAsync(accessToken, searchedKeyword, offset, limit);
+
+            return newestEvents;
+        }
+
+        private async void OnNewestEventsSectionLoaded(object sender, RoutedEventArgs e)
+        {
+            var newestEvents = await GetNewestEvents(App.AccessToken, "Sibiu", 0, 10);
+            confluxHubViewModel.NewestEvents = newestEvents;
+        }
+
+        private void OnLogOutButtonClick(object sender, RoutedEventArgs e)
+        {
+            AppSettings.SetAccessToken(new AccessToken("", DateTime.Now));
+            Frame.Navigate(typeof(LoginPage));
+        }
     }
 }
