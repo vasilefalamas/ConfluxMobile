@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5c39f5dc-339e-430d-a084-770674b36bfc}</ProjectGuid>
+    <ProjectGuid>{5C39F5DC-339E-430D-A084-770674B36BFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Conflux.Core</RootNamespace>
@@ -80,11 +80,19 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\Conflux.Connectivity\Conflux.Connectivity.csproj">
+      <Project>{e1b1cd7e-503e-43ea-ade9-b3084eefeb36}</Project>
+      <Name>Conflux.Connectivity</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AppSettings.cs" />
+    <Compile Include="Maps\Location.cs" />
+    <Compile Include="Maps\LocationFinder.cs" />
+    <Compile Include="Models\NavigationLink.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
@@ -99,5 +107,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
 </Project>
