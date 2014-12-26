@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{e1b1cd7e-503e-43ea-ade9-b3084eefeb36}</ProjectGuid>
+    <ProjectGuid>{E1B1CD7E-503E-43EA-ADE9-B3084EEFEB36}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Conflux.Connectivity</RootNamespace>
@@ -82,7 +82,19 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Authentication\AccessToken.cs" />
+    <Compile Include="Authentication\AuthenticationResult.cs" />
+    <Compile Include="Authentication\AuthenticationState.cs" />
+    <Compile Include="Authentication\Permissions.cs" />
+    <Compile Include="FacebookProvider.cs" />
+    <Compile Include="GraphApi\Event.cs" />
+    <Compile Include="GraphApi\FacebookUriProvider.cs" />
+    <Compile Include="GraphApi\IFacebookProvider.cs" />
+    <Compile Include="GraphApi\LocationInfo.cs" />
+    <Compile Include="GraphApi\PictureSize.cs" />
+    <Compile Include="GraphApi\User.cs" />
+    <Compile Include="JsonExtensions\JsonExtensions.cs" />
+    <Compile Include="NetworkManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
@@ -99,5 +111,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
 </Project>
