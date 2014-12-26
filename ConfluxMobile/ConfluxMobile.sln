@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conflux.UI", "Conflux.UI\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conflux.Connectivity", "Conflux.Connectivity\Conflux.Connectivity.csproj", "{E1B1CD7E-503E-43EA-ADE9-B3084EEFEB36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conflux.Core", "Conflux.Core\Conflux.Core.csproj", "{5C39F5DC-339E-430D-A084-770674B36BFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,18 @@ Global
 		{E1B1CD7E-503E-43EA-ADE9-B3084EEFEB36}.Release|ARM.Build.0 = Release|ARM
 		{E1B1CD7E-503E-43EA-ADE9-B3084EEFEB36}.Release|x86.ActiveCfg = Release|x86
 		{E1B1CD7E-503E-43EA-ADE9-B3084EEFEB36}.Release|x86.Build.0 = Release|x86
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Debug|ARM.Build.0 = Debug|ARM
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Debug|x86.ActiveCfg = Debug|x86
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Debug|x86.Build.0 = Debug|x86
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Release|ARM.ActiveCfg = Release|ARM
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Release|ARM.Build.0 = Release|ARM
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Release|x86.ActiveCfg = Release|x86
+		{5C39F5DC-339E-430D-A084-770674B36BFC}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
