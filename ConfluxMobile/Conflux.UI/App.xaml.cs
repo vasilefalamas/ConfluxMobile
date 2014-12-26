@@ -6,6 +6,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Conflux.Connectivity;
+using Conflux.Connectivity.Authentication;
+using Conflux.Connectivity.GraphApi;
+using Conflux.Core;
 using Conflux.UI.Views;
 
 namespace Conflux.UI
@@ -13,9 +17,15 @@ namespace Conflux.UI
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public sealed partial class App : Application
+    public sealed partial class App
     {
         private TransitionCollection transitions;
+        
+        public static AccessToken AccessToken { get; set; }
+
+        public static IFacebookProvider FacebookProvider { get; private set; }
+
+        public static User User { get; set; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -23,8 +33,13 @@ namespace Conflux.UI
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += this.OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
+
+            FacebookProvider = new FacebookProvider();
+            User = new User();
+
+            LoadSettings();
         }
 
         /// <summary>
@@ -38,7 +53,7 @@ namespace Conflux.UI
 #if DEBUG
             if (Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+                DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
@@ -49,11 +64,11 @@ namespace Conflux.UI
             if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
-                // TODO: change this value to a cache size that is appropriate for your application
-                rootFrame.CacheSize = 1;
-
+                rootFrame = new Frame
+                {
+                    CacheSize = 1
+                };
+                
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     // TODO: Load state from previously suspended application
@@ -68,20 +83,34 @@ namespace Conflux.UI
                 // Removes the turnstile navigation for startup.
                 if (rootFrame.ContentTransitions != null)
                 {
-                    this.transitions = new TransitionCollection();
+                    transitions = new TransitionCollection();
                     foreach (var c in rootFrame.ContentTransitions)
                     {
-                        this.transitions.Add(c);
+                        transitions.Add(c);
                     }
                 }
 
                 rootFrame.ContentTransitions = null;
-                rootFrame.Navigated += this.RootFrame_FirstNavigated;
+                rootFrame.Navigated += RootFrame_FirstNavigated;
+
+                //Facebook Authentication check. Navigate to next page accordingly.
+                Type startPage;
+
+                var savedAccessToken = AppSettings.GetAccessToken();
+
+                if (savedAccessToken != null && savedAccessToken.Expiry > DateTime.Now)
+                {
+                    startPage = typeof(LoadingPage);
+                }
+                else
+                {
+                    startPage = typeof(LoginPage);
+                }
 
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(LoadingPage), e.Arguments))
+                if (!rootFrame.Navigate(startPage, e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
@@ -99,8 +128,15 @@ namespace Conflux.UI
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
             var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
-            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
+
+            if (rootFrame != null)
+            {
+                rootFrame.ContentTransitions = transitions ?? new TransitionCollection()
+                {
+                    new NavigationThemeTransition()
+                };
+                rootFrame.Navigated -= RootFrame_FirstNavigated;
+            }
         }
 
         /// <summary>
@@ -116,6 +152,54 @@ namespace Conflux.UI
 
             // TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                var eventArgs = args as ProtocolActivatedEventArgs;
+
+                if (eventArgs != null)
+                {
+                    Uri responseUri = eventArgs.Uri;
+
+                    //Set AccessToken at App level:
+                    AccessToken = AccessToken.Create(responseUri.Query);
+
+                    //Save AccessToken for further use:
+                    AppSettings.SetAccessToken(AccessToken);
+
+                    ContinueNavigation(typeof (LoadingPage));
+                }
+            }
+            else
+            {
+                ContinueNavigation(typeof(LoginPage));
+            }
+
+            Window.Current.Activate();
+
+        }
+
+        private static void ContinueNavigation(Type navigationPage)
+        {
+            var rootFrame = Window.Current.Content as Frame;
+
+            if (rootFrame == null)
+            {
+                rootFrame = new Frame();
+                Window.Current.Content = rootFrame;
+            }
+
+            rootFrame.Navigate(navigationPage);
+        }
+
+        private void LoadSettings()
+        {
+            AccessToken = AppSettings.GetAccessToken();
         }
     }
 }
