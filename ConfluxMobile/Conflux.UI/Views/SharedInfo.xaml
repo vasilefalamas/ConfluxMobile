@@ -2,20 +2,27 @@
     x:Class="Conflux.UI.Views.SharedInfo"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Conflux.UI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid x:Name="LayoutRoot">
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <CommonNavigationTransitionInfo IsStaggeringEnabled="True"/>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
 
+    <Grid>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -23,13 +30,59 @@
 
         <!-- Title Panel -->
         <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="MY APPLICATION" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="page title" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+            <TextBlock Text="CONFLUX" Margin="0,12,0,0" 
+                       Style="{ThemeResource TitleTextBlockStyle}" />
+            <TextBlock Text="shared info" Margin="0,-6.5,0,26.5" 
+                       Style="{ThemeResource HeaderTextBlockStyle}" 
+                       CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />
         </StackPanel>
-
-        <!--TODO: Content should be placed within the following grid-->
-        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
-
+        <Grid Grid.Row="1" Margin="19,9.5,19,0">
+            <ScrollViewer ZoomMode="Disabled" HorizontalScrollMode="Disabled" VerticalScrollMode="Enabled">
+                <StackPanel>
+                    <RichTextBlock Margin="0, 0, 0, 20" IsTextSelectionEnabled="False"
+                           CommonNavigationTransitionInfo.IsStaggerElement="True"
+                           Pivot.SlideInAnimationGroup="1">
+                        <Paragraph>
+                            <Run IsTextScaleFactorEnabled="True" FontSize="17"
+                         Text="Conflux helps you to keep up with the daily events around you, but in order to do so, you will need to log in with your Facebook account. The only info you will be asked to share with this app, is the one which is associated with your Facebook account. Provided data "/>
+                            <Run IsTextScaleFactorEnabled="True" FontSize="17"
+                         Text="will never be used to track you" Foreground="{ThemeResource PhoneAccentBrush}"/>
+                            <Run IsTextScaleFactorEnabled="True" FontSize="17"
+                         Text=", instead it is intended to provide you a better social experience."/>
+                        </Paragraph>
+                        <Paragraph/>
+                        <Paragraph>
+                            <Run IsTextScaleFactorEnabled="True" FontSize="17" 
+                         Text="Here's what Conflux would like to know about you :"/>
+                        </Paragraph>
+                    </RichTextBlock>
+                    <ListView ItemsSource="{Binding Items}" SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0, 5" CommonNavigationTransitionInfo.IsStaggerElement="True" Pivot.SlideInAnimationGroup="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="{Binding Path=IconUnicodeValue}" 
+                                       FontFamily="Segoe UI Symbol" FontSize="40"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                                       Text="{Binding Title}" FontSize="17"
+                                       VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Pivot.SlideInAnimationGroup="3"
+                                       TextWrapping="Wrap" Text="{Binding Details}" Opacity="0.7"
+                                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>
