@@ -8,28 +8,122 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid x:Name="LayoutRoot">
-
+    <Grid>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <!-- Title Panel -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="MY APPLICATION" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="page title" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
-        </StackPanel>
-
-        <!--TODO: Content should be placed within the following grid-->
-        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
-
+        <Grid Grid.Row="0" x:Name="LogoGrid" VerticalAlignment="Center" Margin="0, -70">
+            <Grid.Resources>
+                <Storyboard x:Name="GlyphStoryboard"
+                                    AutoReverse="True" RepeatBehavior="Forever">
+                    <DoubleAnimation From="1" To="0.2"
+                                             Storyboard.TargetName="LogoGrid"
+                                             Storyboard.TargetProperty="Opacity"
+                                             BeginTime="00:00:03" Duration="00:00:0.15">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </Grid.Resources>
+            <TextBlock x:Name="TopGlyph" Text="&#xE015;" FontFamily="Segoe Ui Symbol" FontSize="100"
+                               Margin="1, 70, 0, 0" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="MiddleGlyph" Text="&#xE0A1;" FontFamily="Segoe Ui Symbol" FontSize="200"
+                               Margin="0, 0, 0, 0" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="BottomGlyph" Text="&#xE015;" FontFamily="Segoe Ui Symbol" FontSize="150"
+                               Margin="1, 80, 0, 0" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="conflux"
+                       FontSize="50" FontFamily="Calibri" FontWeight="Light"
+                       VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <StackPanel Grid.Row="1" 
+                        Margin="0, 0, 0, 100"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                <Grid x:Name="LoginAreaGrid">
+                    <Grid.Resources>
+                        <Storyboard x:Name="FadeIn">
+                            <ObjectAnimationUsingKeyFrames BeginTime="00:00:0.2" Duration="00:00:0.8"
+                                                           Storyboard.TargetName="LoginAreaGrid" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.01">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Visible</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimation To="1" BeginTime="00:00:0.2" Duration="00:00:0.8"
+                                             Storyboard.TargetName="LoginAreaGrid" Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                        <Storyboard x:Name="FadeOut">
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LoginAreaGrid" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.01">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimation To="0"
+                                             Storyboard.TargetName="LoginAreaGrid" Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Content="Login with Facebook"
+                        HorizontalAlignment="Center"
+                        Click="OnLoginClick"/>
+                    <HyperlinkButton Grid.Row="1" FontSize="14"
+                                 HorizontalAlignment="Center"
+                                 Click="OnMoreInfoHyperlinkClick">
+                        <TextBlock>
+                            <Underline>
+                                <Run Text="Read more about shared info"/>        
+                            </Underline>
+                        </TextBlock>
+                    </HyperlinkButton>
+                </Grid>
+                <TextBlock x:Name="WaitMessageTextBlock" 
+                           HorizontalAlignment="Center"
+                           FontSize="20">
+                    <TextBlock.Resources>
+                        <Storyboard x:Name="WaitMessageFadeIn">
+                            <ObjectAnimationUsingKeyFrames Duration="00:00:1.2" 
+                                                           Storyboard.TargetName="WaitMessageTextBlock" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.01">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Visible</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                            <DoubleAnimation To="1" Duration="00:00:1.2"
+                                             Storyboard.TargetName="WaitMessageTextBlock" Storyboard.TargetProperty="Opacity">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </TextBlock.Resources>
+                </TextBlock>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>
