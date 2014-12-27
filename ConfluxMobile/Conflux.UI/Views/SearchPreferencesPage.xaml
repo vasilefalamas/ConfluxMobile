@@ -7,8 +7,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid x:Name="LayoutRoot">
-
+    <Grid>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
@@ -29,8 +28,7 @@
             <Pivot>
                 <PivotItem Header="location">
                     <StackPanel>
-                        <CheckBox Checked="OnLastKnownLocationChecked"
-                                  Unchecked="OnLastKnownLocationUnchecked">
+                        <CheckBox IsChecked="{Binding IsLastKnownLocationUsed, Mode=TwoWay}">
                             <TextBlock Text="Use my last known location for finding events"
                                            TextWrapping="Wrap"/>
                         </CheckBox>
@@ -44,7 +42,7 @@
                     <StackPanel>
                         <StackPanel>
                             <ToggleSwitch Header="Save data transfer"
-                                          Toggled="OnSaveDataTransferToggled">
+                                          IsOn="{Binding IsImageDownloadEnabled, Mode=TwoWay}">
                                 
                             </ToggleSwitch>
                             <TextBlock Opacity="0.5" FontSize="16"
