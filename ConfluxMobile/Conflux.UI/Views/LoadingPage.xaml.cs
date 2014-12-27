@@ -76,7 +76,7 @@ namespace Conflux.UI.Views
             App.User = userInfo;
             App.User.ProfilePicture = profilePicture;
             //App.User.LocationInfo = await GetUserLocationAsync();
-            App.User.LocationInfo = new LocationInfo {Name = "Cugir"};
+            App.User.LocationInfo = new LocationInfo {Name = "Cugir"}; //TODO : Mock location
             
             NotifyStatus("Getting ready...");
         }
