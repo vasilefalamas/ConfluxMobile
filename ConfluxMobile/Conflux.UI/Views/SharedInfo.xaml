@@ -40,16 +40,16 @@
             <ScrollViewer ZoomMode="Disabled" HorizontalScrollMode="Disabled" VerticalScrollMode="Enabled">
                 <StackPanel>
                     <RichTextBlock Margin="0, 0, 0, 20" 
-                                   FontSize="17"
-                                   IsTextSelectionEnabled="False"
-                                   CommonNavigationTransitionInfo.IsStaggerElement="True">
+                                   FontSize="16"
+                                   Style="{StaticResource BaseRichTextBlockStyle}"
+                                   IsTextSelectionEnabled="False">
                         <Paragraph>
                             <Run IsTextScaleFactorEnabled="True" 
-                         Text="Conflux helps you to keep up with the daily events around you, but in order to do so, you will need to log in with your Facebook account. The only info you will be asked to share with this app, is the one which is associated with your Facebook account. Provided data "/>
+                                 Text="Conflux helps you to keep up with the daily events around you, but in order to do so, you will need to log in with your Facebook account. The only info you will be asked to share with this app, is the one which is associated with your Facebook account. Provided data "/>
                             <Run IsTextScaleFactorEnabled="True"
-                         Text="will never be used to track you" Foreground="{ThemeResource PhoneAccentBrush}"/>
+                                 Text="will never be used to track you" Foreground="{ThemeResource PhoneAccentBrush}"/>
                             <Run IsTextScaleFactorEnabled="True"
-                         Text=", instead it is intended to provide you a better social experience."/>
+                                 Text=", instead it is intended to provide you a better social experience."/>
                         </Paragraph>
                         <Paragraph/>
                         <Paragraph>
@@ -60,24 +60,29 @@
                     <ListView ItemsSource="{Binding Items}" SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0, 5" CommonNavigationTransitionInfo.IsStaggerElement="True">
+                                <Grid Margin="0, 5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="50"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Text="{Binding Path=IconUnicodeValue}" 
-                                       FontFamily="Segoe UI Symbol" FontSize="40"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                               FontFamily="Segoe UI Symbol" FontSize="25"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     <TextBlock Grid.Row="0" Grid.Column="1" 
-                                       Text="{Binding Title}" FontSize="17"
-                                       VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                                               TextWrapping="Wrap" Text="{Binding Title}" 
+                                               FontSize="16"
+                                               Style="{StaticResource BaseTextBlockStyle}"
+                                               VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                                     <TextBlock Grid.Row="1" Grid.Column="1"
-                                       TextWrapping="Wrap" Text="{Binding Details}" Opacity="0.7"
-                                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                                               TextWrapping="Wrap" Text="{Binding Details}" 
+                                               Style="{StaticResource BaseTextBlockStyle}"
+                                               FontSize="16"
+                                               Opacity="0.5"
+                                               VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>

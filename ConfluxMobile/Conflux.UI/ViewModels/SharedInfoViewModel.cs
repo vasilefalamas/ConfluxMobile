@@ -46,7 +46,7 @@ namespace Conflux.UI.ViewModels
                 {
                     IconUnicodeValue = "\uE1D2",
                     Title = "Location",
-                    Details = "Includes current position used for searching events nearby."
+                    Details = "Includes current position used to search for nearby events."
                 }
             };
         }
