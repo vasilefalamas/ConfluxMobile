@@ -6,6 +6,7 @@ using Conflux.Connectivity;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Maps;
+using Conflux.Core.Settings;
 using Conflux.UI.Common;
 
 namespace Conflux.UI.Views
@@ -75,8 +76,16 @@ namespace Conflux.UI.Views
 
             App.User = userInfo;
             App.User.ProfilePicture = profilePicture;
-            //App.User.LocationInfo = await GetUserLocationAsync();
-            App.User.LocationInfo = new LocationInfo {Name = "Cugir"}; //TODO : Mock location
+
+            if (AppSettings.GetLocationCacheStatus())
+            {
+                App.User.LocationInfo = AppSettings.GetCachedLocationInfo();
+            }
+            else
+            {
+                App.User.LocationInfo = await GetUserLocationAsync();
+                AppSettings.SetCachedLocationInfo(App.User.LocationInfo);
+            }
             
             NotifyStatus("Getting ready...");
         }

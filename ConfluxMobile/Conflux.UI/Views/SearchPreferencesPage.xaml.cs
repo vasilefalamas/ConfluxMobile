@@ -1,4 +1,7 @@
-﻿using Windows.UI.Xaml.Navigation;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
+using Conflux.Core.Settings;
 using Conflux.UI.Common;
 
 namespace Conflux.UI.Views
@@ -12,6 +15,8 @@ namespace Conflux.UI.Views
             InitializeComponent();
 
             navigationHelper = new NavigationHelper(this);
+
+
         }
 
         public NavigationHelper NavigationHelper
@@ -32,5 +37,28 @@ namespace Conflux.UI.Views
         }
 
         #endregion
+
+        private void OnLastKnownLocationChecked(object sender, RoutedEventArgs e)
+        {
+            AppSettings.SetLocationCacheStatus(true); 
+        }
+
+
+        private void OnLastKnownLocationUnchecked(object sender, RoutedEventArgs e)
+        {
+            AppSettings.SetLocationCacheStatus(false); 
+        }
+
+        private void OnSaveDataTransferToggled(object sender, RoutedEventArgs e)
+        {
+            var toggleSwitch = sender as ToggleSwitch;
+
+            if (toggleSwitch != null)
+            {
+                var toggleState = toggleSwitch.IsOn;
+
+                AppSettings.SetImageDownloadAllowedStatus(toggleState);
+            }
+        }
     }
 }

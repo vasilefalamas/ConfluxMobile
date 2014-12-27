@@ -9,6 +9,7 @@ using Conflux.Connectivity;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core;
+using Conflux.Core.Settings;
 using Conflux.UI.Views;
 
 namespace Conflux.UI
