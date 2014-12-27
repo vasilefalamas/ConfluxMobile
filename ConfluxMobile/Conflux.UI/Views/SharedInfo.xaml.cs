@@ -21,7 +21,10 @@ namespace Conflux.UI.Views
 
         public NavigationHelper NavigationHelper
         {
-            get { return navigationHelper; }
+            get
+            {
+                return navigationHelper;
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

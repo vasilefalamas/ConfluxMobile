@@ -17,7 +17,9 @@ namespace Conflux.UI.Views
     public sealed partial class MainHub
     {
         private readonly NavigationHelper navigationHelper;
+
         private readonly ConfluxHubViewModel confluxHubViewModel;
+
         private readonly FacebookProvider facebookClient;
 
         public MainHub()
@@ -27,8 +29,6 @@ namespace Conflux.UI.Views
             NavigationCacheMode = NavigationCacheMode.Required;
 
             navigationHelper = new NavigationHelper(this);
-            navigationHelper.LoadState += NavigationHelper_LoadState;
-            navigationHelper.SaveState += NavigationHelper_SaveState;
 
             confluxHubViewModel = new ConfluxHubViewModel();
             facebookClient = new FacebookProvider();
@@ -38,18 +38,12 @@ namespace Conflux.UI.Views
 
         public NavigationHelper NavigationHelper
         {
-            get { return navigationHelper; }
+            get
+            {
+                return navigationHelper;
+            }
         }
-
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-        }
-
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-        }
-
+        
         #region NavigationHelper registration
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -58,10 +52,9 @@ namespace Conflux.UI.Views
             confluxHubViewModel.Location = App.User.LocationInfo.Name;
             confluxHubViewModel.ProfilePicture = App.User.ProfilePicture;
 
-            navigationHelper.OnNavigatedTo(e);
-
-            //Clear navigation history.
             Frame.BackStack.Clear();
+
+            navigationHelper.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)

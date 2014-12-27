@@ -6,6 +6,7 @@ using Conflux.Connectivity;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Maps;
+using Conflux.UI.Common;
 
 namespace Conflux.UI.Views
 {
@@ -13,17 +14,35 @@ namespace Conflux.UI.Views
     {
         private IFacebookProvider facebookProvider;
 
+        private readonly NavigationHelper navigationHelper;
+
+        public NavigationHelper NavigationHelper
+        {
+            get
+            {
+                return navigationHelper;
+            }
+        }
+
         public LoadingPage()
         {
+            navigationHelper = new NavigationHelper(this);
+
             InitializeComponent();
 
             RemovedPageTransition();
 
             facebookProvider = new FacebookProvider();
         }
-
+        
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            navigationHelper.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            navigationHelper.OnNavigatedFrom(e);
         }
 
         private void RemovedPageTransition()
@@ -56,8 +75,9 @@ namespace Conflux.UI.Views
 
             App.User = userInfo;
             App.User.ProfilePicture = profilePicture;
-            App.User.LocationInfo = await GetUserLocationAsync();
-
+            //App.User.LocationInfo = await GetUserLocationAsync();
+            App.User.LocationInfo = new LocationInfo {Name = "Cugir"};
+            
             NotifyStatus("Getting ready...");
         }
 

@@ -20,23 +20,13 @@ namespace Conflux.UI.Views
             InitializeComponent();
 
             navigationHelper = new NavigationHelper(this);
-            navigationHelper.LoadState += NavigationHelper_LoadState;
-            navigationHelper.SaveState += NavigationHelper_SaveState;
         }
 
         public NavigationHelper NavigationHelper
         {
             get { return navigationHelper; }
         }
-
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-        }
-
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-        }
-
+        
         #region NavigationHelper registration
 
 
