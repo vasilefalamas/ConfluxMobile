@@ -83,14 +83,16 @@ namespace Conflux.UI.Views
 
         private async Task<IEnumerable<Event>> GetNewestEvents(AccessToken accessToken, string searchedKeyword, int offset = 0, int? limit = null)
         {
-            var newestEvents = await facebookClient.GetEventsByKeywordAsync(accessToken, searchedKeyword, offset, limit);
+            IEnumerable<Event> newestEvents = await facebookClient.GetEventsByKeywordAsync(accessToken, searchedKeyword, offset, limit);
 
             return newestEvents;
         }
 
         private async void OnNewestEventsSectionLoaded(object sender, RoutedEventArgs e)
         {
-            var newestEvents = await GetNewestEvents(App.AccessToken, "Sibiu", 0, 10);
+            string currentLocation = App.User.LocationInfo.Name;
+
+            IEnumerable<Event> newestEvents = await GetNewestEvents(App.AccessToken, currentLocation, 0, 10);
             confluxHubViewModel.NewestEvents = newestEvents;
         }
 
