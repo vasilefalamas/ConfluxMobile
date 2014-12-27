@@ -49,7 +49,7 @@
                        VerticalAlignment="Top" HorizontalAlignment="Center"/>
             <StackPanel Grid.Row="1" 
                         Margin="0, 0, 0, 100"
-                        VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Grid x:Name="LoginAreaGrid">
                     <Grid.Resources>
                         <Storyboard x:Name="FadeIn">
@@ -96,32 +96,15 @@
                                  Click="OnMoreInfoHyperlinkClick">
                         <TextBlock>
                             <Underline>
-                                <Run Text="Read more about shared info"/>        
+                                <Run FontSize="17" Text="Read more about shared info"/>        
                             </Underline>
                         </TextBlock>
                     </HyperlinkButton>
                 </Grid>
                 <TextBlock x:Name="WaitMessageTextBlock" 
                            HorizontalAlignment="Center"
-                           FontSize="20">
-                    <TextBlock.Resources>
-                        <Storyboard x:Name="WaitMessageFadeIn">
-                            <ObjectAnimationUsingKeyFrames Duration="00:00:1.2" 
-                                                           Storyboard.TargetName="WaitMessageTextBlock" Storyboard.TargetProperty="(UIElement.Visibility)">
-                                <DiscreteObjectKeyFrame KeyTime="00:00:0.01">
-                                    <DiscreteObjectKeyFrame.Value>
-                                        <Visibility>Visible</Visibility>
-                                    </DiscreteObjectKeyFrame.Value>
-                                </DiscreteObjectKeyFrame>
-                            </ObjectAnimationUsingKeyFrames>
-                            <DoubleAnimation To="1" Duration="00:00:1.2"
-                                             Storyboard.TargetName="WaitMessageTextBlock" Storyboard.TargetProperty="Opacity">
-                                <DoubleAnimation.EasingFunction>
-                                    <CubicEase/>
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                    </TextBlock.Resources>
+                           FontSize="20" FontFamily="Calibri" FontWeight="Light"
+                           Visibility="Collapsed">
                 </TextBlock>
             </StackPanel>
         </Grid>

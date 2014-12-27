@@ -39,27 +39,28 @@
         <Grid Grid.Row="1" Margin="19,9.5,19,0">
             <ScrollViewer ZoomMode="Disabled" HorizontalScrollMode="Disabled" VerticalScrollMode="Enabled">
                 <StackPanel>
-                    <RichTextBlock Margin="0, 0, 0, 20" IsTextSelectionEnabled="False"
-                           CommonNavigationTransitionInfo.IsStaggerElement="True"
-                           Pivot.SlideInAnimationGroup="1">
+                    <RichTextBlock Margin="0, 0, 0, 20" 
+                                   FontSize="17"
+                                   IsTextSelectionEnabled="False"
+                                   CommonNavigationTransitionInfo.IsStaggerElement="True">
                         <Paragraph>
-                            <Run IsTextScaleFactorEnabled="True" FontSize="17"
+                            <Run IsTextScaleFactorEnabled="True" 
                          Text="Conflux helps you to keep up with the daily events around you, but in order to do so, you will need to log in with your Facebook account. The only info you will be asked to share with this app, is the one which is associated with your Facebook account. Provided data "/>
-                            <Run IsTextScaleFactorEnabled="True" FontSize="17"
+                            <Run IsTextScaleFactorEnabled="True"
                          Text="will never be used to track you" Foreground="{ThemeResource PhoneAccentBrush}"/>
-                            <Run IsTextScaleFactorEnabled="True" FontSize="17"
+                            <Run IsTextScaleFactorEnabled="True"
                          Text=", instead it is intended to provide you a better social experience."/>
                         </Paragraph>
                         <Paragraph/>
                         <Paragraph>
-                            <Run IsTextScaleFactorEnabled="True" FontSize="17" 
+                            <Run IsTextScaleFactorEnabled="True" 
                          Text="Here's what Conflux would like to know about you :"/>
                         </Paragraph>
                     </RichTextBlock>
                     <ListView ItemsSource="{Binding Items}" SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0, 5" CommonNavigationTransitionInfo.IsStaggerElement="True" Pivot.SlideInAnimationGroup="2">
+                                <Grid Margin="0, 5" CommonNavigationTransitionInfo.IsStaggerElement="True">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
@@ -74,7 +75,7 @@
                                     <TextBlock Grid.Row="0" Grid.Column="1" 
                                        Text="{Binding Title}" FontSize="17"
                                        VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Pivot.SlideInAnimationGroup="3"
+                                    <TextBlock Grid.Row="1" Grid.Column="1"
                                        TextWrapping="Wrap" Text="{Binding Details}" Opacity="0.7"
                                        VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                 </Grid>

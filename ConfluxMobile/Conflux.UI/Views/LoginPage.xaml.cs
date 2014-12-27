@@ -98,8 +98,8 @@ namespace Conflux.UI.Views
         private void ShowWaitingMessage()
         {
             LoginAreaGrid.Hide();
-            WaitMessageTextBlock.StartAnimation("WaitMessageFadeIn");
-            WaitMessageTextBlock.Text = string.Format("Please wait a few moments...");
+            WaitMessageTextBlock.Show();
+            WaitMessageTextBlock.Text = string.Format("Getting started...");
         }
 
         private void OnMoreInfoHyperlinkClick(object sender, RoutedEventArgs e)
