@@ -86,7 +86,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppSettings.cs" />
+    <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Maps\Location.cs" />
     <Compile Include="Maps\LocationFinder.cs" />
     <Compile Include="Models\NavigationLink.cs" />
