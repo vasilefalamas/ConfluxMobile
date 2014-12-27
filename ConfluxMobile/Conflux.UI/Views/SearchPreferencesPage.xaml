@@ -22,13 +22,54 @@
 
         <!-- Title Panel -->
         <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="CONFLUX" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="search preferences" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+            <TextBlock Text="SEARCH PREFERENCES" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
         </StackPanel>
 
-        <!--TODO: Content should be placed within the following grid-->
-        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
-
+        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="0,-6.5, 0, 5">
+            <Pivot>
+                <PivotItem Header="location">
+                    <StackPanel>
+                        <CheckBox>
+                            <TextBlock Text="Use my last known location for finding events"
+                                           TextWrapping="Wrap"/>
+                        </CheckBox>
+                        <TextBlock Opacity="0.5" FontSize="16"
+                                   Text="Last known location might be different than your current one. To update to your new location, uncheck this option and then relog."
+                                   TextWrapping="Wrap"
+                                   Style="{StaticResource BaseTextBlockStyle}"/>
+                    </StackPanel>
+                </PivotItem>
+                <PivotItem Header="data">
+                    <StackPanel>
+                        <StackPanel>
+                            <ToggleSwitch Header="Save data transfer">
+                                
+                            </ToggleSwitch>
+                            <TextBlock Opacity="0.5" FontSize="16"
+                                       Style="{StaticResource BaseTextBlockStyle}"
+                                       Text="Applies to events. If this option is checked, images will not be downloaded."
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </StackPanel>
+                </PivotItem>
+            </Pivot>
+            
+            <!--<ComboBox>
+                <ComboBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="Event age"/>
+                            <TextBlock Text="Do not show me older events than :"
+                                       Foreground="White"/>
+                        </StackPanel>   
+                    </DataTemplate>
+                </ComboBox.HeaderTemplate>
+                <ComboBoxItem>a week</ComboBoxItem>
+                <ComboBoxItem>two weeks</ComboBoxItem>
+                <ComboBoxItem>a month</ComboBoxItem>
+                <ComboBoxItem>two months</ComboBoxItem>
+                <ComboBoxItem>a month</ComboBoxItem>
+            </ComboBox>-->
         </Grid>
     </Grid>
 </Page>
