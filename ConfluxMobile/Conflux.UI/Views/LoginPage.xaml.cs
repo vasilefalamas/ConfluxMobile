@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity;
@@ -28,8 +29,7 @@ namespace Conflux.UI.Views
         }
         
         #region NavigationHelper registration
-
-
+        
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             navigationHelper.OnNavigatedTo(e);

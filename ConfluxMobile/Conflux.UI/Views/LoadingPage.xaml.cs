@@ -30,9 +30,7 @@ namespace Conflux.UI.Views
             navigationHelper = new NavigationHelper(this);
 
             InitializeComponent();
-
-            RemovedPageTransition();
-
+            
             facebookProvider = new FacebookProvider();
         }
         
@@ -45,16 +43,7 @@ namespace Conflux.UI.Views
         {
             navigationHelper.OnNavigatedFrom(e);
         }
-
-        private void RemovedPageTransition()
-        {
-            var mainFrame = Window.Current.Content as Frame;
-            if (mainFrame != null)
-            {
-                mainFrame.ContentTransitions = null;
-            }
-        }
-
+        
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             await GetUserData(App.AccessToken);
