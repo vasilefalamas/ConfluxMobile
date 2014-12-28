@@ -7,19 +7,19 @@ namespace Conflux.Core.Settings
 {
     public static class AppSettings
     {
-        private const string AccessTokenKey = "AccessTokenValue";
+        private const string AccessTokenKey = "Facebook_AccessToken_Value";
         
-        private const string AccessTokenExpiryKey = "AccessTokenExpiry";
+        private const string AccessTokenExpiryKey = "Facebook_AccessToken_Expiry";
 
-        private const string CachedCityKey = "CachedCity";
+        private const string LastKnownLocationNameKey = "Preferences_LastKnownLocation_Name";
 
-        private const string CachedLongitudeKey = "CachedLongitude";
+        private const string LastKnownLongitudeKey = "Preferences_LastKnownLocation_Longitude";
 
-        private const string CachedLatitudeKey = "CachedLatitude";
+        private const string LastKnownLatitudeKey = "Preferences_LastKnownLocation_Latitude";
 
-        private const string IsLocationCachedKey = "IsLocationCached";
+        private const string UseLastKnownLocationKey = "Preferences_UseLastKnownLocation";
 
-        private const string IsImageDownloadAllowedKey = "IsImageDownloadAllowed";
+        private const string AllowImagesDownloadKey = "Preferences_AllowImagesDownload";
 
         public static AccessToken GetAccessToken()
         {
@@ -45,47 +45,47 @@ namespace Conflux.Core.Settings
             SetValue(AccessTokenExpiryKey, newAccessToken.Expiry.ToString());
         }
 
-        public static LocationInfo GetCachedLocationInfo()
+        public static LocationInfo GetLastKnownLocationInfo()
         {
             return new LocationInfo
             {
-                Name = (string) GetValue(CachedCityKey),
-                Longitude = (double) GetValue(CachedLongitudeKey),
-                Latitude = (double) GetValue(CachedLatitudeKey)
+                Name = (string) GetValue(LastKnownLocationNameKey),
+                Longitude = (double) GetValue(LastKnownLongitudeKey),
+                Latitude = (double) GetValue(LastKnownLatitudeKey)
             };
         }
 
-        public static void SetCachedLocationInfo(LocationInfo locationInfo)
+        public static void SetLastKnownLocationInfo(LocationInfo locationInfo)
         {
-            SetValue(CachedCityKey, locationInfo.Name);
-            SetValue(CachedLongitudeKey, locationInfo.Longitude);
-            SetValue(CachedLatitudeKey, locationInfo.Latitude);
+            SetValue(LastKnownLocationNameKey, locationInfo.Name);
+            SetValue(LastKnownLongitudeKey, locationInfo.Longitude);
+            SetValue(LastKnownLatitudeKey, locationInfo.Latitude);
         }
 
-        public static bool GetLocationCacheStatus()
+        public static bool GetLastKnownLocationUsage()
         {
-            object isLocationCachedRawValue = GetValue(IsLocationCachedKey);
-            bool isLocationCached =  isLocationCachedRawValue != null && (bool) isLocationCachedRawValue;
+            object useLastKnownLocationValue = GetValue(UseLastKnownLocationKey);
+            bool useLastKnownLocation =  useLastKnownLocationValue != null && (bool) useLastKnownLocationValue;
 
-            return isLocationCached;
+            return useLastKnownLocation;
         }
 
-        public static void SetLocationCacheStatus(bool isLocationCached)
+        public static void SetLastKnownLocationUsage(bool useLastKnownLocation)
         {
-            SetValue(IsLocationCachedKey, isLocationCached);
+            SetValue(UseLastKnownLocationKey, useLastKnownLocation);
         }
 
-        public static bool GetAllowImageDownloadStatus()
+        public static bool GetAllowImagesDownloadStatus()
         {
-            object isImageDownloadAllowedRawValue = GetValue(IsImageDownloadAllowedKey);
-            bool isImageDownloadAllowed = isImageDownloadAllowedRawValue != null && (bool)isImageDownloadAllowedRawValue;
+            object isImageDownloadAllowedValue = GetValue(AllowImagesDownloadKey);
+            bool isImageDownloadAllowed = isImageDownloadAllowedValue != null && (bool)isImageDownloadAllowedValue;
 
             return isImageDownloadAllowed;
         }
 
-        public static void SetImageDownloadAllowedStatus(bool allowImageDownload)
+        public static void SetImagesDownloadAllowedStatus(bool allowImageDownload)
         {
-            SetValue(IsImageDownloadAllowedKey, allowImageDownload);
+            SetValue(AllowImagesDownloadKey, allowImageDownload);
         }
 
         private static object GetValue(string key)

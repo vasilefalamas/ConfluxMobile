@@ -77,14 +77,14 @@ namespace Conflux.UI.Views
             App.User = userInfo;
             App.User.ProfilePicture = profilePicture;
 
-            if (AppSettings.GetLocationCacheStatus())
+            if (AppSettings.GetLastKnownLocationUsage())
             {
-                App.User.LocationInfo = AppSettings.GetCachedLocationInfo();
+                App.User.LocationInfo = AppSettings.GetLastKnownLocationInfo();
             }
             else
             {
                 App.User.LocationInfo = await GetUserLocationAsync();
-                AppSettings.SetCachedLocationInfo(App.User.LocationInfo);
+                AppSettings.SetLastKnownLocationInfo(App.User.LocationInfo);
             }
             
             NotifyStatus("Getting ready...");

@@ -10,11 +10,11 @@ namespace Conflux.UI.ViewModels
         {
             get
             {
-                return AppSettings.GetLocationCacheStatus();
+                return AppSettings.GetLastKnownLocationUsage();
             }
             set
             {
-                AppSettings.SetLocationCacheStatus(value);
+                AppSettings.SetLastKnownLocationUsage(value);
 
                 OnPropertyChanged();
             }
@@ -24,11 +24,11 @@ namespace Conflux.UI.ViewModels
         {
             get
             {
-                return AppSettings.GetAllowImageDownloadStatus();
+                return AppSettings.GetAllowImagesDownloadStatus();
             }
             set
             {
-                AppSettings.SetImageDownloadAllowedStatus(value);
+                AppSettings.SetImagesDownloadAllowedStatus(value);
 
                 OnPropertyChanged();
             }
