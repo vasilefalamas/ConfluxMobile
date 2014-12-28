@@ -7,14 +7,13 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition FromHorizontalOffset="50"
-                                         FromVerticalOffset="0"/>
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition/>
+        </TransitionCollection>
+    </Page.Transitions>
 
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

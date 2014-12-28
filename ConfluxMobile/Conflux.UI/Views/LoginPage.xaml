@@ -7,6 +7,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Transitions>
+        <TransitionCollection>
+            <EntranceThemeTransition FromHorizontalOffset="0"
+                                     FromVerticalOffset="50" 
+                                     IsStaggeringEnabled="True"/>
+        </TransitionCollection>
+    </Page.Transitions>
+
     <Grid>
         <Grid.ChildrenTransitions>
             <TransitionCollection>

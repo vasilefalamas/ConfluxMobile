@@ -9,7 +9,8 @@
 
     <Page.Transitions>
         <TransitionCollection>
-            <EdgeUIThemeTransition Edge="Bottom"/>
+            <NavigationThemeTransition/>
+            <EntranceThemeTransition IsStaggeringEnabled="True"/>
         </TransitionCollection>
     </Page.Transitions>
     

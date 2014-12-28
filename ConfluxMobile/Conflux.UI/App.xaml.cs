@@ -4,11 +4,9 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
-using Conflux.Core;
 using Conflux.Core.Settings;
 using Conflux.UI.Views;
 
@@ -83,8 +81,7 @@ namespace Conflux.UI
                     }
                 }
 
-                rootFrame.ContentTransitions = null;
-                rootFrame.Navigated += RootFrame_FirstNavigated;
+                rootFrame.ContentTransitions  = new TransitionCollection();
 
                 //Facebook Authentication check. Navigate to next page accordingly.
                 Type startPage;
@@ -111,25 +108,6 @@ namespace Conflux.UI
 
             // Ensure the current window is active
             Window.Current.Activate();
-        }
-
-        /// <summary>
-        /// Restores the content transitions after the app has launched.
-        /// </summary>
-        /// <param name="sender">The object where the handler is attached.</param>
-        /// <param name="e">Details about the navigation event.</param>
-        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
-        {
-            var rootFrame = sender as Frame;
-
-            if (rootFrame != null)
-            {
-                rootFrame.ContentTransitions = transitions ?? new TransitionCollection()
-                {
-                    new NavigationThemeTransition()
-                };
-                rootFrame.Navigated -= RootFrame_FirstNavigated;
-            }
         }
 
         /// <summary>

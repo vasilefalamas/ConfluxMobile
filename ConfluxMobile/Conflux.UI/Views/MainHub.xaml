@@ -2,19 +2,24 @@
     x:Class="Conflux.UI.Views.MainHub"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Conflux.UI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Conflux.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition/>
+        </TransitionCollection>
+    </Page.Transitions>
+    
     <Page.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </Page.Resources>
 
     <Page.BottomAppBar>
-        <CommandBar IsSticky="True" Background="#991C1C1C">
+        <CommandBar IsSticky="False" Background="#991C1C1C">
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="log out" Click="OnLogOutButtonClick"/>
             </CommandBar.SecondaryCommands>
@@ -22,12 +27,6 @@
     </Page.BottomAppBar>
 
     <Grid>
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition/>
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
