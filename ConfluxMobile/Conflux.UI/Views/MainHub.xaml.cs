@@ -9,7 +9,6 @@ using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
-using Conflux.Core;
 using Conflux.Core.Models;
 using Conflux.Core.Settings;
 using Conflux.UI.Common;
@@ -101,7 +100,7 @@ namespace Conflux.UI.Views
 
         private void OnLogOutButtonClick(object sender, RoutedEventArgs e)
         {
-            AppSettings.SetAccessToken(new AccessToken("", DateTime.Now));
+            AppSettings.SetAccessToken(new AccessToken(string.Empty, DateTime.Now));
             Frame.Navigate(typeof(LoginPage));
         }
 

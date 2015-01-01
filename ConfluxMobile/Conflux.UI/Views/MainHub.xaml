@@ -16,7 +16,6 @@
     
     <Page.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-        
         <MenuFlyout x:Key="NewestEventFlyout">
             <MenuFlyoutItem Text="add to blacklist" Click="OnNewestEventContextMenuClicked"/>
         </MenuFlyout>
