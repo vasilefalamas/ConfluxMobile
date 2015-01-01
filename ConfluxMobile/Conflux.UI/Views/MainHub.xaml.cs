@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity;
 using Conflux.Connectivity.Authentication;
@@ -101,6 +103,21 @@ namespace Conflux.UI.Views
         {
             AppSettings.SetAccessToken(new AccessToken("", DateTime.Now));
             Frame.Navigate(typeof(LoginPage));
+        }
+
+        private void OnNewestEventContextMenuClicked(object sender, RoutedEventArgs e)
+        {
+            var item = sender as ListViewItem;
+
+            if (item != null)
+            {
+                
+            }
+        }
+
+        private void OnNewestEventItemHolding(object sender, HoldingRoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);  
         }
     }
 }

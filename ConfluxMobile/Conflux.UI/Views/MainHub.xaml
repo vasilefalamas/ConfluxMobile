@@ -16,10 +16,14 @@
     
     <Page.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        
+        <MenuFlyout x:Key="NewestEventFlyout">
+            <MenuFlyoutItem Text="add to blacklist" Click="OnNewestEventContextMenuClicked"/>
+        </MenuFlyout>
     </Page.Resources>
 
     <Page.BottomAppBar>
-        <CommandBar IsSticky="False" Background="#991C1C1C">
+        <CommandBar IsSticky="False" Background="#991C1C1C" ClosedDisplayMode="Minimal">
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="log out" Click="OnLogOutButtonClick"/>
             </CommandBar.SecondaryCommands>
@@ -53,8 +57,9 @@
                                       SelectionChanged="OnLinkSelectionChanged">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Title}"
-                                                   Style="{StaticResource ListViewItemTextBlockStyle}"/>
+                                        <TextBlock Text="{Binding Title}" 
+                                                   Style="{StaticResource ListViewItemTextBlockStyle}">
+                                        </TextBlock>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
@@ -71,7 +76,8 @@
                             </ListView.Items>
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Margin="0, 10">
+                                    <Grid Margin="0, 10" FlyoutBase.AttachedFlyout="{StaticResource NewestEventFlyout}"
+                                          Holding="OnNewestEventItemHolding">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
