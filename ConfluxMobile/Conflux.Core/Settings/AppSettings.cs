@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Windows.Storage;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
@@ -36,13 +37,18 @@ namespace Conflux.Core.Settings
                 return new AccessToken(tokenValue.ToString());
             }
 
-            return new AccessToken(tokenValue.ToString(), Convert.ToDateTime(tokenExpiry));
+            var invariantExpiryDate = Convert.ToDateTime(tokenExpiry.ToString(), CultureInfo.InvariantCulture);
+            
+            return new AccessToken(tokenValue.ToString(), invariantExpiryDate);
         }
 
         public static void SetAccessToken(AccessToken newAccessToken)
         {
             SetValue(AccessTokenKey, newAccessToken.Value);
-            SetValue(AccessTokenExpiryKey, newAccessToken.Expiry.ToString());
+
+            var invariantExpiryDate = newAccessToken.Expiry.ToString(CultureInfo.InvariantCulture);
+
+            SetValue(AccessTokenExpiryKey, invariantExpiryDate);
         }
 
         public static LocationInfo GetLastKnownLocationInfo()
