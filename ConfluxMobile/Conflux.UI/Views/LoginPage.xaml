@@ -96,7 +96,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Content="Login with Facebook"
+                    <Button x:Uid="LoginButton" Grid.Row="0" Content="Login with Facebook"
                         HorizontalAlignment="Center"
                         Click="OnLoginClick"/>
                     <HyperlinkButton Grid.Row="1" FontSize="14"
@@ -104,7 +104,7 @@
                                  Click="OnMoreInfoHyperlinkClick">
                         <TextBlock>
                             <Underline>
-                                <Run FontSize="17" Text="Read more about shared info"/>        
+                                <Run x:Uid="LoginLink" FontSize="17" Text="Read more about shared info"/>        
                             </Underline>
                         </TextBlock>
                     </HyperlinkButton>
