@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity;
 using Conflux.Connectivity.Authentication;
@@ -46,9 +46,17 @@ namespace Conflux.UI.Views
         
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            await GetUserData(App.AccessToken);
+            try
+            {
+                await GetUserData(App.AccessToken);
 
-            Frame.Navigate(typeof (MainHub));
+                Frame.Navigate(typeof(MainHub));
+            }
+            catch (HttpRequestException)
+            {
+                Frame.Navigate(typeof(LoginPage));
+            }
+            
         }
 
         private async Task GetUserData(AccessToken accessToken)
