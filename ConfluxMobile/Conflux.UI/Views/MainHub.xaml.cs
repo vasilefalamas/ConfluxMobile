@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Conflux.Connectivity;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Models;
@@ -20,9 +16,7 @@ namespace Conflux.UI.Views
         private readonly NavigationHelper navigationHelper;
 
         private readonly ConfluxHubViewModel confluxHubViewModel;
-
-        private readonly FacebookProvider facebookClient;
-
+        
         public MainHub()
         {
             InitializeComponent();
@@ -31,9 +25,8 @@ namespace Conflux.UI.Views
 
             navigationHelper = new NavigationHelper(this);
 
-            confluxHubViewModel = new ConfluxHubViewModel();
-            facebookClient = new FacebookProvider();
-
+            confluxHubViewModel = new ConfluxHubViewModel(App.FacebookProvider, App.AccessToken);
+            
             DataContext = confluxHubViewModel;
         }
 
@@ -45,6 +38,7 @@ namespace Conflux.UI.Views
             }
         }
         
+
         #region NavigationHelper registration
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -82,25 +76,11 @@ namespace Conflux.UI.Views
             }
         }
 
-        private async Task<IEnumerable<Event>> GetNewestEvents(AccessToken accessToken, string searchedKeyword, int offset = 0, int? limit = null)
-        {
-            IEnumerable<Event> newestEvents = await facebookClient.GetEventsByKeywordAsync(accessToken, searchedKeyword, offset, limit);
-
-            return newestEvents;
-        }
-
         private async void OnNewestEventsSectionLoaded(object sender, RoutedEventArgs e)
         {
-            string currentLocation = App.User.LocationInfo.Name;
-
-            var newestEvents = (await GetNewestEvents(App.AccessToken, currentLocation, 0, 10)).ToList();
-            
-            //TODO : Find a different approach and do not clear the List
-            confluxHubViewModel.NewestEvents.Clear();
-
-            foreach (var newEvent in newestEvents)
+            if (confluxHubViewModel.NewestEvents.Count == 0)
             {
-                confluxHubViewModel.NewestEvents.Add(newEvent);   
+                await confluxHubViewModel.SearchEvents();
             }
         }
 
