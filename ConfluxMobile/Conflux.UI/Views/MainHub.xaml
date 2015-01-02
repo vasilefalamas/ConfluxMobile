@@ -68,7 +68,7 @@
                         </StackPanel>
                     </DataTemplate>
                 </HubSection>
-                <HubSection Header="NEARBY" Loaded="OnNewestEventsSectionLoaded">
+                <HubSection Header="NEARBY">
                     <DataTemplate>
                         <ListView x:Name="NewestEventsListView" ItemsSource="{Binding NewestEvents}">
                             <ListView.ItemTemplate>

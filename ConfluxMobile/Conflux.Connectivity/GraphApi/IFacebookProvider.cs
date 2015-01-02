@@ -11,7 +11,7 @@ namespace Conflux.Connectivity.GraphApi
 
         AuthenticationResult GetAuthenticationResult(string authenticationResponse);
 
-        Task<IEnumerable<Event>> GetEventsByKeywordAsync(AccessToken accessToken, string locationKeyword, int offset = 0, int? limit = null);
+        Task<IEnumerable<Event>> GetEventsByKeywordAsync(AccessToken accessToken, string locationKeyword, uint offset = 0, uint? limit = null);
 
         Task<BitmapImage> GetProfilePictureAsync(AccessToken accessToken, PictureSize pictureSize = PictureSize.Size160x160);
     }

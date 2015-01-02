@@ -86,6 +86,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\EventsSource.cs" />
+    <Compile Include="Models\IIncrementalSource.cs" />
+    <Compile Include="Models\IncrementalLoadingCollection.cs" />
     <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Maps\Location.cs" />
     <Compile Include="Maps\LocationFinder.cs" />

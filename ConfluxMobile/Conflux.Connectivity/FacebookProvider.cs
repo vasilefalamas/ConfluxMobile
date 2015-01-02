@@ -12,11 +12,11 @@ namespace Conflux.Connectivity
 {
     public class FacebookProvider : IFacebookProvider
     {
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient httpClient;
 
         public FacebookProvider()
         {
-            _httpClient = new HttpClient();
+            httpClient = new HttpClient();
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Conflux.Connectivity
         /// <returns></returns>
         public async Task<User> GetUserNameInfoAsync(AccessToken accessToken)
         {
-            var response = await _httpClient.GetStringAsync(FacebookUriProvider.GetUserNameInfoUri(accessToken));
+            var response = await httpClient.GetStringAsync(FacebookUriProvider.GetUserNameInfoUri(accessToken));
 
             JsonObject jsonObject = JsonValue.Parse(response).GetObject();
 
@@ -42,7 +42,7 @@ namespace Conflux.Connectivity
 
         public async Task<LocationInfo> GetLocationInfoAsync(long locationId)
         {
-            var response = await _httpClient.GetStringAsync(FacebookUriProvider.GetLocationIdUri(locationId));
+            var response = await httpClient.GetStringAsync(FacebookUriProvider.GetLocationIdUri(locationId));
 
             JsonObject jsonObject = JsonValue.Parse(response).GetObject();
 
@@ -70,7 +70,7 @@ namespace Conflux.Connectivity
 
         public async Task<BitmapImage> GetProfilePictureAsync(AccessToken accessToken, PictureSize pictureSize = PictureSize.Size160x160)
         {
-            var response = await _httpClient.GetStringAsync(FacebookUriProvider.GetProfilePictureUri(accessToken, pictureSize));
+            var response = await httpClient.GetStringAsync(FacebookUriProvider.GetProfilePictureUri(accessToken, pictureSize));
 
             JsonObject jsonObject = JsonValue.Parse(response).GetObject().GetNamedObject("data");
 
@@ -86,9 +86,9 @@ namespace Conflux.Connectivity
             return null;
         }
 
-        public async Task<IEnumerable<Event>> GetEventsByKeywordAsync(AccessToken accessToken, string locationKeyword, int offset = 0, int? limit = null)
+        public async Task<IEnumerable<Event>> GetEventsByKeywordAsync(AccessToken accessToken, string locationKeyword, uint offset = 0, uint? limit = null)
         {
-            var response = await _httpClient.GetStringAsync(FacebookUriProvider.GetEventsByLocationKeywordUri(accessToken, locationKeyword, offset, limit));
+            var response = await httpClient.GetStringAsync(FacebookUriProvider.GetEventsByLocationKeywordUri(accessToken, locationKeyword, offset, limit));
 
             var events = new List<Event>();
 

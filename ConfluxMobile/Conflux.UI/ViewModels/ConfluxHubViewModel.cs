@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
@@ -22,17 +19,9 @@ namespace Conflux.UI.ViewModels
 
         private List<NavigationLink> _userSectionLinks;
 
-        private ObservableCollection<Event> _newestEvents;
+        private IncrementalLoadingCollection<Event> _newestEvents;
 
         //////
-
-        private IFacebookProvider facebookProvider;
-
-        private AccessToken accessToken;
-        
-        private int loadedEvents;
-
-        private bool hasMoreEvents;
 
         public string Name
         {
@@ -86,7 +75,7 @@ namespace Conflux.UI.ViewModels
             }
         }
 
-        public ObservableCollection<Event> NewestEvents
+        public IncrementalLoadingCollection<Event> NewestEvents
         {
             get
             {
@@ -99,43 +88,16 @@ namespace Conflux.UI.ViewModels
             }
         }
 
-        public ConfluxHubViewModel(IFacebookProvider facebookProvider, AccessToken accessToken)
+        public ConfluxHubViewModel(IFacebookProvider facebookProvider, AccessToken accessToken, string location)
         {
-            NewestEvents = new ObservableCollection<Event>();
+            Location = location;
+
+            var eventsSource = new EventsSource(facebookProvider, accessToken, location);
+
+            NewestEvents = new IncrementalLoadingCollection<Event>(eventsSource);
             UserSectionLinks = new List<NavigationLink>();
-
-            this.facebookProvider = facebookProvider;
-            this.accessToken = accessToken;
-
-            loadedEvents = 0;
-            hasMoreEvents = true;
-
-            AddUserSectionLinks(UserSectionLinks);
-        }
-
-        public async Task SearchEvents()
-        {
-            if (!hasMoreEvents) 
-                return;
             
-            var events = (await facebookProvider.GetEventsByKeywordAsync(accessToken, _location, loadedEvents, 10))
-                .ToList();
-                
-            var newFoundEvents = events.Count();
-
-            if (newFoundEvents != 0)
-            {
-                loadedEvents += newFoundEvents;
-
-                foreach (var eventItem in events)
-                {
-                    NewestEvents.Add(eventItem);
-                }
-            }
-            else
-            {
-                hasMoreEvents = false;
-            }
+            AddUserSectionLinks(UserSectionLinks);
         }
 
         /// <summary>

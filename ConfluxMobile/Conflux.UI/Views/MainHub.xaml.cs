@@ -25,7 +25,8 @@ namespace Conflux.UI.Views
 
             navigationHelper = new NavigationHelper(this);
 
-            confluxHubViewModel = new ConfluxHubViewModel(App.FacebookProvider, App.AccessToken);
+            var currentLocation = App.User.LocationInfo.Name;
+            confluxHubViewModel = new ConfluxHubViewModel(App.FacebookProvider, App.AccessToken, currentLocation);
             
             DataContext = confluxHubViewModel;
         }
@@ -41,7 +42,7 @@ namespace Conflux.UI.Views
 
         #region NavigationHelper registration
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             confluxHubViewModel.Name = App.User.FullName;
             confluxHubViewModel.Location = App.User.LocationInfo.Name;
@@ -73,14 +74,6 @@ namespace Conflux.UI.Views
                 }
 
                 itemsList.SelectedItem = null;
-            }
-        }
-
-        private async void OnNewestEventsSectionLoaded(object sender, RoutedEventArgs e)
-        {
-            if (confluxHubViewModel.NewestEvents.Count == 0)
-            {
-                await confluxHubViewModel.SearchEvents();
             }
         }
 
