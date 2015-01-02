@@ -68,7 +68,7 @@
                         </StackPanel>
                     </DataTemplate>
                 </HubSection>
-                <HubSection Header="WHAT'S GOING ON" Loaded="OnNewestEventsSectionLoaded">
+                <HubSection Header="NEARBY" Loaded="OnNewestEventsSectionLoaded">
                     <DataTemplate>
                         <ListView x:Name="NewestEventsListView" ItemsSource="{Binding NewestEvents}">
                             <ListView.ItemTemplate>
@@ -122,7 +122,7 @@
                         </ListView>
                     </DataTemplate>
                 </HubSection>
-                <HubSection Header="WHAT ARE FRIENDS UP TO">
+                <HubSection Header="MY FRIENDS">
 
                 </HubSection>
             </Hub>
