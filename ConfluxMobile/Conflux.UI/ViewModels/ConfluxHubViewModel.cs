@@ -15,7 +15,7 @@ namespace Conflux.UI.ViewModels
         private string _location;
         private BitmapImage _profilePicture;
         private List<NavigationLink> _userSectionLinks;
-        private IEnumerable<Event> _newestEvents;
+        private ObservableCollection<Event> _newestEvents;
 
         public string Name
         {
@@ -69,7 +69,7 @@ namespace Conflux.UI.ViewModels
             }
         }
 
-        public IEnumerable<Event> NewestEvents
+        public ObservableCollection<Event> NewestEvents
         {
             get
             {

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity;
 using Conflux.Connectivity.Authentication;
@@ -94,8 +93,15 @@ namespace Conflux.UI.Views
         {
             string currentLocation = App.User.LocationInfo.Name;
 
-            IEnumerable<Event> newestEvents = await GetNewestEvents(App.AccessToken, currentLocation, 0, 10);
-            confluxHubViewModel.NewestEvents = newestEvents;
+            var newestEvents = (await GetNewestEvents(App.AccessToken, currentLocation, 0, 10)).ToList();
+            
+            //TODO : Find a different approach and do not clear the List
+            confluxHubViewModel.NewestEvents.Clear();
+
+            foreach (var newEvent in newestEvents)
+            {
+                confluxHubViewModel.NewestEvents.Add(newEvent);   
+            }
         }
 
         private void OnLogOutButtonClick(object sender, RoutedEventArgs e)
@@ -106,17 +112,16 @@ namespace Conflux.UI.Views
 
         private void OnNewestEventContextMenuClicked(object sender, RoutedEventArgs e)
         {
-            var item = sender as ListViewItem;
+            var item = (e.OriginalSource as FrameworkElement);
 
             if (item != null)
             {
-                
-            }
-        }
+                var selection = (Event) item.DataContext;
 
-        private void OnNewestEventItemHolding(object sender, HoldingRoutedEventArgs e)
-        {
-            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);  
+                confluxHubViewModel.NewestEvents.Remove(selection);
+
+                //TODO : Remove from serialized data
+            }
         }
     }
 }

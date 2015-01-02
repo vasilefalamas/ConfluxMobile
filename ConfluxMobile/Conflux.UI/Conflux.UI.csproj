@@ -101,6 +101,7 @@
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ConfluxHubViewModel.cs" />
+    <Compile Include="ViewModels\OpenEventFlyoutAction.cs" />
     <Compile Include="ViewModels\SearchPreferencesViewModel.cs" />
     <Compile Include="ViewModels\SharedInfoViewModel.cs" />
     <Compile Include="Views\BlacklistPage.xaml.cs">
@@ -196,6 +197,11 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\ro-RO\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
