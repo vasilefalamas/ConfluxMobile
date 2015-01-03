@@ -9,29 +9,27 @@ using Conflux.UI.Views;
 
 namespace Conflux.UI.ViewModels
 {
-    public class ConfluxHubViewModel : INotifyPropertyChanged
+    public class MainHubViewModel : INotifyPropertyChanged
     {
-        private string _name;
+        private string name;
 
-        private string _location;
+        private string location;
 
-        private BitmapImage _profilePicture;
+        private BitmapImage profilePicture;
 
-        private List<NavigationLink> _userSectionLinks;
+        private List<NavigationLink> userSectionLinks;
 
-        private IncrementalLoadingCollection<Event> _newestEvents;
-
-        //////
-
+        private IncrementalLoadingCollection<Event> newestEvents;
+        
         public string Name
         {
             get
             {
-                return _name;
+                return name;
             }
             set
             {
-                _name = value;
+                name = value;
                 OnPropertyChanged();
             }
         }
@@ -40,11 +38,11 @@ namespace Conflux.UI.ViewModels
         {
             get
             {
-                return _location;
+                return location;
             }
             set
             {
-                _location = value;
+                location = value;
                 OnPropertyChanged();
             }
         }
@@ -53,11 +51,11 @@ namespace Conflux.UI.ViewModels
         {
             get
             {
-                return _profilePicture;
+                return profilePicture;
             }
             set
             {
-                _profilePicture = value;
+                profilePicture = value;
                 OnPropertyChanged();
             }
         }
@@ -66,11 +64,11 @@ namespace Conflux.UI.ViewModels
         {
             get
             {
-                return _userSectionLinks;
+                return userSectionLinks;
             }
             set
             {
-                _userSectionLinks = value;
+                userSectionLinks = value;
                 OnPropertyChanged();
             }
         }
@@ -79,16 +77,16 @@ namespace Conflux.UI.ViewModels
         {
             get
             {
-                return _newestEvents;
+                return newestEvents;
             }
             set
             {
-                _newestEvents = value;
+                newestEvents = value;
                 OnPropertyChanged();
             }
         }
 
-        public ConfluxHubViewModel(IFacebookProvider facebookProvider, AccessToken accessToken, string location)
+        public MainHubViewModel(IFacebookProvider facebookProvider, AccessToken accessToken, string location)
         {
             Location = location;
 
@@ -112,21 +110,21 @@ namespace Conflux.UI.ViewModels
             }
         } 
 
-        private void AddUserSectionLinks(IList<NavigationLink> userSectionLinks)
+        private void AddUserSectionLinks(IList<NavigationLink> links)
         {
-            userSectionLinks.Add(new NavigationLink
+            links.Add(new NavigationLink
             {
                 Title = "my events",
                 Destination = typeof (MyEventsPage)
             });
 
-            userSectionLinks.Add(new NavigationLink
+            links.Add(new NavigationLink
             {
                 Title = "blacklist",
                 Destination = typeof (BlacklistPage)
             });
 
-            userSectionLinks.Add(new NavigationLink
+            links.Add(new NavigationLink
             {
                 Title = "search preferences",
                 Destination = typeof (SearchPreferencesPage)

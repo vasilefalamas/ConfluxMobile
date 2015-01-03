@@ -100,7 +100,7 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ConfluxHubViewModel.cs" />
+    <Compile Include="ViewModels\MainHubViewModel.cs" />
     <Compile Include="ViewModels\OpenEventFlyoutAction.cs" />
     <Compile Include="ViewModels\SearchPreferencesViewModel.cs" />
     <Compile Include="ViewModels\SharedInfoViewModel.cs" />

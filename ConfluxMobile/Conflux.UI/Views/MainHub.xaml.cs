@@ -15,7 +15,7 @@ namespace Conflux.UI.Views
     {
         private readonly NavigationHelper navigationHelper;
 
-        private readonly ConfluxHubViewModel confluxHubViewModel;
+        private readonly MainHubViewModel confluxHubViewModel;
         
         public MainHub()
         {
@@ -26,7 +26,7 @@ namespace Conflux.UI.Views
             navigationHelper = new NavigationHelper(this);
 
             var currentLocation = App.User.LocationInfo.Name;
-            confluxHubViewModel = new ConfluxHubViewModel(App.FacebookProvider, App.AccessToken, currentLocation);
+            confluxHubViewModel = new MainHubViewModel(App.FacebookProvider, App.AccessToken, currentLocation);
             
             DataContext = confluxHubViewModel;
         }
@@ -42,7 +42,7 @@ namespace Conflux.UI.Views
 
         #region NavigationHelper registration
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             confluxHubViewModel.Name = App.User.FullName;
             confluxHubViewModel.Location = App.User.LocationInfo.Name;
