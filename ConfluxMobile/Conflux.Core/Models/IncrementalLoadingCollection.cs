@@ -15,16 +15,14 @@ namespace Conflux.Core.Models
         
         private bool hasMoreItems;
 
-        private uint currentPage;
+        private uint offset;
 
-        private uint pageSize;
+        private readonly uint pageSize;
 
         public IncrementalLoadingCollection(IIncrementalSource<T> collectionSource, uint pageSize = 25)
         {
             this.collectionSource = collectionSource; 
-            
             hasMoreItems = true;
-
             this.pageSize = pageSize;
         }
 
@@ -37,15 +35,17 @@ namespace Conflux.Core.Models
                 {
                     uint resultCount = 0;
 
-                    var result = (await collectionSource.GetPagedItems(currentPage++, pageSize)).ToList();
-
-                    if (result == null || !result.Any())
+                    var result = (await collectionSource.GetPagedItems(offset, pageSize)).ToList();
+                    
+                    if (!result.Any())
                     {
                         hasMoreItems = false;
                     }
                     else
                     {
                         resultCount = (uint) result.Count();
+
+                        offset += resultCount;
 
                         await dispatcher.RunAsync(
                             CoreDispatcherPriority.Normal,

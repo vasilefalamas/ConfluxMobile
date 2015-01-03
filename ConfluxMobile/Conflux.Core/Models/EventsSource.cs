@@ -20,9 +20,9 @@ namespace Conflux.Core.Models
             this.currentLocationKeyword = currentLocationKeyword;
         }
 
-        public async Task<IEnumerable<Event>> GetPagedItems(uint pageIndex, uint pageSize)
+        public async Task<IEnumerable<Event>> GetPagedItems(uint offset, uint limit)
         {
-            var results = await facebookProvider.GetEventsByKeywordAsync(accessToken, currentLocationKeyword, pageIndex, pageSize);
+            var results = await facebookProvider.GetEventsByKeywordAsync(accessToken, currentLocationKeyword, offset, limit);
 
             return results;
         }

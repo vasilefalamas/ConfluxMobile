@@ -5,6 +5,6 @@ namespace Conflux.Core.Models
 {
     public interface IIncrementalSource<T>
     {
-        Task<IEnumerable<T>> GetPagedItems(uint pageIndex, uint pageSize = 10);
+        Task<IEnumerable<T>> GetPagedItems(uint offset, uint limit = 10);
     }
 }
