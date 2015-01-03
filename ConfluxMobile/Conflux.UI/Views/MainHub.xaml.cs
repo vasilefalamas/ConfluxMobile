@@ -98,5 +98,24 @@ namespace Conflux.UI.Views
                 //TODO : Remove from serialized data
             }
         }
+
+        private void OnNearbyEventsListSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var listView = sender as ListView;
+
+            if (listView == null)
+            {
+                return;
+            }
+
+            var selectedItem = (Event) listView.SelectedItem;
+
+            if (selectedItem != null)
+            {
+                Frame.Navigate(typeof (EventDetails), selectedItem);
+
+                listView.SelectedItem = null;
+            }
+        }
     }
 }
