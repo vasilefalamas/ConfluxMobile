@@ -79,6 +79,8 @@ namespace Conflux.UI.Views
 
         private void OnLogOutButtonClick(object sender, RoutedEventArgs e)
         {
+            NavigationCacheMode = NavigationCacheMode.Disabled;
+
             AppSettings.SetAccessToken(new AccessToken(string.Empty, DateTime.Now));
             Frame.Navigate(typeof(LoginPage));
         }
