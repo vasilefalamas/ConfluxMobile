@@ -133,24 +133,49 @@ namespace Conflux.Connectivity
                 Description = jsonObject.GetNamedValue<string>("description"),
                 StartTime = jsonObject.GetNamedValue<DateTime?>("start_time"),
                 EndTime = jsonObject.GetNamedValue<DateTime?>("end_time"),
-                Location = new LocationInfo
-                {
-                    Name = jsonObject.GetNamedValue<string>("location")
-                }
+                Location = GetEventLocationInfo(jsonObject)
             };
 
-            var venueDetails = jsonObject.GetNamedObject("venue");
+            return detailedEvent;
+        }
 
-            if (venueDetails != null)
+        private LocationInfo GetEventLocationInfo(JsonObject eventJsonObject)
+        {
+            var locationName = eventJsonObject.GetNamedValue<string>("location");
+
+            var venueJsonObject = eventJsonObject.GetNamedValue<JsonObject>("venue");
+
+            if (venueJsonObject != null)
             {
-                var location = detailedEvent.Location;
+                var longitude = venueJsonObject.GetNamedValue<double?>("longitude");
+                var latitude = venueJsonObject.GetNamedValue<double?>("latitude");
 
-                location.Longitude = venueDetails.GetNamedValue<double>("longitude");
-                location.Latitude = venueDetails.GetNamedValue<double>("latitude");
-                location.Id = Convert.ToInt64(venueDetails.GetNamedValue<string>("id"));
+                if (longitude == null || latitude == null)
+                {
+                    return new LocationInfo
+                    {
+                        Name = locationName
+                    };
+                }
+
+                return new LocationInfo
+                {
+                    Id = Convert.ToInt64(venueJsonObject.GetNamedValue<string>("id") ?? "0"),
+                    Latitude = latitude.Value,
+                    Longitude = longitude.Value,
+                    Name = locationName
+                };
             }
 
-            return detailedEvent;
+            if (locationName != null)
+            {
+                return new LocationInfo
+                {
+                    Name = locationName
+                }; 
+            }
+
+            return null;
         }
     }
 }

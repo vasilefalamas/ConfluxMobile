@@ -12,7 +12,7 @@ namespace Conflux.Connectivity.JsonExtensions
                 return (T)GetString(jsonObject, name);
             }
 
-            if (typeof (T) == typeof (double))
+            if (typeof (T) == typeof (double?))
             {
                 return (T)GetDouble(jsonObject, name);
             }
