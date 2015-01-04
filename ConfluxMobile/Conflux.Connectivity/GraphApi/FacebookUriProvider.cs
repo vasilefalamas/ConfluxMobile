@@ -55,5 +55,10 @@ namespace Conflux.Connectivity.GraphApi
         {
             return new Uri(string.Format("https://graph.facebook.com/search?q={0}&type=event&limit={1}&offset={2}&access_token={3}", locationKeyword, limit, offset, accessToken.Value));
         }
+
+        public static Uri GetEventDetailsUri(AccessToken accessToken, string eventId)
+        {
+            return new Uri(string.Format("https://graph.facebook.com/{0}?access_token={1}", eventId, accessToken.Value));
+        }
     }
 }

@@ -116,7 +116,7 @@
                                                    Visibility="{Binding Location, Converter={StaticResource NullToVisibilityConverter}}"
                                                    TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                                    FontSize="16"
-                                                   Text="{Binding Location}"
+                                                   Text="{Binding Location.Name}"
                                                    MaxLines="2"/>
                                     </Grid>
                                 </DataTemplate>

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -28,12 +29,13 @@
         </StackPanel>
 
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="0,-6.5, 0, 5">
-            <Pivot>
+            <Pivot x:Name="EventDetailsPivot" SelectionChanged="OnEventPivotSelectionChanged">
                 <PivotItem Header="details">
 
                 </PivotItem>
-                <PivotItem Header="map">
-
+                <PivotItem x:Name="MapPivotItem" Header="map">
+                    <maps:MapControl x:Name="LocationMap" MapServiceToken="cXpfbMzhrd_e1xcrA_iAuA">
+                    </maps:MapControl> 
                 </PivotItem>
             </Pivot>
         </Grid>

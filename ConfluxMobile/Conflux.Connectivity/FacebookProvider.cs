@@ -108,13 +108,49 @@ namespace Conflux.Connectivity
                         Title = eventItem.GetNamedValue<string>("name"),
                         StartTime = eventItem.GetNamedValue<DateTime?>("start_time"),
                         EndTime = eventItem.GetNamedValue<DateTime?>("end_time"),
-                        Location = eventItem.GetNamedValue<string>("location")
+                        Location = new LocationInfo
+                        {
+                            Name = eventItem.GetNamedValue<string>("location")
+                        }
                     });
                 }
 
             });
 
             return events;
+        }
+
+        public async Task<Event> GetEventAsync(AccessToken accessToken, string eventId)
+        {
+            var response = await httpClient.GetStringAsync(FacebookUriProvider.GetEventDetailsUri(accessToken, eventId));
+            
+            JsonObject jsonObject = JsonValue.Parse(response).GetObject();
+
+            var detailedEvent = new Event
+            {
+                Id = eventId,
+                Title = jsonObject.GetNamedValue<string>("name"),
+                Description = jsonObject.GetNamedValue<string>("description"),
+                StartTime = jsonObject.GetNamedValue<DateTime?>("start_time"),
+                EndTime = jsonObject.GetNamedValue<DateTime?>("end_time"),
+                Location = new LocationInfo
+                {
+                    Name = jsonObject.GetNamedValue<string>("location")
+                }
+            };
+
+            var venueDetails = jsonObject.GetNamedObject("venue");
+
+            if (venueDetails != null)
+            {
+                var location = detailedEvent.Location;
+
+                location.Longitude = venueDetails.GetNamedValue<double>("longitude");
+                location.Latitude = venueDetails.GetNamedValue<double>("latitude");
+                location.Id = Convert.ToInt64(venueDetails.GetNamedValue<string>("id"));
+            }
+
+            return detailedEvent;
         }
     }
 }

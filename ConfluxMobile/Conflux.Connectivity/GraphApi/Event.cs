@@ -8,17 +8,12 @@ namespace Conflux.Connectivity.GraphApi
 
         public string Title { get; set; }
 
-        public string Body { get; set; }
-
-        public string TimeDetails { get; set; }
-
+        public string Description { get; set; }
+        
         public DateTime? StartTime { get; set; }
 
         public DateTime? EndTime { get; set; }
 
-        public string Location { get; set; }
-
-
-
+        public LocationInfo Location { get; set; }
     }
 }
