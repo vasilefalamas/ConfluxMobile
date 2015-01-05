@@ -48,6 +48,8 @@ namespace Conflux.UI.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            navigationHelper.OnNavigatedTo(e);
+
             var passedEvent = (Event) e.Parameter;
 
             if (passedEvent != null)
@@ -65,7 +67,6 @@ namespace Conflux.UI.Views
                 }
             }
 
-            navigationHelper.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
