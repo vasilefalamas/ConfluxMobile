@@ -3,7 +3,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity.Authentication;
-using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Models;
 using Conflux.Core.Settings;
 using Conflux.UI.Common;

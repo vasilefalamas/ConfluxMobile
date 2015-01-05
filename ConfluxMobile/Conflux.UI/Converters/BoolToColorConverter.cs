@@ -1,7 +1,5 @@
 ﻿using System;
-using Windows.UI;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
@@ -9,14 +7,18 @@ namespace Conflux.UI.Converters
 {
     public class BoolToColorConverter : IValueConverter
     {
+        private static readonly SolidColorBrush accentColor = Application.Current.Resources["PhoneAccentBrush"] as SolidColorBrush;
+
+        private static readonly SolidColorBrush staticColor = Application.Current.Resources["PhoneMidBrush"] as SolidColorBrush;
+
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return ((bool) value) ? new SolidColorBrush(Colors.White) : Application.Current.Resources["PhoneAccentBrush"];
+            return ((bool)value) ? staticColor : accentColor;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            return (SolidColorBrush) Application.Current.Resources["PhoneAccentBrush"] != (SolidColorBrush) value;
+            return (SolidColorBrush)value != accentColor;
         }
     }
 }
