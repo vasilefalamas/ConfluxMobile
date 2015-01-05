@@ -14,7 +14,15 @@
             <NavigationThemeTransition/>
         </TransitionCollection>
     </Page.Transitions>
-    
+
+    <Page.BottomAppBar>
+        <CommandBar Background="#991C1C1C" ClosedDisplayMode="Minimal">
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="log out"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
