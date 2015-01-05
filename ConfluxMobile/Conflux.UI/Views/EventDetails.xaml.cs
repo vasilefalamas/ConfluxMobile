@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Navigation;
@@ -53,7 +52,9 @@ namespace Conflux.UI.Views
 
             if (passedEvent != null)
             {
+                LoadingModalGrid.StartAnimation("FadeIn");
                 await viewModel.GetEventData(passedEvent.Id);
+                LoadingModalGrid.StartAnimation("FadeOut");
             }
 
             if (!viewModel.IsMapLocationAvailable)

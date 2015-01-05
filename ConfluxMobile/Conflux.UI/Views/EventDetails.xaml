@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
+    xmlns:converters="using:Conflux.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -20,9 +21,47 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid x:Name="LoadingModalGrid"
+              Canvas.ZIndex="1" Grid.RowSpan="2">
+            <Grid.Resources>
+                <Storyboard x:Key="FadeIn" 
+                            TargetName="LoadingModalGrid" TargetProperty="Opacity">
+                    <DoubleAnimation To="1" Duration="0:00:0.5">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase EasingMode="EaseIn"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+                <Storyboard x:Key="FadeOut"
+                            TargetName="LoadingModalGrid">
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                     To="0" Duration="0:00:0.3">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase EasingMode="EaseInOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                        <DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+                            <DiscreteObjectKeyFrame.Value>
+                                <Visibility>Collapsed</Visibility>
+                            </DiscreteObjectKeyFrame.Value>
+                        </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+            </Grid.Resources>
+            <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Opacity="0.85"/>
+            <StackPanel VerticalAlignment="Center">
+                <ProgressBar IsIndeterminate="True" Foreground="{StaticResource PhoneAccentBrush}"/>
+                <TextBlock Margin="0, 5, 0, 0"
+                           Text="Getting event details..."  
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+        
         <!-- Title Panel -->
         <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="{Binding Title}" 
+            <TextBlock Text="{Binding Title}"
+                       Height="24"
                        TextTrimming="CharacterEllipsis"
                        Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"
                        ContinuumNavigationTransitionInfo.IsEntranceElement="True"/>
@@ -31,7 +70,8 @@
         <Grid Grid.Row="1" x:Name="ContentRoot" Margin="0,-6.5, 0, 5">
             <Pivot x:Name="EventDetailsPivot" SelectionChanged="OnEventPivotSelectionChanged">
                 <PivotItem Header="details">
-
+                    <TextBlock Text="{Binding Description}" 
+                               Style="{StaticResource BaseTextBlockStyle}" FontSize="16"/>
                 </PivotItem>
                 <PivotItem x:Name="MapPivotItem" Header="map">
                     <maps:MapControl x:Name="LocationMap" MapServiceToken="cXpfbMzhrd_e1xcrA_iAuA">

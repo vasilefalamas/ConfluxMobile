@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
 
@@ -103,7 +102,7 @@ namespace Conflux.UI.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        
         public LocationInfo Location { get; private set; }
 
         public EventDetailsViewModel(IFacebookProvider facebookProvider, AccessToken accessToken)
