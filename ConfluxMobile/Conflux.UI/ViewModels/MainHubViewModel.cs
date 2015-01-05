@@ -19,7 +19,7 @@ namespace Conflux.UI.ViewModels
 
         private List<NavigationLink> userSectionLinks;
 
-        private IncrementalLoadingCollection<Event> newestEvents;
+        private IncrementalLoadingCollection<EventDisplayItem> newestEvents;
         
         public string Name
         {
@@ -73,7 +73,7 @@ namespace Conflux.UI.ViewModels
             }
         }
 
-        public IncrementalLoadingCollection<Event> NewestEvents
+        public IncrementalLoadingCollection<EventDisplayItem> NewestEvents
         {
             get
             {
@@ -92,7 +92,7 @@ namespace Conflux.UI.ViewModels
 
             var eventsSource = new EventsSource(facebookProvider, accessToken, location);
 
-            NewestEvents = new IncrementalLoadingCollection<Event>(eventsSource);
+            NewestEvents = new IncrementalLoadingCollection<EventDisplayItem>(eventsSource);
             UserSectionLinks = new List<NavigationLink>();
             
             AddUserSectionLinks(UserSectionLinks);
@@ -102,7 +102,7 @@ namespace Conflux.UI.ViewModels
         /// Marks the event as "blacklisted" by removing events list.
         /// </summary>
         /// <param name="eventItem"></param>
-        public void MarkBlacklistEvent(Event eventItem)
+        public void MarkBlacklistEvent(EventDisplayItem eventItem)
         {
             if (NewestEvents.Contains(eventItem))
             {

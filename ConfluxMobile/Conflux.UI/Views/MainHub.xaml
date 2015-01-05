@@ -19,6 +19,8 @@
     
     <Page.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <converters:BoolToColorConverter x:Key="VisitedEventColorConverter"/>
+        <converters:BoolToSoubleConverter x:Key="VisitedOpacityConverter"/>
         <MenuFlyout x:Key="NewestEventFlyout">
             <MenuFlyoutItem Text="add to blacklist" Click="OnNewestEventContextMenuClicked"/>
         </MenuFlyout>
@@ -96,7 +98,8 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="0, 5, 0, 3"
-                                              Background="{StaticResource PhoneAccentBrush}">
+                                              Background="{Binding Visited, Converter={StaticResource VisitedEventColorConverter}}"
+                                              Opacity="{Binding Visited, Converter={StaticResource VisitedOpacityConverter}, ConverterParameter=0.8}">
                                         </Grid>
                                         <TextBlock Grid.Row="0" Grid.Column="1"
                                                    Padding="10, 0, 5, 2"

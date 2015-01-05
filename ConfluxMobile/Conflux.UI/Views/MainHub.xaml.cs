@@ -91,7 +91,7 @@ namespace Conflux.UI.Views
 
             if (item != null)
             {
-                var selection = (Event) item.DataContext;
+                var selection = (EventDisplayItem) item.DataContext;
 
                 confluxHubViewModel.NewestEvents.Remove(selection);
 
@@ -108,10 +108,12 @@ namespace Conflux.UI.Views
                 return;
             }
 
-            var selectedItem = (Event) listView.SelectedItem;
-
+            var selectedItem = (EventDisplayItem) listView.SelectedItem;
+            
             if (selectedItem != null)
             {
+                selectedItem.Visited = true;
+                
                 Frame.Navigate(typeof (EventDetails), selectedItem);
 
                 listView.SelectedItem = null;

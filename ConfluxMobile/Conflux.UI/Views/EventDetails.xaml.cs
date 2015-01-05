@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity.GraphApi;
+using Conflux.Core.Models;
 using Conflux.UI.Common;
 using Conflux.UI.ViewModels;
 
@@ -50,7 +51,7 @@ namespace Conflux.UI.Views
         {
             navigationHelper.OnNavigatedTo(e);
 
-            var passedEvent = (Event) e.Parameter;
+            var passedEvent = (EventDisplayItem) e.Parameter;
 
             if (passedEvent != null)
             {

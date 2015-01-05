@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
 
 namespace Conflux.Core.Models
 {
-    public class EventsSource : IIncrementalSource<Event>
+    public class EventsSource : IIncrementalSource<EventDisplayItem>
     {
         private readonly IFacebookProvider facebookProvider;
 
@@ -20,11 +21,21 @@ namespace Conflux.Core.Models
             this.currentLocationKeyword = currentLocationKeyword;
         }
 
-        public async Task<IEnumerable<Event>> GetPagedItems(uint offset, uint limit)
+        public async Task<IEnumerable<EventDisplayItem>> GetPagedItems(uint offset, uint limit)
         {
-            var results = await facebookProvider.GetEventsByKeywordAsync(accessToken, currentLocationKeyword, offset, limit);
+            var pagedResult = await facebookProvider.GetEventsByKeywordAsync(accessToken, currentLocationKeyword, offset, limit);
 
-            return results;
+            var events = pagedResult.Select(item => new EventDisplayItem
+            {
+                Id = item.Id,
+                Description = item.Description,
+                Location = item.Location,
+                StartTime = item.StartTime,
+                EndTime = item.EndTime,
+                Title = item.Title
+            });
+
+            return events;
         }
     }
 }
