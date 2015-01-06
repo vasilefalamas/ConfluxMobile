@@ -26,7 +26,7 @@
     </Page.Resources>
 
     <Page.BottomAppBar>
-        <CommandBar IsSticky="False" Background="#991C1C1C" ClosedDisplayMode="Minimal">
+        <CommandBar IsSticky="False" ClosedDisplayMode="Minimal">
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="log out" Click="OnLogOutButtonClick"/>
             </CommandBar.SecondaryCommands>
