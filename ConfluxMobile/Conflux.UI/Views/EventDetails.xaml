@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
-    xmlns:converters="using:Conflux.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -16,21 +15,17 @@
     </Page.Transitions>
 
     <Page.BottomAppBar>
-        <CommandBar Background="#991C1C1C" ClosedDisplayMode="Minimal">
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Label="log out"/>
-            </CommandBar.SecondaryCommands>
+        <CommandBar ClosedDisplayMode="Minimal">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Go" Label="Attend"/>
+            </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
+    <Grid >
+        <!-- Modal Loading Grid -->
         <Grid x:Name="LoadingModalGrid"
-              Canvas.ZIndex="1" Grid.RowSpan="2">
+              Canvas.ZIndex="1" Grid.RowSpan="2" >
             <Grid.Resources>
                 <Storyboard x:Key="FadeIn" 
                             TargetName="LoadingModalGrid" TargetProperty="Opacity">
@@ -57,35 +52,41 @@
                     </ObjectAnimationUsingKeyFrames>
                 </Storyboard>
             </Grid.Resources>
-            <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Opacity="0.85"/>
-            <StackPanel VerticalAlignment="Center">
-                <ProgressBar IsIndeterminate="True" Foreground="{StaticResource PhoneAccentBrush}"/>
+            <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Opacity="0.85" />
+            <StackPanel VerticalAlignment="Center" >
+                <ProgressBar IsIndeterminate="True" Foreground="{StaticResource PhoneAccentBrush}" />
                 <TextBlock Margin="0, 5, 0, 0"
-                           Text="Getting event details..."  
-                           HorizontalAlignment="Center"/>
+                           Text="Collecting event details..."  FontSize="13"
+                           HorizontalAlignment="Center" />
             </StackPanel>
         </Grid>
-        
-        <!-- Title Panel -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="{Binding Title}"
+
+        <!-- Content -->
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="19,0,0,0">
+                <TextBlock Text="{Binding Title}"
                        Height="24"
                        TextTrimming="CharacterEllipsis"
                        Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"
-                       ContinuumNavigationTransitionInfo.IsEntranceElement="True"/>
-        </StackPanel>
+                       ContinuumNavigationTransitionInfo.IsEntranceElement="True" />
+            </StackPanel>
 
-        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="0,-6.5, 0, 5">
-            <Pivot x:Name="EventDetailsPivot" SelectionChanged="OnEventPivotSelectionChanged">
-                <PivotItem Header="details">
-                    <TextBlock Text="{Binding Description}" 
-                               Style="{StaticResource BaseTextBlockStyle}" FontSize="16"/>
-                </PivotItem>
-                <PivotItem x:Name="MapPivotItem" Header="map">
-                    <maps:MapControl x:Name="LocationMap" MapServiceToken="cXpfbMzhrd_e1xcrA_iAuA">
-                    </maps:MapControl> 
-                </PivotItem>
-            </Pivot>
+            <Grid Grid.Row="1" Margin="0,-6.5, 0, 5" >
+                <Pivot x:Name="EventDetailsPivot" SelectionChanged="OnEventPivotSelectionChanged" >
+                    <PivotItem Header="details" >
+                        <TextBlock Text="{Binding Description}" 
+                               Style="{StaticResource BaseTextBlockStyle}" FontSize="16" />
+                    </PivotItem>
+                    <PivotItem x:Name="MapPivotItem" Header="map" >
+                        <maps:MapControl x:Name="LocationMap" MapServiceToken="cXpfbMzhrd_e1xcrA_iAuA" >
+                        </maps:MapControl>
+                    </PivotItem>
+                </Pivot>
+            </Grid>
         </Grid>
     </Grid>
 </Page>
