@@ -103,21 +103,21 @@
                                                    Padding="10, 0, 5, 2"
                                                    TextTrimming="CharacterEllipsis"
                                                    FontSize="22"
-                                                   Text="{Binding Title}"
+                                                   Text="{Binding Event.Title}"
                                                    ContinuumNavigationTransitionInfo.IsExitElement="True"/>
                                         <TextBlock Grid.Row="1" Grid.Column="1" Padding="10, 2, 5, 5"
-                                                   Visibility="{Binding StartTime, Converter={StaticResource NullToVisibilityConverter}}"
-                                                   Text="{Binding StartTime}"
+                                                   Visibility="{Binding Event.StartTime, Converter={StaticResource NullToVisibilityConverter}}"
+                                                   Text="{Binding Event.StartTime}"
                                                    Foreground="{StaticResource PhoneMidBrush}"/>
                                         <TextBlock Grid.Row="2" Grid.Column="1" Padding="10, 2, 5, 5"
-                                                   Visibility="{Binding EndTime, Converter={StaticResource NullToVisibilityConverter}}"
-                                                   Text="{Binding EndTime}"
+                                                   Visibility="{Binding Event.EndTime, Converter={StaticResource NullToVisibilityConverter}}"
+                                                   Text="{Binding Event.EndTime}"
                                                    Foreground="{StaticResource PhoneMidBrush}"/>
                                         <TextBlock Grid.Row="3" Grid.Column="1" Padding="10, 2, 5, 2"
-                                                   Visibility="{Binding Location, Converter={StaticResource NullToVisibilityConverter}}"
+                                                   Visibility="{Binding Event.Location, Converter={StaticResource NullToVisibilityConverter}}"
                                                    TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                                    FontSize="16"
-                                                   Text="{Binding Location.Name}"
+                                                   Text="{Binding Event.Location.Name}"
                                                    MaxLines="2"/>
                                     </Grid>
                                 </DataTemplate>

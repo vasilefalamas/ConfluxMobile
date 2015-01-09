@@ -27,13 +27,8 @@ namespace Conflux.Core.Models
 
             var events = pagedResult.Select(item => new EventDisplayItem
             {
-                Id = item.Id,
-                Description = item.Description,
-                Location = item.Location,
-                StartTime = item.StartTime,
-                EndTime = item.EndTime,
-                Title = item.Title
-            });
+                Event = item
+            }); 
 
             return events;
         }

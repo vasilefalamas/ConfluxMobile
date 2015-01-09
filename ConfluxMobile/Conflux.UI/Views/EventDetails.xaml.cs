@@ -51,12 +51,12 @@ namespace Conflux.UI.Views
         {
             navigationHelper.OnNavigatedTo(e);
 
-            var passedEvent = (EventDisplayItem) e.Parameter;
+            var passedEventDetailedItem = (EventDisplayItem)e.Parameter;
 
-            if (passedEvent != null)
+            if (passedEventDetailedItem != null)
             {
                 LoadingModalGrid.StartAnimation("FadeIn");
-                await viewModel.GetEventData(passedEvent.Id);
+                await viewModel.GetEventData(passedEventDetailedItem.Event.Id);
                 LoadingModalGrid.StartAnimation("FadeOut");
             }
 

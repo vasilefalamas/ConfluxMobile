@@ -4,8 +4,10 @@ using Conflux.Connectivity.GraphApi;
 
 namespace Conflux.Core.Models
 {
-    public class EventDisplayItem : Event, INotifyPropertyChanged
+    public class EventDisplayItem : INotifyPropertyChanged
     {
+        public Event Event { get; set; }
+
         private bool visited;
 
         public bool Visited
