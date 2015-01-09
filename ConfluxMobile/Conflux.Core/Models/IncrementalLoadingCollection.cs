@@ -9,6 +9,8 @@ using Windows.UI.Xaml.Data;
 
 namespace Conflux.Core.Models
 {
+    
+    //TODO Give up at interface
     public class IncrementalLoadingCollection<T> : ObservableCollection<T>, ISupportIncrementalLoading 
     {
         private IIncrementalSource<T> collectionSource;
@@ -33,6 +35,14 @@ namespace Conflux.Core.Models
             return Task.Run(
                 async () =>
                 {
+                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                    {
+                        var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+
+                        statusBar.ProgressIndicator.Text = "Loading more events...";
+                        await statusBar.ProgressIndicator.ShowAsync();
+                    });
+
                     uint resultCount = 0;
 
                     var result = (await collectionSource.GetPagedItems(offset, pageSize)).ToList();
@@ -57,6 +67,13 @@ namespace Conflux.Core.Models
                                 }
                             });
                     }
+
+                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                    {
+                        var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+
+                        await statusBar.ProgressIndicator.HideAsync();
+                    });
 
                     return new LoadMoreItemsResult
                     {
