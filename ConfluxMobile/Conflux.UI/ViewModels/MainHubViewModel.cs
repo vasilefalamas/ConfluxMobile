@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Media.Imaging;
@@ -20,7 +21,7 @@ namespace Conflux.UI.ViewModels
         private List<NavigationLink> userSectionLinks;
 
         private IncrementalLoadingCollection<EventDisplayItem> newestEvents;
-        
+
         public string Name
         {
             get
@@ -93,11 +94,14 @@ namespace Conflux.UI.ViewModels
             var eventsSource = new EventsSource(facebookProvider, accessToken, location);
 
             NewestEvents = new IncrementalLoadingCollection<EventDisplayItem>(eventsSource);
+            NewestEvents.LoadMoreItemsStarted += OnLoadMoreItemsStarted;
+            NewestEvents.LoadMoreItemsCompleted += OnLoadMoreItemsCompleted;
+
             UserSectionLinks = new List<NavigationLink>();
-            
+
             AddUserSectionLinks(UserSectionLinks);
         }
-
+        
         /// <summary>
         /// Marks the event as "blacklisted" by removing events list.
         /// </summary>
@@ -108,28 +112,45 @@ namespace Conflux.UI.ViewModels
             {
                 NewestEvents.Remove(eventItem);
             }
-        } 
+        }
 
         private void AddUserSectionLinks(IList<NavigationLink> links)
         {
             links.Add(new NavigationLink
             {
                 Title = "my events",
-                Destination = typeof (MyEventsPage)
+                Destination = typeof(MyEventsPage)
             });
 
             links.Add(new NavigationLink
             {
                 Title = "blacklist",
-                Destination = typeof (BlacklistPage)
+                Destination = typeof(BlacklistPage)
             });
 
             links.Add(new NavigationLink
             {
                 Title = "search preferences",
-                Destination = typeof (SearchPreferencesPage)
+                Destination = typeof(SearchPreferencesPage)
             });
         }
+        
+        private async void OnLoadMoreItemsStarted()
+        {
+            var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+
+            statusBar.ProgressIndicator.Text = "Searching events...";
+            await statusBar.ProgressIndicator.ShowAsync();
+        }
+        
+        private async void OnLoadMoreItemsCompleted()
+        {
+            var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+
+            await statusBar.ProgressIndicator.HideAsync();
+        }
+
+        #region INotifyPropertyChanged members
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -138,5 +159,7 @@ namespace Conflux.UI.ViewModels
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #endregion
     }
 }

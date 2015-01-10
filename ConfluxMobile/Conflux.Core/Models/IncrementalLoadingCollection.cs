@@ -14,8 +14,6 @@ namespace Conflux.Core.Models
     public class IncrementalLoadingCollection<T> : ObservableCollection<T>, ISupportIncrementalLoading 
     {
         private IIncrementalSource<T> collectionSource;
-        
-        private bool hasMoreItems;
 
         private uint offset;
 
@@ -24,8 +22,32 @@ namespace Conflux.Core.Models
         public IncrementalLoadingCollection(IIncrementalSource<T> collectionSource, uint pageSize = 25)
         {
             this.collectionSource = collectionSource; 
-            hasMoreItems = true;
+            HasMoreItems = true;
             this.pageSize = pageSize;
+        }
+
+        public bool HasMoreItems { get; private set; }
+
+        public event Action LoadMoreItemsStarted;
+
+        public event Action LoadMoreItemsCompleted;
+
+        protected virtual void OnLoadMoreItemsStarted()
+        {
+            var handler = LoadMoreItemsStarted;
+            if (handler != null)
+            {
+                handler();
+            }
+        }
+
+        protected virtual void OnLoadMoreItemsCompleted()
+        {
+            var handler = LoadMoreItemsCompleted;
+            if (handler != null)
+            {
+                handler();
+            }
         }
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
@@ -35,13 +57,7 @@ namespace Conflux.Core.Models
             return Task.Run(
                 async () =>
                 {
-                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-                    {
-                        var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-
-                        statusBar.ProgressIndicator.Text = "Loading more events...";
-                        await statusBar.ProgressIndicator.ShowAsync();
-                    });
+                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, OnLoadMoreItemsStarted);
 
                     uint resultCount = 0;
 
@@ -49,7 +65,7 @@ namespace Conflux.Core.Models
                     
                     if (!result.Any())
                     {
-                        hasMoreItems = false;
+                        HasMoreItems = false;
                     }
                     else
                     {
@@ -68,12 +84,7 @@ namespace Conflux.Core.Models
                             });
                     }
 
-                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-                    {
-                        var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-
-                        await statusBar.ProgressIndicator.HideAsync();
-                    });
+                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, OnLoadMoreItemsCompleted);
 
                     return new LoadMoreItemsResult
                     {
@@ -81,11 +92,6 @@ namespace Conflux.Core.Models
                     };
 
                 }).AsAsyncOperation();
-        }
-
-        public bool HasMoreItems
-        {
-            get { return hasMoreItems; }
         }
     }
 }
