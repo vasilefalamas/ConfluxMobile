@@ -102,6 +102,8 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextBlockExtension.cs" />
+    <Compile Include="Text\TextFormatter.cs" />
     <Compile Include="ViewModels\EventDetailsViewModel.cs" />
     <Compile Include="ViewModels\MainHubViewModel.cs" />
     <Compile Include="ViewModels\OpenEventFlyoutAction.cs" />

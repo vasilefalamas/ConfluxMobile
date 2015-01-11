@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
+    xmlns:local="using:Conflux.UI"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -78,8 +79,10 @@
             <Grid Grid.Row="1" Margin="0,-6.5, 0, 5" >
                 <Pivot x:Name="EventDetailsPivot" SelectionChanged="OnEventPivotSelectionChanged" >
                     <PivotItem Header="details" >
-                        <TextBlock Text="{Binding Description}" 
-                               Style="{StaticResource BaseTextBlockStyle}" FontSize="16" />
+                        <ScrollViewer ZoomMode="Disabled" HorizontalScrollMode="Disabled">
+                            <TextBlock local:TextBlockExtension.FormattedText="{Binding Description}" FontSize="16" 
+                                       TextWrapping="Wrap"/>   
+                        </ScrollViewer>
                     </PivotItem>
                     <PivotItem x:Name="MapPivotItem" Header="map" >
                         <maps:MapControl x:Name="LocationMap" MapServiceToken="cXpfbMzhrd_e1xcrA_iAuA" >
