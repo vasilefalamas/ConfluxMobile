@@ -108,12 +108,12 @@
                                         <TextBlock Grid.Row="1" Grid.Column="1" Padding="10, 2, 5, 5"
                                                    Visibility="{Binding Event.StartTime, Converter={StaticResource NullToVisibilityConverter}}"
                                                    Text="{Binding Event.StartTime}"
-                                                   Foreground="{StaticResource PhoneMidBrush}"/>
+                                                   Foreground="{StaticResource MidBrush}"/>
                                         <TextBlock Grid.Row="2" Grid.Column="1" Padding="10, 2, 5, 5"
                                                    Visibility="{Binding Event.EndTime, Converter={StaticResource NullToVisibilityConverter}}"
                                                    Text="{Binding Event.EndTime}"
-                                                   Foreground="{StaticResource PhoneMidBrush}"/>
-                                        <TextBlock Grid.Row="3" Grid.Column="1" Padding="10, 2, 5, 2"
+                                                   Foreground="{StaticResource MidBrush}"/>
+                                        <TextBlock Grid.Row="3" Grid.Column="1" Padding="10, 0, 5, 2"
                                                    Visibility="{Binding Event.Location, Converter={StaticResource NullToVisibilityConverter}}"
                                                    TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                                    FontSize="16"
@@ -126,7 +126,7 @@
                     </DataTemplate>
                 </HubSection>
                 <HubSection Header="MY FRIENDS">
-
+                    
                 </HubSection>
             </Hub>
         </Grid>

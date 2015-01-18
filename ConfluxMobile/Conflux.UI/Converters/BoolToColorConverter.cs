@@ -9,7 +9,7 @@ namespace Conflux.UI.Converters
     {
         private static readonly SolidColorBrush accentColor = Application.Current.Resources["PhoneAccentBrush"] as SolidColorBrush;
 
-        private static readonly SolidColorBrush staticColor = Application.Current.Resources["PhoneMidBrush"] as SolidColorBrush;
+        private static readonly SolidColorBrush staticColor = Application.Current.Resources["MidBrush"] as SolidColorBrush;
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {

@@ -73,7 +73,7 @@
                                                TextWrapping="Wrap" Text="{Binding Details}" 
                                                Style="{StaticResource BaseTextBlockStyle}"
                                                FontSize="16"
-                                               Opacity="0.5"
+                                               Foreground="{ThemeResource MidBrush}"
                                                VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                 </Grid>
                             </DataTemplate>
