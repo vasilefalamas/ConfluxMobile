@@ -80,8 +80,22 @@
                 <Pivot x:Name="EventDetailsPivot" SelectionChanged="OnEventPivotSelectionChanged" >
                     <PivotItem Header="details" >
                         <ScrollViewer ZoomMode="Disabled" HorizontalScrollMode="Disabled">
-                            <TextBlock local:TextBlockExtension.FormattedText="{Binding Description}" FontSize="16" 
-                                       TextWrapping="Wrap"/>   
+                            <Grid>
+                                <StackPanel x:Name="MoreDescriptionPanel">
+                                    <TextBlock local:TextBlockExtension.FormattedText="{Binding Description}" FontSize="16" 
+                                               TextWrapping="Wrap" MaxLines="8"/>
+                                    <TextBlock Text="Show more" 
+                                               FontSize="16" Foreground="{StaticResource PhoneAccentBrush}"
+                                               Tapped="OnResizeMoreTapped"/>
+                                </StackPanel>
+                                <StackPanel x:Name="LessDescriptionPanel" Visibility="Collapsed">
+                                    <TextBlock local:TextBlockExtension.FormattedText="{Binding Description}" FontSize="16" 
+                                               TextWrapping="Wrap"/>
+                                    <TextBlock Text="Show less" 
+                                               FontSize="16" Foreground="{StaticResource PhoneAccentBrush}"
+                                               Tapped="OnResizeLessTapped"/>
+                                </StackPanel>
+                            </Grid>
                         </ScrollViewer>
                     </PivotItem>
                     <PivotItem x:Name="MapPivotItem" Header="map" >

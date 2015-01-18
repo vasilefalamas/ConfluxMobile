@@ -5,6 +5,7 @@ using Windows.Foundation;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Models;
@@ -18,14 +19,14 @@ namespace Conflux.UI.Views
         private readonly NavigationHelper navigationHelper;
 
         private readonly EventDetailsViewModel viewModel;
-
+        
         public EventDetails()
         {
             InitializeComponent();
 
             viewModel = new EventDetailsViewModel(App.FacebookProvider, App.AccessToken);
             DataContext = viewModel;
-
+            
             navigationHelper = new NavigationHelper(this);
             navigationHelper.LoadState += NavigationHelper_LoadState;
             navigationHelper.SaveState += NavigationHelper_SaveState;
@@ -118,6 +119,18 @@ namespace Conflux.UI.Views
             LocationMap.MapElements.Add(pin);
 
             await LocationMap.TrySetViewAsync(mapCenterPoint, 15);
+        }
+        
+        private void OnResizeLessTapped(object sender, TappedRoutedEventArgs e)
+        {
+            MoreDescriptionPanel.Show();
+            LessDescriptionPanel.Hide();
+        }
+
+        private void OnResizeMoreTapped(object sender, TappedRoutedEventArgs e)
+        {
+            MoreDescriptionPanel.Hide();
+            LessDescriptionPanel.Show();
         }
     }
 }
