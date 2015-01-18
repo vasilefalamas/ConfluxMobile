@@ -89,7 +89,42 @@ namespace Conflux.Connectivity
         public async Task<IEnumerable<Event>> GetEventsByKeywordAsync(AccessToken accessToken, string locationKeyword, uint offset = 0, uint? limit = null)
         {
             var response = await httpClient.GetStringAsync(FacebookUriProvider.GetEventsByLocationKeywordUri(accessToken, locationKeyword, offset, limit));
+            
+            var events = await GetEventsFromResponse(response);
 
+            return events;
+        }
+
+        public async Task<Event> GetEventAsync(AccessToken accessToken, string eventId)
+        {
+            var response = await httpClient.GetStringAsync(FacebookUriProvider.GetEventDetailsUri(accessToken, eventId));
+            
+            JsonObject jsonObject = JsonValue.Parse(response).GetObject();
+
+            var detailedEvent = new Event
+            {
+                Id = eventId,
+                Title = jsonObject.GetNamedValue<string>("name"),
+                Description = jsonObject.GetNamedValue<string>("description"),
+                StartTime = jsonObject.GetNamedValue<DateTime?>("start_time"),
+                EndTime = jsonObject.GetNamedValue<DateTime?>("end_time"),
+                Location = GetEventLocationInfo(jsonObject)
+            };
+
+            return detailedEvent;
+        }
+
+        public async Task<IEnumerable<Event>> GetMyEvents(AccessToken accessToken)
+        {
+            var response = await httpClient.GetStringAsync(FacebookUriProvider.GetMyEvents(accessToken));
+
+            var events = await GetEventsFromResponse(response);
+
+            return events;
+        }
+
+        private async Task<IEnumerable<Event>> GetEventsFromResponse(string response)
+        {
             var events = new List<Event>();
 
             await Task.Factory.StartNew(() =>
@@ -118,26 +153,7 @@ namespace Conflux.Connectivity
             });
 
             return events;
-        }
-
-        public async Task<Event> GetEventAsync(AccessToken accessToken, string eventId)
-        {
-            var response = await httpClient.GetStringAsync(FacebookUriProvider.GetEventDetailsUri(accessToken, eventId));
-            
-            JsonObject jsonObject = JsonValue.Parse(response).GetObject();
-
-            var detailedEvent = new Event
-            {
-                Id = eventId,
-                Title = jsonObject.GetNamedValue<string>("name"),
-                Description = jsonObject.GetNamedValue<string>("description"),
-                StartTime = jsonObject.GetNamedValue<DateTime?>("start_time"),
-                EndTime = jsonObject.GetNamedValue<DateTime?>("end_time"),
-                Location = GetEventLocationInfo(jsonObject)
-            };
-
-            return detailedEvent;
-        }
+        } 
 
         private LocationInfo GetEventLocationInfo(JsonObject eventJsonObject)
         {

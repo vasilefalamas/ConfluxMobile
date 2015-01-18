@@ -16,5 +16,7 @@ namespace Conflux.Connectivity.GraphApi
         Task<BitmapImage> GetProfilePictureAsync(AccessToken accessToken, PictureSize pictureSize = PictureSize.Size160x160);
 
         Task<Event> GetEventAsync(AccessToken accessToken, string eventId);
+
+        Task<IEnumerable<Event>> GetMyEvents(AccessToken accessToken);
     }
 }
