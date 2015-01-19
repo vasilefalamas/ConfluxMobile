@@ -106,6 +106,7 @@
     <Compile Include="Text\TextFormatter.cs" />
     <Compile Include="ViewModels\EventDetailsViewModel.cs" />
     <Compile Include="ViewModels\MainHubViewModel.cs" />
+    <Compile Include="ViewModels\MyEventsViewModel.cs" />
     <Compile Include="ViewModels\OpenEventFlyoutAction.cs" />
     <Compile Include="ViewModels\SearchPreferencesViewModel.cs" />
     <Compile Include="ViewModels\SharedInfoViewModel.cs" />

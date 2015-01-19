@@ -63,7 +63,7 @@ namespace Conflux.Connectivity.GraphApi
 
         public static Uri GetMyEvents(AccessToken accessToken)
         {
-            return new Uri(string.Format("http://graph.facebook.com/me/events?access_token={0}", accessToken.Value));
+            return new Uri(string.Format("https://graph.facebook.com/me/events?access_token={0}", accessToken.Value));
         }
     }
 }
