@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
 
 namespace Conflux.UI.ViewModels
@@ -15,16 +13,14 @@ namespace Conflux.UI.ViewModels
 
         private string description;
 
+        private bool isDescriptionAvailable;
+
         private DateTime? startTime;
 
         private DateTime? endTime;
 
         private bool isMapLocationAvailable;
         
-        private readonly IFacebookProvider facebookProvider;
-
-        private readonly AccessToken accessToken;
-
         public string Id
         {
             get
@@ -60,6 +56,19 @@ namespace Conflux.UI.ViewModels
             private set
             {
                 description = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsDescriptionAvailable
+        {
+            get
+            {
+                return isDescriptionAvailable;
+            }
+            private set
+            {
+                isDescriptionAvailable = value;
                 OnPropertyChanged();
             }
         }
@@ -104,20 +113,15 @@ namespace Conflux.UI.ViewModels
         }
         
         public LocationInfo Location { get; private set; }
-
-        public EventDetailsViewModel(IFacebookProvider facebookProvider, AccessToken accessToken)
+        
+        public void Build(Event eventItem)
         {
-            this.facebookProvider = facebookProvider;
-            this.accessToken = accessToken;
-        }
+            var cleanedDescription = eventItem.Description == null ? string.Empty : eventItem.Description.Trim();
 
-        public async Task GetEventData(string eventId)
-        {
-            var eventItem = await facebookProvider.GetEventAsync(accessToken, eventId);
-            
             Id = eventItem.Id;
-            Title = eventItem.Title;
-            Description = eventItem.Description;
+            Title = eventItem.Title.ToUpper();
+            IsDescriptionAvailable = string.IsNullOrEmpty(cleanedDescription);
+            Description = cleanedDescription;
             StartTime = eventItem.StartTime;
             EndTime = eventItem.EndTime;
             IsMapLocationAvailable = eventItem.Location != null && eventItem.Location.Id != 0;

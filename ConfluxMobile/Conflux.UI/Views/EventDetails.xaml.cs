@@ -18,13 +18,13 @@ namespace Conflux.UI.Views
     {
         private readonly NavigationHelper navigationHelper;
 
-        private readonly EventDetailsViewModel viewModel;
+        private EventDetailsViewModel viewModel;
         
         public EventDetails()
         {
             InitializeComponent();
 
-            viewModel = new EventDetailsViewModel(App.FacebookProvider, App.AccessToken);
+            viewModel = new EventDetailsViewModel();
             DataContext = viewModel;
             
             navigationHelper = new NavigationHelper(this);
@@ -57,7 +57,10 @@ namespace Conflux.UI.Views
             if (passedEventDetailedItem != null)
             {
                 LoadingModalGrid.StartAnimation("FadeIn");
-                await viewModel.GetEventData(passedEventDetailedItem.Event.Id);
+
+                var eventItem = await App.FacebookProvider.GetEventAsync(App.AccessToken, passedEventDetailedItem.Event.Id);
+
+                viewModel.Build(eventItem);
                 LoadingModalGrid.StartAnimation("FadeOut");
             }
 
@@ -68,7 +71,6 @@ namespace Conflux.UI.Views
                     EventDetailsPivot.Items.RemoveAt(1);
                 }
             }
-
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
