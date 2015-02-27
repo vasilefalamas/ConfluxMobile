@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Input;
@@ -10,6 +11,7 @@ using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Models;
 using Conflux.UI.Common;
+using Conflux.UI.Helpers;
 using Conflux.UI.ViewModels;
 
 namespace Conflux.UI.Views
@@ -19,14 +21,18 @@ namespace Conflux.UI.Views
         private readonly NavigationHelper navigationHelper;
 
         private EventDetailsViewModel viewModel;
-        
+
+        private Grid shortDescriptionPanel;
+
+        private Grid fullDescriptionPanel;
+
         public EventDetails()
         {
             InitializeComponent();
 
             viewModel = new EventDetailsViewModel();
             DataContext = viewModel;
-            
+
             navigationHelper = new NavigationHelper(this);
             navigationHelper.LoadState += NavigationHelper_LoadState;
             navigationHelper.SaveState += NavigationHelper_SaveState;
@@ -64,12 +70,10 @@ namespace Conflux.UI.Views
                 LoadingModalGrid.StartAnimation("FadeOut");
             }
 
-            if (!viewModel.IsMapLocationAvailable)
+            if (viewModel.IsMapLocationAvailable)
             {
-                if (EventDetailsPivot.Items != null)
-                {
-                    EventDetailsPivot.Items.RemoveAt(1);
-                }
+                LocationMap.Visibility = Visibility.Visible;;
+                await ShowEventOnMapAsync(viewModel.Location);
             }
         }
 
@@ -79,25 +83,26 @@ namespace Conflux.UI.Views
         }
 
         #endregion
-        
-        private async void OnEventPivotSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            if (!viewModel.IsMapLocationAvailable)
-            {
-                return;
-            }
+            LocationMap.Visibility = Visibility.Collapsed;
 
-            var pivot = sender as Pivot;
+            shortDescriptionPanel = AboutHubSection.FindChildControl<Grid>("ShortDescriptionPanel") as Grid;
+            fullDescriptionPanel = AboutHubSection.FindChildControl<Grid>("FullDescriptionPanel") as Grid;
+        }
 
-            if (pivot == null)
-            {
-                return;
-            }
+        private void OnShowMoreTapped(object sender, TappedRoutedEventArgs e)
+        {
+            shortDescriptionPanel.Hide();
+            fullDescriptionPanel.Show();
+        }
 
-            if (pivot.SelectedIndex == 1)
-            {
-                await ShowEventOnMapAsync(viewModel.Location);
-            }
+
+        private void OnShowLessTapped(object sender, TappedRoutedEventArgs e)
+        {
+            shortDescriptionPanel.Show();
+            fullDescriptionPanel.Hide();
         }
 
         private async Task ShowEventOnMapAsync(LocationInfo location)
@@ -115,24 +120,12 @@ namespace Conflux.UI.Views
                 Location = mapCenterPoint,
                 Title = location.Name,
                 Image = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/pin128.png")),
-                NormalizedAnchorPoint = new Point {X = 0.32, Y = 0.78}
+                NormalizedAnchorPoint = new Point { X = 0.32, Y = 0.78 }
             };
 
             LocationMap.MapElements.Add(pin);
 
             await LocationMap.TrySetViewAsync(mapCenterPoint, 15);
-        }
-        
-        private void OnResizeLessTapped(object sender, TappedRoutedEventArgs e)
-        {
-            MoreDescriptionPanel.Show();
-            LessDescriptionPanel.Hide();
-        }
-
-        private void OnResizeMoreTapped(object sender, TappedRoutedEventArgs e)
-        {
-            MoreDescriptionPanel.Hide();
-            LessDescriptionPanel.Show();
         }
     }
 }
