@@ -13,6 +13,7 @@
 
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:NegatedBoolToVisibilityConverter x:Key="NegatedBoolToVisibilityConverter"/>
     </Page.Resources>
 
     <Page.Transitions>
@@ -99,6 +100,11 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Visibility="{Binding IsDescriptionAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}">
+                                        <TextBlock Text="This event is provided with no description."
+                                                   TextWrapping="Wrap"
+                                                   FontSize="16" Foreground="{StaticResource MidBrush}"/>    
+                                    </Grid>
                                     <Grid x:Name="ShortDescriptionPanel" Grid.Row="0">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>

@@ -100,6 +100,7 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converters\BoolToColorConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\NegatedBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

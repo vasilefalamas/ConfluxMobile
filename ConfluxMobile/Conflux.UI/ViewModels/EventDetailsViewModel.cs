@@ -157,10 +157,10 @@ namespace Conflux.UI.ViewModels
 
             Id = eventItem.Id;
             Title = eventItem.Title.ToUpper();
-            IsDescriptionAvailable = string.IsNullOrEmpty(cleanedDescription);
+            IsDescriptionAvailable = !string.IsNullOrEmpty(cleanedDescription);
             ShortDescription = GetShortDescription(cleanedDescription);
             FullDescription = cleanedDescription;
-            IsDescriptionTooLong = ShortDescription.Length < FullDescription.Length + 3; //Ellipsis included
+            IsDescriptionTooLong = DetermineIsDescriptionTooLong(); 
             StartTime = eventItem.StartTime;
             EndTime = eventItem.EndTime;
             IsMapLocationAvailable = eventItem.Location != null && eventItem.Location.Id != 0;
@@ -179,7 +179,7 @@ namespace Conflux.UI.ViewModels
         {
             var words = description.Split(new [] {' '}, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            if (words.Count < ShortDescriptionWordsLength)
+            if (words.Count <= ShortDescriptionWordsLength)
             {
                 return description;
             }
@@ -187,6 +187,16 @@ namespace Conflux.UI.ViewModels
             var shortenedDescription = string.Join(" ", words.Take(ShortDescriptionWordsLength));
 
             return string.Format("{0}...", shortenedDescription);
+        }
+
+        private bool DetermineIsDescriptionTooLong()
+        {
+            if (ShortDescription.Length == FullDescription.Length)
+            {
+                return false;
+            }
+
+            return ShortDescription.Length < FullDescription.Length + 3; //Ellipsis included
         }
     }
 }
