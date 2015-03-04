@@ -13,6 +13,7 @@ using Conflux.Core.Models;
 using Conflux.UI.Common;
 using Conflux.UI.Helpers;
 using Conflux.UI.ViewModels;
+using Conflux.UI.VisualControls;
 
 namespace Conflux.UI.Views
 {
@@ -72,7 +73,7 @@ namespace Conflux.UI.Views
 
             if (viewModel.IsMapLocationAvailable)
             {
-                LocationMap.Visibility = Visibility.Visible;;
+                LocationMap.Visibility = Visibility.Visible;
                 await ShowEventOnMapAsync(viewModel.Location);
             }
         }
@@ -125,7 +126,27 @@ namespace Conflux.UI.Views
 
             LocationMap.MapElements.Add(pin);
 
-            await LocationMap.TrySetViewAsync(mapCenterPoint, 15);
+            await LocationMap.TrySetViewAsync(mapCenterPoint, 17);
+        }
+        
+        private async void OnMapContentTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var detailedEvent = new EventDisplayItem()
+            {
+                Event = new Event()
+                {
+                    Title = viewModel.Title,
+                    Location = new LocationInfo()
+                    {
+                        Longitude = viewModel.Location.Longitude,
+                        Latitude = viewModel.Location.Latitude
+                    }
+                }
+            };
+
+            OpenMapChoiceDialog dialog = new OpenMapChoiceDialog(detailedEvent);
+
+            await dialog.ShowAsync();
         }
     }
 }

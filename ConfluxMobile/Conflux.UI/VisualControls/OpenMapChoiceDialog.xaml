@@ -1,0 +1,36 @@
+﻿<ContentDialog
+    x:Class="Conflux.UI.VisualControls.OpenMapChoiceDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="SELECT MAP APP">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="AppSearchTextBlock" Text="Looking for apps..." Style="{StaticResource MessageDialogContentStyle}"/>
+            <TextBlock Grid.Row="1" Style="{StaticResource MessageDialogContentStyle}">
+                <Run Text="Open up&#160;"/>
+                <Run x:Name="EventTitleTextRun" Foreground="{StaticResource PhoneAccentBrush}"/>
+                <Run Text="&#160;in :"/>
+            </TextBlock>
+            <ListView Grid.Row="2" Margin="0, 25" MinHeight="300">
+                <ListViewItem FontSize="{StaticResource TextStyleExtraLargeFontSize}"
+                              Tapped="OnMapsItemTapped">
+                    Windows Phone Maps</ListViewItem>
+                <ListViewItem Visibility="Visible"
+                              Tapped="OnHereDriveItemTapped"
+                    FontSize="{StaticResource TextStyleExtraLargeFontSize}">Here Maps</ListViewItem>
+            </ListView>
+        </Grid>
+    </Grid>
+</ContentDialog>

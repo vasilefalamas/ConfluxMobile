@@ -136,6 +136,9 @@
     <Compile Include="Views\SharedInfo.xaml.cs">
       <DependentUpon>SharedInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VisualControls\OpenMapChoiceDialog.xaml.cs">
+      <DependentUpon>OpenMapChoiceDialog.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -207,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SharedInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VisualControls\OpenMapChoiceDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -101,7 +101,7 @@
                                         </Grid>
                                         <TextBlock Grid.Row="0" Grid.Column="1"
                                                    Padding="10, 0, 5, 2"
-                                                   TextTrimming="CharacterEllipsis"
+                                                   TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="3"
                                                    FontSize="22"
                                                    Text="{Binding Event.Title}"
                                                    ContinuumNavigationTransitionInfo.IsExitElement="True"/>

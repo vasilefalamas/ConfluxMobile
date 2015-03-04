@@ -86,12 +86,15 @@
             <Grid Grid.Row="1" Margin="0, 10, 0, 5" >
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="220"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <maps:MapControl x:Name="LocationMap" Grid.Row="0"
-                                     Height="220" 
+                    <Grid Grid.Row="0" Tapped="OnMapContentTapped">
+                        <Grid Background="Transparent" Canvas.ZIndex="1"/>
+                        <maps:MapControl x:Name="LocationMap" Height="220" 
                                      MapServiceToken="cXpfbMzhrd_e1xcrA_iAuA"/>
+
+                    </Grid>
                     <Hub Grid.Row="1" Margin="0, 25, 0, 0">
                         <HubSection Header="ABOUT" x:Name="AboutHubSection">
                             <DataTemplate>
