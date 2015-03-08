@@ -154,7 +154,9 @@ namespace Conflux.UI.ViewModels
             //    OnPropertyChanged();
             //}
         }
-        
+
+        public bool IsMapSelectionActive { get; set; }
+
         public LocationInfo Location { get; private set; }
 
         public EventDetailsViewModel()

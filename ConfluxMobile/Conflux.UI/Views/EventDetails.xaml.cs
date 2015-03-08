@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
@@ -86,6 +85,18 @@ namespace Conflux.UI.Views
             navigationHelper.OnNavigatedFrom(e);
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            if (viewModel.IsMapSelectionActive)
+            {
+                HideMapSelection();
+                
+                e.Cancel = true;
+            }
+
+            base.OnNavigatingFrom(e);
+        }
+
         #endregion
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -109,6 +120,8 @@ namespace Conflux.UI.Views
             fullDescriptionPanel.Hide();
         }
 
+
+        //TODO : Extract this into a separate helper class.
         private async Task ShowEventOnMapAsync(LocationInfo location)
         {
             var geoposition = new BasicGeoposition
@@ -134,6 +147,19 @@ namespace Conflux.UI.Views
 
         private void OnGetEventDirectionClicked(object sender, RoutedEventArgs e)
         {
+            ShowMapSelection();
+        }
+
+        private void OnMapSelectionCancelTapped(object sender, TappedRoutedEventArgs e)
+        {
+            HideMapSelection();
+        }
+        
+        //TODO : Extract this into a separate helper class. Solve dependency with VM usage.
+        private void ShowMapSelection()
+        {
+            viewModel.IsMapSelectionActive = true;
+
             var jumpOutAnimation = MainContent.Resources["JumpOut"] as Storyboard;
             var jumpInAnimation = MapAppSelectionGrid.Resources["JumpIn"] as Storyboard;
 
@@ -146,8 +172,11 @@ namespace Conflux.UI.Views
             jumpInAnimation.Begin();
         }
 
-        private void OnMapSelectionCancelTapped(object sender, TappedRoutedEventArgs e)
+        //TODO : Extract this into a separate helper class. Solve dependency with VM usage.
+        private void HideMapSelection()
         {
+            viewModel.IsMapSelectionActive = false;
+
             var jumpOutAnimation = MainContent.Resources["JumpIn"] as Storyboard;
             var jumpInAnimation = MapAppSelectionGrid.Resources["JumpOut"] as Storyboard;
 
@@ -160,28 +189,27 @@ namespace Conflux.UI.Views
             jumpOutAnimation.Begin();
             jumpInAnimation.Begin();
         }
-        
-        private void OnMapAppItemSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private async void OnMapAppItemSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var listView = sender as ListView;
-
             if (listView == null)
             {
                 return;
             }
 
             var selectedItem = listView.SelectedItem as MapAppItem;
-
             if (selectedItem == null)
             {
                 return;
             }
 
             listView.SelectedItem = null;
-        
+            
             var mapUri = new Uri(selectedItem.UriString);
+            await Launcher.LaunchUriAsync(mapUri);
 
-            Launcher.LaunchUriAsync(mapUri);
+            HideMapSelection();
         }
 
     }
