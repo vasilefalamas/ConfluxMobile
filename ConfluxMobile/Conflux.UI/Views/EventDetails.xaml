@@ -76,17 +76,29 @@
                 <CompositeTransform/>
             </Grid.RenderTransform>
             <Grid.Resources>
-                <Storyboard x:Key="JumpIn" 
-                            TargetName="MainContent" TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
-                    <DoubleAnimation From="2000"  To="0" Duration="00:00:01.5">
+                <Storyboard x:Key="JumpIn"
+                            TargetName="MainContent">
+                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)"
+                                     From="2000" To="0" Duration="00:00:0.75">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="00:00:2">
                         <DoubleAnimation.EasingFunction>
                             <CubicEase />
                         </DoubleAnimation.EasingFunction>
                     </DoubleAnimation>
                 </Storyboard>
                 <Storyboard x:Key="JumpOut" 
-                            TargetName="MainContent" TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
-                    <DoubleAnimation To="2000" Duration="00:00:01.5">
+                            TargetName="MainContent">
+                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)"
+                                     To="2000" Duration="00:00:0.75">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="00:00:1">
                         <DoubleAnimation.EasingFunction>
                             <CubicEase />
                         </DoubleAnimation.EasingFunction>
@@ -184,26 +196,55 @@
         
         <!-- Map App selection -->
         <Grid x:Name="MapAppSelectionGrid" Canvas.ZIndex="2" 
-              Background="#B1808080">
+              Background="#B1808080" Visibility="Collapsed">
             <Grid.RenderTransform>
                 <CompositeTransform/>
             </Grid.RenderTransform>
             <Grid.Resources>
                 <Storyboard x:Key="JumpIn"
-                            TargetName="MapAppSelectionGrid" TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
-                    <DoubleAnimation From="-2000" To="0" Duration="00:00:01.5">
+                            TargetName="MapAppSelectionGrid">
+                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)"
+                                     From="-500" To="0" Duration="00:00:0.75">
                         <DoubleAnimation.EasingFunction>
                             <CubicEase />
                         </DoubleAnimation.EasingFunction>
                     </DoubleAnimation>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="00:00:2">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" 
+                                                   BeginTime="0:0:0.1">
+                        <DiscreteObjectKeyFrame KeyTime="0:0:0.1">
+                            <DiscreteObjectKeyFrame.Value>
+                                <Visibility>Visible</Visibility>
+                            </DiscreteObjectKeyFrame.Value>
+                        </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
                 </Storyboard>
                 <Storyboard x:Key="JumpOut" 
-                            TargetName="MapAppSelectionGrid" TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
-                    <DoubleAnimation To="-2000" Duration="00:00:01.5">
+                            TargetName="MapAppSelectionGrid">
+                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" 
+                                     To="-500" Duration="00:00:0.75">
                         <DoubleAnimation.EasingFunction>
                             <CubicEase />
                         </DoubleAnimation.EasingFunction>
                     </DoubleAnimation>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                                     From="1" To="0" Duration="00:00:1">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility"
+                                                   BeginTime="00:00:1">
+                        <DiscreteObjectKeyFrame KeyTime="0:0:0.1">
+                            <DiscreteObjectKeyFrame.Value>
+                                <Visibility>Collapsed</Visibility>
+                            </DiscreteObjectKeyFrame.Value>
+                        </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
                 </Storyboard>
             </Grid.Resources>
             <StackPanel Grid.Row="0" Margin="19,0,0,0">
