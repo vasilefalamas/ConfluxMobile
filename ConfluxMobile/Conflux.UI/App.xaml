@@ -5,14 +5,7 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="MidBrush" Color="#C3C3C3" />
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="MidBrush" Color="#7C7A7A" />
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
+            <SolidColorBrush x:Key="MidBrush" Color="#7C7A7A" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

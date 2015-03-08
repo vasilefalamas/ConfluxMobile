@@ -273,7 +273,7 @@
                             <StackPanel>
                                 <TextBlock Text="{Binding Name}" FontSize="30"/>
                                 <TextBlock Margin="0, 7" Text="{Binding Description}" TextWrapping="Wrap" 
-                                   Style="{StaticResource MessageDialogContentStyle}" />
+                                           FontSize="16" Foreground="{StaticResource MidBrush}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
