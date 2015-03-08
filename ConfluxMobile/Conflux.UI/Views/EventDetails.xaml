@@ -141,7 +141,7 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Tapped="OnGetEventDirectionClicked">
                         <Grid Background="Transparent" Canvas.ZIndex="1"/>
-                        <maps:MapControl x:Name="LocationMap" Height="220" 
+                        <maps:MapControl x:Name="LocationMap" MaxHeight="220" 
                                      MapServiceToken="cXpfbMzhrd_e1xcrA_iAuA"/>
 
                     </Grid>
