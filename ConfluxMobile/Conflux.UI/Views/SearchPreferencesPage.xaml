@@ -32,7 +32,7 @@
                             <TextBlock Text="Use my last known location for finding events"
                                            TextWrapping="Wrap"/>
                         </CheckBox>
-                        <TextBlock Opacity="0.5" FontSize="16"
+                        <TextBlock Foreground="{StaticResource MidBrush}" FontSize="16"
                                    Text="Last known location might be different than your current one. To update to your new location, uncheck this option and then relog."
                                    TextWrapping="Wrap"
                                    Style="{StaticResource BaseTextBlockStyle}"/>
@@ -41,11 +41,14 @@
                 <PivotItem Header="data">
                     <StackPanel>
                         <StackPanel>
-                            <ToggleSwitch Header="Save data transfer"
-                                          IsOn="{Binding IsImageDownloadEnabled, Mode=TwoWay}">
-                                
+                            <ToggleSwitch Header="Save data transfer" IsOn="{Binding IsImageDownloadEnabled, Mode=TwoWay}">
+                                <ToggleSwitch.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="Save data transfer" Foreground="{StaticResource MidBrush}"/>
+                                    </DataTemplate>
+                                </ToggleSwitch.HeaderTemplate>
                             </ToggleSwitch>
-                            <TextBlock Opacity="0.5" FontSize="16"
+                            <TextBlock Foreground="{StaticResource MidBrush}" FontSize="16"
                                        Style="{StaticResource BaseTextBlockStyle}"
                                        Text="Applies to events. If this option is checked, images will not be downloaded."
                                        TextWrapping="Wrap"/>
