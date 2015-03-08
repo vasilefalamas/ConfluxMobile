@@ -79,7 +79,7 @@
                 <Storyboard x:Key="JumpIn"
                             TargetName="MainContent">
                     <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)"
-                                     From="2000" To="0" Duration="00:00:0.75">
+                                     From="750" To="0" Duration="00:00:0.75">
                         <DoubleAnimation.EasingFunction>
                             <CubicEase />
                         </DoubleAnimation.EasingFunction>
@@ -89,11 +89,19 @@
                             <CubicEase />
                         </DoubleAnimation.EasingFunction>
                     </DoubleAnimation>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" 
+                                                   BeginTime="0:0:0.1">
+                        <DiscreteObjectKeyFrame KeyTime="0:0:0.1">
+                            <DiscreteObjectKeyFrame.Value>
+                                <Visibility>Visible</Visibility>
+                            </DiscreteObjectKeyFrame.Value>
+                        </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
                 </Storyboard>
                 <Storyboard x:Key="JumpOut" 
                             TargetName="MainContent">
                     <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)"
-                                     To="2000" Duration="00:00:0.75">
+                                     To="750" Duration="00:00:0.75">
                         <DoubleAnimation.EasingFunction>
                             <CubicEase />
                         </DoubleAnimation.EasingFunction>
@@ -103,6 +111,14 @@
                             <CubicEase />
                         </DoubleAnimation.EasingFunction>
                     </DoubleAnimation>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" 
+                                                   BeginTime="0:0:0.1">
+                        <DiscreteObjectKeyFrame KeyTime="0:0:0.1">
+                            <DiscreteObjectKeyFrame.Value>
+                                <Visibility>Collapsed</Visibility>
+                            </DiscreteObjectKeyFrame.Value>
+                        </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
                 </Storyboard>
             </Grid.Resources>
             <Grid.RowDefinitions>
@@ -195,8 +211,7 @@
         </Grid>
         
         <!-- Map App selection -->
-        <Grid x:Name="MapAppSelectionGrid" Canvas.ZIndex="2" 
-              Background="#B1808080" Visibility="Collapsed">
+        <Grid x:Name="MapAppSelectionGrid" Canvas.ZIndex="2" Visibility="Collapsed">
             <Grid.RenderTransform>
                 <CompositeTransform/>
             </Grid.RenderTransform>
