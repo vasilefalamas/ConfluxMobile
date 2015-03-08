@@ -29,14 +29,11 @@ namespace Conflux.UI.ViewModels
         private DateTime? endTime;
 
         private LocationInfo locationInfo;
-
-        //private bool isMapLocationAvailable;
-
+        
         private ObservableCollection<MapAppItem> mapAppsOptions;
 
         private string hereMapsIncompleteUriString = "explore-maps://v2.0/show/place/?latlon={0},{1}&title={2}&zoom={3}";
 
-        //private string defaultMapsIncompleteUriString = "bingmaps:?cp={0}~{1}_{2}&lvl={3}";
         private string defaultMapsIncompleteUriString = "bingmaps:?collection=point.{0}_{1}_{2}&lvl={3}";
         
         public string Id
@@ -148,11 +145,6 @@ namespace Conflux.UI.ViewModels
             {
                 return locationInfo != null && locationInfo.Id != 0;
             }
-            //private set
-            //{
-            //    isMapLocationAvailable = value;
-            //    OnPropertyChanged();
-            //}
         }
 
         public bool IsMapSelectionActive { get; set; }
@@ -161,7 +153,6 @@ namespace Conflux.UI.ViewModels
 
         public EventDetailsViewModel()
         {
-            //IsMapLocationAvailable = false;
             MapAppsOptions = new ObservableCollection<MapAppItem>();
         }
 
@@ -207,7 +198,6 @@ namespace Conflux.UI.ViewModels
             StartTime = eventItem.StartTime;
             EndTime = eventItem.EndTime;
             locationInfo = eventItem.Location;
-            //IsMapLocationAvailable = eventItem.Location != null && eventItem.Location.Id != 0;
             Location = eventItem.Location;
         }
 
