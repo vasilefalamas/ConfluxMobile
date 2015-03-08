@@ -76,7 +76,7 @@ namespace Conflux.UI.Views
 
             if (viewModel.IsMapLocationAvailable)
             {
-                LocationMap.Visibility = Visibility.Visible;
+                MapGrid.Visibility = Visibility.Visible;
                 await ShowEventOnMapAsync(viewModel.Location);
             }
         }
@@ -90,7 +90,7 @@ namespace Conflux.UI.Views
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            LocationMap.Visibility = Visibility.Collapsed;
+            MapGrid.Visibility = Visibility.Collapsed;
 
             shortDescriptionPanel = AboutHubSection.FindChildControl<Grid>("ShortDescriptionPanel") as Grid;
             fullDescriptionPanel = AboutHubSection.FindChildControl<Grid>("FullDescriptionPanel") as Grid;

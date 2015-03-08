@@ -139,11 +139,9 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Tapped="OnGetEventDirectionClicked">
+                    <Grid x:Name="MapGrid" Grid.Row="0" Tapped="OnGetEventDirectionClicked" Height="220">
                         <Grid Background="Transparent" Canvas.ZIndex="1"/>
-                        <maps:MapControl x:Name="LocationMap" Height="220" 
-                                     MapServiceToken="cXpfbMzhrd_e1xcrA_iAuA"/>
-
+                        <maps:MapControl x:Name="LocationMap" MapServiceToken="cXpfbMzhrd_e1xcrA_iAuA"/>
                     </Grid>
                     <Hub Grid.Row="1" Margin="0, 25, 0, 0">
                         <HubSection Header="ABOUT" x:Name="AboutHubSection">
@@ -156,7 +154,7 @@
                                     <Grid Grid.Row="0" Visibility="{Binding IsDescriptionAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}">
                                         <TextBlock Text="This event is provided with no description."
                                                    TextWrapping="Wrap"
-                                                   FontSize="16" Foreground="{StaticResource MidBrush}"/>    
+                                                   FontSize="16" Foreground="{StaticResource MidBrush}"/>
                                     </Grid>
                                     <Grid x:Name="ShortDescriptionPanel" Grid.Row="0">
                                         <Grid.RowDefinitions>
@@ -209,7 +207,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        
+
         <!-- Map App selection -->
         <Grid x:Name="MapAppSelectionGrid" Canvas.ZIndex="2" Visibility="Collapsed">
             <Grid.RenderTransform>
