@@ -26,11 +26,12 @@
         <CommandBar ClosedDisplayMode="Minimal">
             <CommandBar.PrimaryCommands>
                 <AppBarButton Icon="Go" Label="Attend"/>
+                <AppBarButton Icon="Map" Label="Directions" Click="OnGetEventDirectionClicked"/>
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 
-    <Grid >
+    <Grid>
         <!-- Modal Loading Grid -->
         <Grid x:Name="LoadingModalGrid"
               Canvas.ZIndex="1" Grid.RowSpan="2" >
@@ -69,8 +70,29 @@
             </StackPanel>
         </Grid>
 
-        <!-- Content -->
-        <Grid >
+        <!-- Main Content -->
+        <Grid x:Name="MainContent">
+            <Grid.RenderTransform>
+                <CompositeTransform/>
+            </Grid.RenderTransform>
+            <Grid.Resources>
+                <Storyboard x:Key="JumpIn" 
+                            TargetName="MainContent" TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                    <DoubleAnimation From="2000"  To="0" Duration="00:00:01.5">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+                <Storyboard x:Key="JumpOut" 
+                            TargetName="MainContent" TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                    <DoubleAnimation To="2000" Duration="00:00:01.5">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -89,7 +111,7 @@
                         <RowDefinition Height="220"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Tapped="OnMapContentTapped">
+                    <Grid Grid.Row="0" Tapped="OnGetEventDirectionClicked">
                         <Grid Background="Transparent" Canvas.ZIndex="1"/>
                         <maps:MapControl x:Name="LocationMap" Height="220" 
                                      MapServiceToken="cXpfbMzhrd_e1xcrA_iAuA"/>
@@ -158,6 +180,51 @@
                     </Hub>
                 </Grid>
             </Grid>
+        </Grid>
+        
+        <!-- Map App selection -->
+        <Grid x:Name="MapAppSelectionGrid" Canvas.ZIndex="2" 
+              Background="#B1808080">
+            <Grid.RenderTransform>
+                <CompositeTransform/>
+            </Grid.RenderTransform>
+            <Grid.Resources>
+                <Storyboard x:Key="JumpIn"
+                            TargetName="MapAppSelectionGrid" TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                    <DoubleAnimation From="-2000" To="0" Duration="00:00:01.5">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+                <Storyboard x:Key="JumpOut" 
+                            TargetName="MapAppSelectionGrid" TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                    <DoubleAnimation To="-2000" Duration="00:00:01.5">
+                        <DoubleAnimation.EasingFunction>
+                            <CubicEase />
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </Grid.Resources>
+            <StackPanel Grid.Row="0" Margin="19,0,0,0">
+                <TextBlock Text="SELECT MAP APP" Style="{ThemeResource MessageDialogTitleStyle}" Margin="0,12"/>
+                <TextBlock Text="Open the event with :" Margin="0, 0, 0, 20"
+                       Style="{StaticResource MessageDialogContentStyle}"/>
+
+                <ListView ItemsSource="{Binding MapAppsOptions}" SelectionChanged="OnMapAppItemSelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" FontSize="30"/>
+                                <TextBlock Margin="0, 7" Text="{Binding Description}" TextWrapping="Wrap" 
+                                   Style="{StaticResource MessageDialogContentStyle}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <CheckBox Content="Remember this answer"></CheckBox>
+                <Button Content="Cancel" Tapped="OnMapSelectionCancelTapped"></Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

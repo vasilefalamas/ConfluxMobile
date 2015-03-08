@@ -1,19 +1,22 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Storage.Streams;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Models;
 using Conflux.UI.Common;
 using Conflux.UI.Helpers;
+using Conflux.UI.Models;
 using Conflux.UI.ViewModels;
-using Conflux.UI.VisualControls;
 
 namespace Conflux.UI.Views
 {
@@ -128,25 +131,58 @@ namespace Conflux.UI.Views
 
             await LocationMap.TrySetViewAsync(mapCenterPoint, 17);
         }
-        
-        private async void OnMapContentTapped(object sender, TappedRoutedEventArgs e)
+
+        private void OnGetEventDirectionClicked(object sender, RoutedEventArgs e)
         {
-            var detailedEvent = new EventDisplayItem()
+            var jumpOutAnimation = MainContent.Resources["JumpOut"] as Storyboard;
+            var jumpInAnimation = MapAppSelectionGrid.Resources["JumpIn"] as Storyboard;
+
+            if (jumpInAnimation == null || jumpOutAnimation == null)
             {
-                Event = new Event()
-                {
-                    Title = viewModel.Title,
-                    Location = new LocationInfo()
-                    {
-                        Longitude = viewModel.Location.Longitude,
-                        Latitude = viewModel.Location.Latitude
-                    }
-                }
-            };
+                return;
+            }
 
-            OpenMapChoiceDialog dialog = new OpenMapChoiceDialog(detailedEvent);
-
-            await dialog.ShowAsync();
+            jumpOutAnimation.Begin();
+            jumpInAnimation.Begin();
         }
+
+        private void OnMapSelectionCancelTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var jumpOutAnimation = MainContent.Resources["JumpIn"] as Storyboard;
+            var jumpInAnimation = MapAppSelectionGrid.Resources["JumpOut"] as Storyboard;
+
+
+            if (jumpInAnimation == null || jumpOutAnimation == null)
+            {
+                return;
+            }
+
+            jumpOutAnimation.Begin();
+            jumpInAnimation.Begin();
+        }
+        
+        private void OnMapAppItemSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var listView = sender as ListView;
+
+            if (listView == null)
+            {
+                return;
+            }
+
+            var selectedItem = listView.SelectedItem as MapAppItem;
+
+            if (selectedItem == null)
+            {
+                return;
+            }
+        
+            var mapUri = new Uri(selectedItem.UriString);
+
+            Launcher.LaunchUriAsync(mapUri);
+
+
+        }
+
     }
 }
