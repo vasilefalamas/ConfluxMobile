@@ -176,12 +176,12 @@ namespace Conflux.UI.Views
             {
                 return;
             }
+
+            listView.SelectedItem = null;
         
             var mapUri = new Uri(selectedItem.UriString);
 
             Launcher.LaunchUriAsync(mapUri);
-
-
         }
 
     }
