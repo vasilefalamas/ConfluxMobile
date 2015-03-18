@@ -83,6 +83,12 @@
     </AppxManifest>
     <None Include="Conflux.Tests_TemporaryKey.pfx" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Conflux.Connectivity\Conflux.Connectivity.csproj">
+      <Project>{e1b1cd7e-503e-43ea-ade9-b3084eefeb36}</Project>
+      <Name>Conflux.Connectivity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
