@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conflux.Connectivity", "Con
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conflux.Core", "Conflux.Core\Conflux.Core.csproj", "{5C39F5DC-339E-430D-A084-770674B36BFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conflux.Tests", "Conflux.Tests\Conflux.Tests.csproj", "{35ED4463-73CA-4F34-98A8-12F5EA846B1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,26 @@ Global
 		{5C39F5DC-339E-430D-A084-770674B36BFC}.Release|Mixed Platforms.Build.0 = Release|x86
 		{5C39F5DC-339E-430D-A084-770674B36BFC}.Release|x86.ActiveCfg = Release|x86
 		{5C39F5DC-339E-430D-A084-770674B36BFC}.Release|x86.Build.0 = Release|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Debug|ARM.Build.0 = Debug|ARM
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Debug|ARM.Deploy.0 = Debug|ARM
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Debug|x86.ActiveCfg = Debug|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Debug|x86.Build.0 = Debug|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Debug|x86.Deploy.0 = Debug|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Release|Any CPU.ActiveCfg = Release|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Release|ARM.ActiveCfg = Release|ARM
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Release|ARM.Build.0 = Release|ARM
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Release|ARM.Deploy.0 = Release|ARM
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Release|Mixed Platforms.Build.0 = Release|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Release|Mixed Platforms.Deploy.0 = Release|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Release|x86.ActiveCfg = Release|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Release|x86.Build.0 = Release|x86
+		{35ED4463-73CA-4F34-98A8-12F5EA846B1F}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
