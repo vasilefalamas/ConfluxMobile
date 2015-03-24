@@ -13,7 +13,7 @@ namespace Conflux.UI.Views
 {
     public sealed partial class LoadingPage
     {
-        private IFacebookProvider facebookProvider;
+        private FacebookDataAccess facebookDataAccess;
 
         private readonly NavigationHelper navigationHelper;
 
@@ -31,7 +31,7 @@ namespace Conflux.UI.Views
 
             InitializeComponent();
             
-            facebookProvider = new FacebookProvider();
+            facebookDataAccess = new FacebookDataAccess(App.FacebookProvider);
         }
         
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -61,8 +61,8 @@ namespace Conflux.UI.Views
 
         private async Task GetUserData(AccessToken accessToken)
         {
-            var userInfoTask = facebookProvider.GetUserNameInfoAsync(accessToken);
-            var profilePictureTask = facebookProvider.GetProfilePictureAsync(accessToken);
+            var userInfoTask = facebookDataAccess.GetUserNameInfoAsync(accessToken);
+            var profilePictureTask = facebookDataAccess.GetProfilePictureAsync(accessToken);
 
             NotifyStatus("Connecting to Facebook...");
 

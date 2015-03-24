@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Conflux.Connectivity;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Models;
@@ -10,7 +11,7 @@ namespace Conflux.UI.ViewModels
 {
     public class MyEventsViewModel : INotifyPropertyChanged
     {
-        private readonly IFacebookProvider facebookProvider;
+        private readonly FacebookDataAccess facebookDataAccess;
 
         private readonly AccessToken accessToken;
 
@@ -33,7 +34,7 @@ namespace Conflux.UI.ViewModels
 
         public MyEventsViewModel(IFacebookProvider facebookProvider, AccessToken accessToken)
         {
-            this.facebookProvider = facebookProvider;
+            facebookDataAccess = new FacebookDataAccess(facebookProvider);
             this.accessToken = accessToken;
 
             MyEvents = new ObservableCollection<EventDisplayItem>();
@@ -41,7 +42,7 @@ namespace Conflux.UI.ViewModels
 
         public async Task GetMyEvents()
         {
-            var events = await facebookProvider.GetMyEvents(accessToken);
+            var events = await facebookDataAccess.GetMyEvents(accessToken);
 
             foreach (var item in events)
             {

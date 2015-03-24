@@ -86,6 +86,7 @@
     <Compile Include="Authentication\AuthenticationResult.cs" />
     <Compile Include="Authentication\AuthenticationState.cs" />
     <Compile Include="Authentication\Permissions.cs" />
+    <Compile Include="FacebookDataAccess.cs" />
     <Compile Include="FacebookProvider.cs" />
     <Compile Include="GraphApi\Event.cs" />
     <Compile Include="GraphApi\FacebookUriProvider.cs" />

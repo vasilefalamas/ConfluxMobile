@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Conflux.Connectivity;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Models;
 using Conflux.UI.Common;
@@ -66,8 +67,9 @@ namespace Conflux.UI.Views
             if (passedEventDetailedItem != null)
             {
                 LoadingModalGrid.StartAnimation("FadeIn");
-
-                var eventItem = await App.FacebookProvider.GetEventAsync(App.AccessToken, passedEventDetailedItem.Event.Id);
+                
+                //TODO : refactor this... too much going on in a single line...
+                var eventItem = await new FacebookDataAccess(App.FacebookProvider).GetEventAsync(App.AccessToken, passedEventDetailedItem.Event.Id);
 
                 viewModel.Build(eventItem);
                 LoadingModalGrid.StartAnimation("FadeOut");
