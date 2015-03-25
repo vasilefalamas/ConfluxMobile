@@ -3,11 +3,7 @@
 namespace Conflux.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class Class1
     {
-        [TestMethod]
-        public void TestMethod1()
-        {
-        }
     }
 }
