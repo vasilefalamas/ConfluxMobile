@@ -7,9 +7,27 @@ namespace Conflux.Tests
 {
     public class FacebookProviderMock : IFacebookProvider
     {
-        public Task<string> GetUserNameInfoAsync(AccessToken accessToken)
+        public async Task<string> GetUserNameInfoAsync(AccessToken accessToken)
         {
-            throw new NotImplementedException();
+            const string responseString = @"{
+	                                         ""id"" : ""123456"",
+	                                         ""first_name"" : ""John"",
+	                                         ""gender"" : ""male"",
+	                                         ""last_name"" : ""Doe"",
+	                                         ""link"" : ""https://www.facebook.com/app_scoped_user_id/123456/"",
+	                                         ""location"" :
+	                                         {
+		                                         ""id"" : ""106314962738289"",
+		                                         ""name"" : ""Sibiu, Romania""
+	                                         },
+	                                         ""locale"" : ""ro_RO"",
+	                                         ""name"" : ""John Doe"",
+	                                         ""timezone"" : 2,
+	                                         ""updated_time"" : ""2015-03-11T19:01:02+0000"",
+	                                         ""verified"" : true
+                                        }";
+
+            return responseString;
         }
 
         public Task<string> GetLocationInfoAsync(long locationId)
