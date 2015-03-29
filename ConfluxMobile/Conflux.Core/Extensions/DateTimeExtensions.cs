@@ -6,32 +6,26 @@ namespace Conflux.Core.Extensions
     {
         public static bool IsYesterday(this DateTime dateTime)
         {
-            var currentDate = DateTime.Now;
+            var supposedYesterday = GetTrimmedDateTime(dateTime);
+            var today = GetTrimmedDateTime(DateTime.Now);
 
-            var today = GetTrimmedDateTime(currentDate);
-            var lessPreciseDate = GetTrimmedDateTime(dateTime);
-
-            return today.Equals(lessPreciseDate.AddDays(1));
+            return today.Equals(supposedYesterday.AddDays(1));
         }
 
         public static bool IsToday(this DateTime dateTime)
         {
-            var currentDate = DateTime.Now;
-
-            var today = GetTrimmedDateTime(currentDate);
-            var lessPreciseDate = GetTrimmedDateTime(dateTime);
-
-            return today.Equals(lessPreciseDate);
+            var supposedToday = GetTrimmedDateTime(dateTime);
+            var today = GetTrimmedDateTime(DateTime.Now);
+            
+            return today.Equals(supposedToday);
         }
 
         public static bool IsTomorrow(this DateTime dateTime)
         {
-            var currentDate = DateTime.Now;
+            var supposedTomorrow = GetTrimmedDateTime(dateTime);
+            var today = GetTrimmedDateTime(DateTime.Now);
 
-            var today = GetTrimmedDateTime(currentDate);
-            var lessPreciseDate = GetTrimmedDateTime(dateTime);
-
-            return today.AddDays(1).Equals(lessPreciseDate);
+            return today.AddDays(1).Equals(supposedTomorrow);
         }
 
         private static DateTime GetTrimmedDateTime(DateTime dateTime)
