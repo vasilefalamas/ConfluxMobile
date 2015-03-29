@@ -173,10 +173,12 @@ namespace Conflux.UI.ViewModels
 
         public void Build(Event eventItem)
         {
-
             AddEventData(eventItem);
 
-            AddMapApps();
+            if (Location != null)
+            {
+                AddMapApps();
+            }
         }
         
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
