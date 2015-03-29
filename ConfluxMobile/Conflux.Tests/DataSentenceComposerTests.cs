@@ -8,7 +8,7 @@ namespace Conflux.Tests
     public class DataSentenceComposerTests
     {
         [TestMethod]
-        public void WhenComposeBeginSentenceCalled_WithNoStartDate_ReturnsNull()
+        public void WhenComposeBeginSentenceCalled_WithNoDate_ReturnsNull()
         {
             var sentence = DateSentenceComposer.ComposeBeginSentence(null);
 
@@ -16,40 +16,40 @@ namespace Conflux.Tests
         }
 
         [TestMethod]
-        public void WhenComposeBeginSentenceCalled_WithPastStartDate_ReturnsPastReferenceString()
+        public void WhenComposeBeginSentenceCalled_WithPastDate_ReturnsStartOnAndPastReferenceString()
         {
-            var date = DateTime.Now.Subtract(new TimeSpan(10, 0, 0, 0));
+            var pastStartDate = DateTime.Now.Subtract(new TimeSpan(10, 0, 0, 0));
 
-            var sentence = DateSentenceComposer.ComposeBeginSentence(date);
+            var sentence = DateSentenceComposer.ComposeBeginSentence(pastStartDate);
 
-            var expectedString = string.Format("Starts on {0}.", date);
+            var expectedString = string.Format("Starts on {0}.", pastStartDate);
             Assert.AreEqual(expectedString, sentence);
         }
 
         [TestMethod]
-        public void WhenComposeBeginSentenceCalled_WithYesterdayStartDate_ReturnsStartedYesterday()
+        public void WhenComposeBeginSentenceCalled_WithYesterdayDate_ReturnsHasStartedYesterdayString()
         {
-            var date = DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0));
+            var yesterdayStartDate = DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0));
 
-            var sentence = DateSentenceComposer.ComposeBeginSentence(date);
+            var sentence = DateSentenceComposer.ComposeBeginSentence(yesterdayStartDate);
 
             var expectedString = string.Format("Has started yesterday.");
             Assert.AreEqual(expectedString, sentence);
         }
 
         [TestMethod]
-        public void WhenComposeBeginSentenceCalled_WithTomorrowStartDate_ReturnsWillStartTomorrow()
+        public void WhenComposeBeginSentenceCalled_WithTomorrowDate_ReturnsWillStartTomorrowString()
         {
-            var date = DateTime.Now.AddDays(1);
+            var tomorrowStartDate = DateTime.Now.AddDays(1);
 
-            var sentence = DateSentenceComposer.ComposeBeginSentence(date);
+            var sentence = DateSentenceComposer.ComposeBeginSentence(tomorrowStartDate);
 
             var expectedString = string.Format("Will start tomorrow.");
             Assert.AreEqual(expectedString, sentence);
         }
 
         [TestMethod]
-        public void WhenComposeEndSentenceCalled_WithNoStartDate_ReturnsNull()
+        public void WhenComposeEndSentenceCalled_WithNoDate_ReturnsNull()
         {
             var sentence = DateSentenceComposer.ComposeEndSentence(null);
 
@@ -57,33 +57,33 @@ namespace Conflux.Tests
         }
         
         [TestMethod]
-        public void WhenComposeEndSentenceCalled_WithEndPastDate_ReturnsPastReferenceString()
+        public void WhenComposeEndSentenceCalled_WithPastDate_ReturnsEndsOnAndPastReferenceString()
         {
-            var date = DateTime.Now.Subtract(new TimeSpan(10, 0, 0, 0));
+            var pastEndDate = DateTime.Now.Subtract(new TimeSpan(10, 0, 0, 0));
 
-            var sentence = DateSentenceComposer.ComposeEndSentence(date);
+            var sentence = DateSentenceComposer.ComposeEndSentence(pastEndDate);
 
-            var expectedString = string.Format("Ends on {0}.", date);
+            var expectedString = string.Format("Ends on {0}.", pastEndDate);
             Assert.AreEqual(expectedString, sentence);
         }
 
         [TestMethod]
-        public void WhenComposeEndSentenceCalled_WithYesterdayDate_ReturnsHasEndedYesterday()
+        public void WhenComposeEndSentenceCalled_WithYesterdayDate_ReturnsHasEndedYesterdayString()
         {
-            var yesterday = DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0));
+            var yesterdayEndDate = DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0));
 
-            var sentence = DateSentenceComposer.ComposeEndSentence(yesterday);
+            var sentence = DateSentenceComposer.ComposeEndSentence(yesterdayEndDate);
 
             var expectedString = string.Format("Has ended yesterday.");
             Assert.AreEqual(expectedString, sentence);
         }
 
         [TestMethod]
-        public void WhenComposeEndSentenceCalled_WithTomorrow_ReturnsWillEndTomorrow()
+        public void WhenComposeEndSentenceCalled_WithTomorrowDate_ReturnsWillEndTomorrowString()
         {
-            var tomorrow = DateTime.Now.AddDays(1);
+            var tomorrowEndDate = DateTime.Now.AddDays(1);
 
-            var sentence = DateSentenceComposer.ComposeEndSentence(tomorrow);
+            var sentence = DateSentenceComposer.ComposeEndSentence(tomorrowEndDate);
 
             var expectedString = string.Format("Will end tomorrow.");
             Assert.AreEqual(expectedString, sentence);
