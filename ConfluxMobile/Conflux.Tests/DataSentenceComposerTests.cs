@@ -22,7 +22,7 @@ namespace Conflux.Tests
 
             var sentence = DateSentenceComposer.ComposeBeginSentence(date);
 
-            var expectedString = string.Format("Started on {0}.", date);
+            var expectedString = string.Format("Starts on {0}.", date);
             Assert.AreEqual(expectedString, sentence);
         }
 
@@ -34,6 +34,17 @@ namespace Conflux.Tests
             var sentence = DateSentenceComposer.ComposeBeginSentence(date);
 
             var expectedString = string.Format("Has started yesterday.");
+            Assert.AreEqual(expectedString, sentence);
+        }
+
+        [TestMethod]
+        public void WhenComposeBeginSentenceCalled_WithTomorrowStartDate_ReturnsWillStartTomorrow()
+        {
+            var date = DateTime.Now.AddDays(1);
+
+            var sentence = DateSentenceComposer.ComposeBeginSentence(date);
+
+            var expectedString = string.Format("Will start tomorrow.");
             Assert.AreEqual(expectedString, sentence);
         }
 
@@ -52,7 +63,29 @@ namespace Conflux.Tests
 
             var sentence = DateSentenceComposer.ComposeEndSentence(date);
 
-            var expectedString = string.Format("Ended on {0}.", date);
+            var expectedString = string.Format("Ends on {0}.", date);
+            Assert.AreEqual(expectedString, sentence);
+        }
+
+        [TestMethod]
+        public void WhenComposeEndSentenceCalled_WithYesterdayDate_ReturnsHasEndedYesterday()
+        {
+            var yesterday = DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0));
+
+            var sentence = DateSentenceComposer.ComposeEndSentence(yesterday);
+
+            var expectedString = string.Format("Has ended yesterday.");
+            Assert.AreEqual(expectedString, sentence);
+        }
+
+        [TestMethod]
+        public void WhenComposeEndSentenceCalled_WithTomorrow_ReturnsWillEndTomorrow()
+        {
+            var tomorrow = DateTime.Now.AddDays(1);
+
+            var sentence = DateSentenceComposer.ComposeEndSentence(tomorrow);
+
+            var expectedString = string.Format("Will end tomorrow.");
             Assert.AreEqual(expectedString, sentence);
         }
     }

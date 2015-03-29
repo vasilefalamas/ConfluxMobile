@@ -5,6 +5,7 @@ namespace Conflux.Core.Models
 {
     public class DateSentenceComposer
     {
+        //TODO : ComposeBegin & ComposeEnd look similar - refactor them.
         public static string ComposeBeginSentence(DateTime? startDate)
         {
             if (!startDate.HasValue)
@@ -19,7 +20,12 @@ namespace Conflux.Core.Models
                 return string.Format("Has started yesterday.");
             }
 
-            return string.Format("Started on {0}.", startDateValue);
+            if (startDateValue.IsTomorrow())
+            {
+                return string.Format("Will start tomorrow.");
+            }
+
+            return string.Format("Starts on {0}.", startDateValue);
         }
 
         public static string ComposeEndSentence(DateTime? endDate)
@@ -29,7 +35,19 @@ namespace Conflux.Core.Models
                 return null;
             }
 
-            return string.Format("Ended on {0}.", endDate.Value);
+            var endDateValue = endDate.Value;
+
+            if (endDateValue.IsYesterday())
+            {
+                return string.Format("Has ended yesterday.");
+            }
+
+            if (endDateValue.IsTomorrow())
+            {
+                return string.Format("Will end tomorrow.");
+            }
+
+            return string.Format("Ends on {0}.", endDate.Value);
         }
     }
 }
