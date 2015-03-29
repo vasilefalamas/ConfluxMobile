@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using Conflux.Core.Extensions;
 
 namespace Conflux.Core.Models
