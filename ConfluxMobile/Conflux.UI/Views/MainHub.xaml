@@ -20,6 +20,7 @@
     <Page.Resources>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <converters:BoolToColorConverter x:Key="VisitedEventColorConverter"/>
+        <converters:DateSentenceConverter x:Key="DateSentenceConverter"/>
         <MenuFlyout x:Key="NewestEventFlyout">
             <MenuFlyoutItem Text="add to blacklist" Click="OnNewestEventContextMenuClicked"/>
         </MenuFlyout>
@@ -107,11 +108,11 @@
                                                    ContinuumNavigationTransitionInfo.IsExitElement="True"/>
                                         <TextBlock Grid.Row="1" Grid.Column="1" Padding="10, 2, 5, 5"
                                                    Visibility="{Binding Event.StartTime, Converter={StaticResource NullToVisibilityConverter}}"
-                                                   Text="{Binding Event.StartTime}"
+                                                   Text="{Binding Event.StartTime, Converter={StaticResource DateSentenceConverter}, ConverterParameter='Start'}"
                                                    Foreground="{StaticResource MidBrush}"/>
                                         <TextBlock Grid.Row="2" Grid.Column="1" Padding="10, 2, 5, 5"
                                                    Visibility="{Binding Event.EndTime, Converter={StaticResource NullToVisibilityConverter}}"
-                                                   Text="{Binding Event.EndTime}"
+                                                   Text="{Binding Event.EndTime, Converter={StaticResource DateSentenceConverter}, ConverterParameter='End'}"
                                                    Foreground="{StaticResource MidBrush}"/>
                                         <TextBlock Grid.Row="3" Grid.Column="1" Padding="10, 0, 5, 2"
                                                    Visibility="{Binding Event.Location, Converter={StaticResource NullToVisibilityConverter}}"
