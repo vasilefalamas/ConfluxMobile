@@ -86,6 +86,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Models\DateSentenceComposer.cs" />
     <Compile Include="Models\EventDisplayItem.cs" />
     <Compile Include="Models\EventsSource.cs" />
     <Compile Include="Models\IIncrementalSource.cs" />
