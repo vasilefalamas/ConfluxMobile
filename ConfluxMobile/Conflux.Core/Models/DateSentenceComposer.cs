@@ -5,7 +5,7 @@ namespace Conflux.Core.Models
 {
     public class DateSentenceComposer
     {
-        private const string DateFormat = "MM-dd-yyyy, dddd";
+        private const string DateFormat = "dd MMMM yyyy, dddd";
 
         //TODO : ComposeBegin & ComposeEnd look similar - refactor them.
         public static string ComposeBeginSentence(DateTime? startDate)

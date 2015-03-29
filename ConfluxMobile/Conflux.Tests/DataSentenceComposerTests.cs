@@ -7,6 +7,8 @@ namespace Conflux.Tests
     [TestClass]
     public class DataSentenceComposerTests
     {
+        private const string DateFormat = "dd MMMM yyyy, dddd";
+
         [TestMethod]
         public void WhenComposeBeginSentenceCalled_WithNoDate_ReturnsNull()
         {
@@ -22,7 +24,7 @@ namespace Conflux.Tests
 
             var sentence = DateSentenceComposer.ComposeBeginSentence(pastStartDate);
 
-            var expectedString = string.Format("Starts on {0}.", pastStartDate);
+            var expectedString = string.Format("Starts on {0}.", pastStartDate.ToString(DateFormat));
             Assert.AreEqual(expectedString, sentence);
         }
 
@@ -63,7 +65,7 @@ namespace Conflux.Tests
 
             var sentence = DateSentenceComposer.ComposeEndSentence(pastEndDate);
 
-            var expectedString = string.Format("Ends on {0}.", pastEndDate);
+            var expectedString = string.Format("Ends on {0}.", pastEndDate.ToString(DateFormat));
             Assert.AreEqual(expectedString, sentence);
         }
 
