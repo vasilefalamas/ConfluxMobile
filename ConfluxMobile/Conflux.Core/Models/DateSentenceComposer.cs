@@ -19,7 +19,7 @@ namespace Conflux.Core.Models
 
             if (startDateValue.IsYesterday())
             {
-                return string.Format("Has started yesterday.");
+                return string.Format("Started yesterday.");
             }
 
             if (startDateValue.IsTomorrow())

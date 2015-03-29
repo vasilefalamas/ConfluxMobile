@@ -35,7 +35,7 @@ namespace Conflux.Tests
 
             var sentence = DateSentenceComposer.ComposeBeginSentence(yesterdayStartDate);
 
-            var expectedString = string.Format("Has started yesterday.");
+            var expectedString = string.Format("Started yesterday.");
             Assert.AreEqual(expectedString, sentence);
         }
 
