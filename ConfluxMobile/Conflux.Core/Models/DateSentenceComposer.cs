@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Conflux.Core.Extensions;
 
 namespace Conflux.Core.Models
@@ -7,49 +8,98 @@ namespace Conflux.Core.Models
     {
         private const string DateFormat = "dd MMMM yyyy, dddd";
 
+        private const string StartPastOnDate = "Started on {0}.";
+        private const string StartPastYesterday = "Started yesterday.";
+        private const string StartPresentOnDate = "Starts today.";
+        private const string StartFutureTomorrow = "Will start tomorrow.";
+        private const string StartFutureOnDate = "Will start on {0}.";
+
+
+        private const string EndPastOnDate = "Ended on {0}.";
+        private const string EndPastYesterday = "Has ended yesterday.";
+        private const string EndPresentOnDate = "Ends today.";
+        private const string EndFutureTomorrow = "Will end tomorrow.";
+        private const string EndFutureOnDate = "Will end on {0}.";
+
         //TODO : ComposeBegin & ComposeEnd look similar - refactor them.
-        public static string ComposeBeginSentence(DateTime? startDate)
+        public static string ComposeBeginSentence(DateTime startDate)
         {
-            if (!startDate.HasValue)
+            if (startDate.Date < DateTime.Now.Date)
             {
-                return null;
+                return GetBeginSentenceForPastDate(startDate);
             }
 
-            var startDateValue = startDate.Value;
-
-            if (startDateValue.IsYesterday())
+            if (startDate.Date > DateTime.Now.Date)
             {
-                return string.Format("Started yesterday.");
+                return GetBeginSentenceForFutureDate(startDate);
             }
 
-            if (startDateValue.IsTomorrow())
-            {
-                return string.Format("Will start tomorrow.");
-            }
-
-            return string.Format("Starts on {0}.", startDateValue.ToString(DateFormat));
+            return GetBeginSentenceForPresentDate();
         }
 
-        public static string ComposeEndSentence(DateTime? endDate)
+        public static string ComposeEndSentence(DateTime endDate)
         {
-            if (!endDate.HasValue)
+            if (endDate.Date < DateTime.Now.Date)
             {
-                return null;
+                return GetEndSentenceForPastDate(endDate);
             }
 
-            var endDateValue = endDate.Value;
-
-            if (endDateValue.IsYesterday())
+            if (endDate.Date > DateTime.Now.Date)
             {
-                return string.Format("Has ended yesterday.");
+                return GetEndSentenceForFutureDate(endDate);
             }
 
-            if (endDateValue.IsTomorrow())
+            return GetEndSentenceForPresentDate();
+        }
+
+        private static string GetBeginSentenceForPastDate(DateTime date)
+        {
+            if (date.IsYesterday())
             {
-                return string.Format("Will end tomorrow.");
+                return StartPastYesterday;
             }
 
-            return string.Format("Ends on {0}.", endDate.Value.ToString(DateFormat));
+            return string.Format(StartPastOnDate, date.ToString(DateFormat, CultureInfo.CurrentCulture));
+        }
+
+        private static string GetBeginSentenceForPresentDate()
+        {
+            return string.Format(StartPresentOnDate);
+        }
+
+        private static string GetBeginSentenceForFutureDate(DateTime date)
+        {
+            if (date.IsTomorrow())
+            {
+                return StartFutureTomorrow;
+            }
+
+            return string.Format(StartFutureOnDate, date.ToString(DateFormat, CultureInfo.CurrentCulture));
+        }
+
+        private static string GetEndSentenceForPastDate(DateTime date)
+        {
+            if (date.IsYesterday())
+            {
+                return EndPastYesterday;
+            }
+
+            return string.Format(EndPastOnDate, date.ToString(DateFormat, CultureInfo.CurrentCulture));
+        }
+
+        private static string GetEndSentenceForPresentDate()
+        {
+            return string.Format(EndPresentOnDate);
+        }
+
+        private static string GetEndSentenceForFutureDate(DateTime date)
+        {
+            if (date.IsTomorrow())
+            {
+                return EndFutureTomorrow;
+            }
+
+            return string.Format(EndFutureOnDate, date.ToString(DateFormat, CultureInfo.CurrentCulture));
         }
     }
 }
