@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Storage.Streams;
 using Windows.System;
@@ -11,7 +10,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity;
-using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Models;
 using Conflux.UI.Common;
 using Conflux.UI.Helpers;
@@ -78,7 +76,7 @@ namespace Conflux.UI.Views
             if (viewModel.IsMapLocationAvailable)
             {
                 MapGrid.Visibility = Visibility.Visible;
-                await ShowEventOnMapAsync(viewModel.Location);
+                await ShowEventOnMapAsync();
             }
         }
 
@@ -122,22 +120,14 @@ namespace Conflux.UI.Views
             fullDescriptionPanel.Hide();
         }
 
-
-        //TODO : Extract this into a separate helper class.
-        private async Task ShowEventOnMapAsync(LocationInfo location)
+        private async Task ShowEventOnMapAsync()
         {
-            var geoposition = new BasicGeoposition
-            {
-                Latitude = location.Latitude,
-                Longitude = location.Longitude
-            };
-
-            var mapCenterPoint = new Geopoint(geoposition);
+            var mapCenterPoint = viewModel.GetEventPosition();
 
             var pin = new MapIcon
             {
                 Location = mapCenterPoint,
-                Title = location.Name,
+                Title = viewModel.Location,
                 Image = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/pin128.png")),
                 NormalizedAnchorPoint = new Point { X = 0.32, Y = 0.78 }
             };

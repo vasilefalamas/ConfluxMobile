@@ -187,15 +187,38 @@
                                 </Grid>
                             </DataTemplate>
                         </HubSection>
-                        <HubSection Header="RSVP" x:Name="RsvpHubSection" Margin="0, 0, 0, 50">
+                        <HubSection Header="WHEN &amp; WHERE" Margin="0, 0, 0, 50">
                             <DataTemplate>
-                                <ScrollViewer>
-                                    <TextBlock FontSize="16" TextWrapping="Wrap"
-                                    Text="[Not yet implemented] RSVP about the event will be shown here soon."/>
+                                <ScrollViewer ZoomMode="Disabled">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                                   Text="&#xE121;" FontSize="25" FontFamily="Segoe UI Symbol"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <StackPanel Grid.Row="0" Grid.Column="1">
+                                            <TextBlock Text="{Binding StartTime}" FontSize="16" TextWrapping="Wrap"
+                                                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding EndTime}" FontSize="16" TextWrapping="Wrap"
+                                                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                        <TextBlock Grid.Row="1" Grid.Column="0" 
+                                                   Text="&#xE139;" FontSize="25" FontFamily="Segoe UI Symbol"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <StackPanel Grid.Row="1" Grid.Column="1">
+                                            <TextBlock TextWrapping="Wrap"  Text="{Binding Location}" FontSize="16"/>    
+                                        </StackPanel>
+                                    </Grid>
                                 </ScrollViewer>
                             </DataTemplate>
                         </HubSection>
-                        <HubSection Header="Statistics" x:Name="StatisticsHubSection" Margin="0, 0, 0, 50">
+                        <HubSection Header="SIMILAR" Margin="0, 0, 0, 50">
                             <DataTemplate>
                                 <ScrollViewer>
                                     <TextBlock FontSize="16" TextWrapping="Wrap"

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Windows.Devices.Geolocation;
 using Conflux.Connectivity.GraphApi;
 using Conflux.UI.Models;
 
@@ -24,9 +26,11 @@ namespace Conflux.UI.ViewModels
 
         private string fullDescription;
         
-        private DateTime? startTime;
+        private string startTime;
 
-        private DateTime? endTime;
+        private string endTime;
+
+        private string location;
 
         private LocationInfo locationInfo;
         
@@ -113,7 +117,7 @@ namespace Conflux.UI.ViewModels
             }
         }
 
-        public DateTime? StartTime
+        public string StartTime
         {
             get
             {
@@ -126,7 +130,7 @@ namespace Conflux.UI.ViewModels
             }
         }
 
-        public DateTime? EndTime
+        public string EndTime
         {
             get
             {
@@ -135,6 +139,19 @@ namespace Conflux.UI.ViewModels
             private set
             {
                 endTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Location
+        {
+            get
+            {
+                return location;
+            }
+            set
+            {
+                location = value;
                 OnPropertyChanged();
             }
         }
@@ -148,9 +165,7 @@ namespace Conflux.UI.ViewModels
         }
 
         public bool IsMapSelectionActive { get; set; }
-
-        public LocationInfo Location { get; private set; }
-
+        
         public EventDetailsViewModel()
         {
             MapAppsOptions = new ObservableCollection<MapAppItem>();
@@ -168,17 +183,29 @@ namespace Conflux.UI.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void Build(Event eventItem)
         {
             AddEventData(eventItem);
 
-            if (Location != null)
+            if (eventItem.Location != null)
             {
                 AddMapApps();
             }
+        }
+
+        public Geopoint GetEventPosition()
+        {
+            var geoposition = new BasicGeoposition
+            {
+                Latitude = locationInfo.Latitude,
+                Longitude = locationInfo.Longitude
+            };
+
+            var geopoint = new Geopoint(geoposition);
+            return geopoint;
         }
         
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -197,10 +224,10 @@ namespace Conflux.UI.ViewModels
             ShortDescription = GetShortDescription(cleanedDescription);
             FullDescription = cleanedDescription;
             IsDescriptionTooLong = DetermineIsDescriptionTooLong();
-            StartTime = eventItem.StartTime;
-            EndTime = eventItem.EndTime;
+            StartTime = GetFormattedDateTime(eventItem.StartTime);
+            EndTime = GetFormattedDateTime(eventItem.EndTime);
             locationInfo = eventItem.Location;
-            Location = eventItem.Location;
+            Location = eventItem.Location == null ? string.Empty : eventItem.Location.Name;
         }
 
         private string GetShortDescription(string description)
@@ -226,6 +253,17 @@ namespace Conflux.UI.ViewModels
 
             return ShortDescription.Length < FullDescription.Length + 3; //Ellipsis included
         }
+
+        private string GetFormattedDateTime(DateTime? dateTime)
+        {
+            if (!dateTime.HasValue)
+            {
+                return string.Empty;
+            }
+
+            return dateTime.Value.ToString("dd MMMM yyyy, dddd", CultureInfo.CurrentCulture);
+        }
+
         private void AddMapApps()
         {
             var hereMaps = new MapAppItem
