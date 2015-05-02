@@ -30,7 +30,13 @@ namespace Conflux.UI.ViewModels
 
         private string endTime;
 
+        private bool isStartTimeAvailable;
+
+        private bool isEndTimeAvailable;
+
         private string location;
+
+        private bool isMapLocationAvailable;
 
         private LocationInfo locationInfo;
         
@@ -160,10 +166,42 @@ namespace Conflux.UI.ViewModels
         {
             get
             {
-                return locationInfo != null && locationInfo.Id != 0;
+               return isMapLocationAvailable;
+                // return locationInfo != null && locationInfo.Id != 0;
+            }
+            private set
+            {
+                isMapLocationAvailable = value;
+                OnPropertyChanged();
             }
         }
 
+        public bool IsStartTimeAvailable
+        {
+            get
+            {
+                return isStartTimeAvailable;
+            }
+            private set
+            {
+                isStartTimeAvailable = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsEndTimeAvailable
+        {
+            get
+            {
+                return isEndTimeAvailable;
+            }
+            private set
+            {
+                isEndTimeAvailable = value;
+                OnPropertyChanged();
+            }
+        }
+        
         public bool IsMapSelectionActive { get; set; }
         
         public EventDetailsViewModel()
@@ -225,9 +263,12 @@ namespace Conflux.UI.ViewModels
             FullDescription = cleanedDescription;
             IsDescriptionTooLong = DetermineIsDescriptionTooLong();
             StartTime = GetFormattedDateTime(eventItem.StartTime);
+            IsStartTimeAvailable = !string.IsNullOrEmpty(StartTime);
             EndTime = GetFormattedDateTime(eventItem.EndTime);
+            IsEndTimeAvailable = !string.IsNullOrEmpty(EndTime);
             locationInfo = eventItem.Location;
             Location = eventItem.Location == null ? string.Empty : eventItem.Location.Name;
+            IsMapLocationAvailable = locationInfo != null && locationInfo.Id != 0;
         }
 
         private string GetShortDescription(string description)

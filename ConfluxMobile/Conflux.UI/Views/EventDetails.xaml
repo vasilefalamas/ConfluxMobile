@@ -190,31 +190,60 @@
                         <HubSection Header="WHEN &amp; WHERE" Margin="0, 0, 0, 50">
                             <DataTemplate>
                                 <ScrollViewer ZoomMode="Disabled">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="40"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" 
-                                                   Text="&#xE121;" FontSize="25" FontFamily="Segoe UI Symbol"
+                                    <StackPanel>
+                                        <!-- Date and Time -->
+                                        <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 15">
+                                            <TextBlock Text="&#xE121;" FontSize="25" FontFamily="Segoe UI Symbol"
                                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <StackPanel Grid.Row="0" Grid.Column="1">
-                                            <TextBlock Text="{Binding StartTime}" FontSize="16" TextWrapping="Wrap"
-                                                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{Binding EndTime}" FontSize="16" TextWrapping="Wrap"
-                                                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                            <Grid Margin="10, 0, 0, 0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                                    <Grid Visibility="{Binding IsStartTimeAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Text="Start time :" FontSize="16"/>
+                                                        <TextBlock Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding StartTime}" FontSize="16"/>
+                                                    </Grid>
+                                                    <TextBlock Text="Start time is not defined." FontSize="16" Foreground="{StaticResource MidBrush}"
+                                                               Visibility="{Binding IsStartTimeAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
+                                                </StackPanel>
+                                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                                    <Grid Visibility="{Binding IsEndTimeAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Text="End time :" FontSize="16"/>
+                                                        <TextBlock Grid.Column="1" Text="{Binding EndTime}" FontSize="16"/>
+                                                    </Grid>
+                                                    <TextBlock Text="End time is undefined." FontSize="16" Foreground="{StaticResource MidBrush}"
+                                                               Visibility="{Binding IsEndTimeAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
+                                                </StackPanel>
+                                            </Grid>
                                         </StackPanel>
-                                        <TextBlock Grid.Row="1" Grid.Column="0" 
-                                                   Text="&#xE139;" FontSize="25" FontFamily="Segoe UI Symbol"
+                                        <!-- Location -->
+                                        <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 15">
+                                            <TextBlock Text="&#xE139;" FontSize="25" FontFamily="Segoe UI Symbol"
                                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <StackPanel Grid.Row="1" Grid.Column="1">
-                                            <TextBlock TextWrapping="Wrap"  Text="{Binding Location}" FontSize="16"/>    
+                                                <Grid Margin="10, 0, 0, 0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                <TextBlock Grid.Row="0" Text="Location :" FontSize="16"/>
+                                                <TextBlock Grid.Row="1" Text="{Binding Location}" FontSize="16"
+                                                           Visibility="{Binding IsMapLocationAvailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                <TextBlock Grid.Row="1" Foreground="{StaticResource MidBrush}"
+                                                           Text="This event's location is undefined." FontSize="16"
+                                                           Visibility="{Binding IsMapLocationAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
+                                            </Grid>
                                         </StackPanel>
-                                    </Grid>
+                                    </StackPanel>
                                 </ScrollViewer>
                             </DataTemplate>
                         </HubSection>
