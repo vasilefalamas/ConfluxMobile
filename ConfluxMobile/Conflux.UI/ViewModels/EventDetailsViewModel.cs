@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Devices.Geolocation;
 using Conflux.Connectivity.GraphApi;
 using Conflux.UI.Models;
@@ -35,6 +36,8 @@ namespace Conflux.UI.ViewModels
         private bool isEndTimeAvailable;
 
         private string location;
+
+        private bool isLocationAvailable;
 
         private bool isMapLocationAvailable;
 
@@ -162,6 +165,19 @@ namespace Conflux.UI.ViewModels
             }
         }
 
+        public bool IsLocationAvailable
+        {
+            get
+            {
+                return isLocationAvailable;
+            }
+            set
+            {
+                isLocationAvailable = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool IsMapLocationAvailable
         {
             get
@@ -268,6 +284,7 @@ namespace Conflux.UI.ViewModels
             locationInfo = eventItem.Location;
             Location = eventItem.Location == null ? string.Empty : eventItem.Location.Name;
             IsMapLocationAvailable = locationInfo != null && locationInfo.Id != 0;
+            IsLocationAvailable = !string.IsNullOrEmpty(Location);
         }
 
         private string GetShortDescription(string description)

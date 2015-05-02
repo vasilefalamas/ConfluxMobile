@@ -241,10 +241,10 @@
                                                 </Grid.RowDefinitions>
                                                 <TextBlock Grid.Row="0" Text="Location :" FontSize="16"/>
                                                 <TextBlock Grid.Row="1" Text="{Binding Location}" FontSize="16" TextWrapping="Wrap"
-                                                           Visibility="{Binding IsMapLocationAvailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                                           Visibility="{Binding IsLocationAvailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                                 <TextBlock Grid.Row="1" Foreground="{StaticResource MidBrush}"
                                                            Text="This event's location is undefined." FontSize="16" TextWrapping="Wrap"
-                                                           Visibility="{Binding IsMapLocationAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
+                                                           Visibility="{Binding IsLocationAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
                                             </Grid>
                                         </Grid>
                                     </StackPanel>
