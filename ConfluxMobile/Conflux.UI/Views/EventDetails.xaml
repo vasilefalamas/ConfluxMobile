@@ -227,22 +227,26 @@
                                             </Grid>
                                         </StackPanel>
                                         <!-- Location -->
-                                        <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 15">
+                                        <Grid Margin="0, 0, 0, 15">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
                                             <TextBlock Text="&#xE139;" FontSize="25" FontFamily="Segoe UI Symbol"
                                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                                <Grid Margin="10, 0, 0, 0">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="*"/>
-                                                        <RowDefinition Height="*"/>
-                                                    </Grid.RowDefinitions>
+                                            <Grid Grid.Column="1" Margin="10, 0, 0, 0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
                                                 <TextBlock Grid.Row="0" Text="Location :" FontSize="16"/>
-                                                <TextBlock Grid.Row="1" Text="{Binding Location}" FontSize="16"
+                                                <TextBlock Grid.Row="1" Text="{Binding Location}" FontSize="16" TextWrapping="Wrap"
                                                            Visibility="{Binding IsMapLocationAvailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                                 <TextBlock Grid.Row="1" Foreground="{StaticResource MidBrush}"
-                                                           Text="This event's location is undefined." FontSize="16"
+                                                           Text="This event's location is undefined." FontSize="16" TextWrapping="Wrap"
                                                            Visibility="{Binding IsMapLocationAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
                                             </Grid>
-                                        </StackPanel>
+                                        </Grid>
                                     </StackPanel>
                                 </ScrollViewer>
                             </DataTemplate>
