@@ -251,7 +251,7 @@
                             <DataTemplate>
                                 <ScrollViewer>
                                     <TextBlock FontSize="16" TextWrapping="Wrap"
-                                    Text="[Not yet implemented] Statistics about the event will be shown here soon."/>
+                                    Text="[Not yet implemented] Search for events with similar Start Date or Location to this event's ones."/>
                                 </ScrollViewer>
                             </DataTemplate>
                         </HubSection>
