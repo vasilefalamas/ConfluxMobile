@@ -219,7 +219,7 @@
                                                             <ColumnDefinition Width="*"/>
                                                         </Grid.ColumnDefinitions>
                                                         <TextBlock Grid.Column="0" Text="End time :" FontSize="16"/>
-                                                        <TextBlock Grid.Column="1" Text="{Binding EndTime}" FontSize="16"/>
+                                                        <TextBlock Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding EndTime}" FontSize="16"/>
                                                     </Grid>
                                                     <TextBlock Text="End time is undefined." FontSize="16" Foreground="{StaticResource MidBrush}"
                                                                Visibility="{Binding IsEndTimeAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
