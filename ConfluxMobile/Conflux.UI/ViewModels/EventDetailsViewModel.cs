@@ -167,7 +167,6 @@ namespace Conflux.UI.ViewModels
             get
             {
                return isMapLocationAvailable;
-                // return locationInfo != null && locationInfo.Id != 0;
             }
             private set
             {
