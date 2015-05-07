@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Media.SpeechRecognition;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -46,8 +49,10 @@ namespace Conflux.UI
         /// search results, and so forth.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
+            await RegisterVoiceCommands();
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -146,6 +151,10 @@ namespace Conflux.UI
                     ContinueNavigation(typeof (LoadingPage));
                 }
             }
+            else if (args.Kind == ActivationKind.VoiceCommand)
+            {
+                   ContinueNavigation(typeof(LoadingPage)); 
+            } 
             else
             {
                 ContinueNavigation(typeof(LoginPage));
@@ -171,6 +180,22 @@ namespace Conflux.UI
         private void LoadSettings()
         {
             AccessToken = AppSettings.GetAccessToken();
+        }
+
+        private async Task RegisterVoiceCommands()
+        {
+            try
+            {
+                var voiceCommandUrl = new Uri("ms-appx:///VoiceCommands/CortanaVoiceCommand.xml");
+
+                var voiceCommandsFile = await StorageFile.GetFileFromApplicationUriAsync(voiceCommandUrl);
+
+                await VoiceCommandManager.InstallCommandSetsFromStorageFileAsync(voiceCommandsFile);
+            }
+            catch (Exception)
+            {
+                
+            }
         }
     }
 }
