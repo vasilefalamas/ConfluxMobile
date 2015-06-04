@@ -135,6 +135,8 @@ namespace Conflux.Connectivity
             return events;
         }
 
+
+        //TODO IMPORTANT : Review this method - it causes a bug which returns locations with null lat/long and ID = 0
         private LocationInfo GetEventLocationInfo(JsonObject eventJsonObject)
         {
             var locationName = eventJsonObject.GetNamedValue<string>("location");
