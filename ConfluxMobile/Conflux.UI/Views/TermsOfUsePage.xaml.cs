@@ -1,7 +1,9 @@
-﻿using Windows.UI;
+﻿using System;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace Conflux.UI.Views
@@ -30,7 +32,18 @@ namespace Conflux.UI.Views
 
         private void OnContinueClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof (LoginPage));
+            FadeOut();
+        }
+
+        private void FadeOut()
+        {
+            var storyboard = (Storyboard) ContentGrid.Resources["FadeOut"];
+            storyboard.Begin();
+        }
+        
+        private void OnFadeOutCompleted(object sender, object e)
+        {
+            Frame.Navigate(typeof(LoginPage));
         }
     }
 }
