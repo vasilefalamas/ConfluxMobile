@@ -4,6 +4,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Media.SpeechRecognition;
 using Windows.Storage;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -37,6 +38,8 @@ namespace Conflux.UI
             InitializeComponent();
             Suspending += OnSuspending;
 
+            RequestedTheme = ApplicationTheme.Light;
+            
             FacebookProvider = new FacebookProvider();
             User = new User();
 
