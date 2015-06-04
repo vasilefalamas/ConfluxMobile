@@ -4,8 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Application.Resources>
-        <ResourceDictionary>
-            <SolidColorBrush x:Key="MidBrush" Color="#7C7A7A" />
-        </ResourceDictionary>
+        <SolidColorBrush x:Key="ButtonPressedBackgroundThemeBrush" Color="#00ACAC"/>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Teal"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="IsTextScaleFactorEnabled" Value="False" />
+        </Style>
     </Application.Resources>
 </Application>
