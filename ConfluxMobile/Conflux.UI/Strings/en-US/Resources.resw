@@ -121,6 +121,6 @@
     <value>Login with Facebook</value>
   </data>
   <data name="LoginLink.Text" xml:space="preserve">
-    <value>Read more about shared info</value>
+    <value>More about shared info</value>
   </data>
 </root>

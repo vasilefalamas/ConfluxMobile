@@ -49,15 +49,15 @@
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="conflux"
+            <TextBlock Grid.Row="0" Text="conflux" Margin="0, -25, 0, 0"
                        FontSize="50" FontFamily="Calibri" FontWeight="Light"
                        VerticalAlignment="Top" HorizontalAlignment="Center"/>
             <StackPanel Grid.Row="1" 
                         Margin="0, 0, 0, 100"
-                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                        VerticalAlignment="Bottom" HorizontalAlignment="Center">
                 <Grid x:Name="LoginAreaGrid">
                     <Grid.Resources>
                         <Storyboard x:Name="FadeIn">
@@ -99,21 +99,16 @@
                     <Button x:Uid="LoginButton" Grid.Row="0" Content="Login with Facebook"
                         HorizontalAlignment="Center"
                         Click="OnLoginClick"/>
-                    <HyperlinkButton Grid.Row="1" FontSize="14"
+                    <HyperlinkButton Grid.Row="1"
                                  HorizontalAlignment="Center"
                                  Click="OnMoreInfoHyperlinkClick">
                         <TextBlock>
                             <Underline>
-                                <Run x:Uid="LoginLink" FontSize="17" Text="Read more about shared info"/>        
+                                <Run x:Uid="LoginLink" Text="More about shared info"/>        
                             </Underline>
                         </TextBlock>
                     </HyperlinkButton>
                 </Grid>
-                <TextBlock x:Name="WaitMessageTextBlock" 
-                           HorizontalAlignment="Center"
-                           FontSize="20" FontFamily="Calibri" FontWeight="Light"
-                           Visibility="Collapsed">
-                </TextBlock>
             </StackPanel>
         </Grid>
     </Grid>

@@ -17,12 +17,6 @@
         <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
             <Setter Property="Foreground" Value="White" ></Setter>
         </Style>
-        <Style TargetType="RichTextBlock" BasedOn="{StaticResource BaseRichTextBlockStyle}">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="IsTextSelectionEnabled" Value="False"/>
-            <Setter Property="IsTextScaleFactorEnabled" Value="False"/>
-            <Setter Property="FontSize" Value="18"></Setter>
-        </Style>
     </Page.Resources>
 
     <Grid>

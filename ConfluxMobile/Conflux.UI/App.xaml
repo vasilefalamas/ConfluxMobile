@@ -11,5 +11,17 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="IsTextScaleFactorEnabled" Value="False" />
         </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+            <Setter Property="IsTextSelectionEnabled" Value="False"/>
+            <Setter Property="IsTextScaleFactorEnabled" Value="False"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="RichTextBlock" BasedOn="{StaticResource BaseRichTextBlockStyle}">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="IsTextSelectionEnabled" Value="False"/>
+            <Setter Property="IsTextScaleFactorEnabled" Value="False"/>
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

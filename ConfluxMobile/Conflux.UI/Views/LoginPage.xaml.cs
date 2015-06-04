@@ -5,7 +5,6 @@ using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity;
@@ -75,8 +74,9 @@ namespace Conflux.UI.Views
 
             if (!NetworkManager.HasInternetAccess)
             {
-                await new MessageDialog("You need a network connection to log in. Please check your network settings and activate your Wi-Fi or cellular data.", "No connection").ShowAsync();
+                await DisplayStatusMessageAsync("Please check your connection before you login.");
                 LoginAreaGrid.StartAnimation("FadeIn");
+                await HideStatusMessageAsync(3000);
 
                 return;
             }
@@ -85,13 +85,26 @@ namespace Conflux.UI.Views
 
             if (!loginResult)
             {
-                await new MessageDialog("Something wrong happened and the login couldn't complete succesfuly. Please try again later.", "Login unsuccesful").ShowAsync();
+                await DisplayStatusMessageAsync("Couldn't launch Facebook. Please retry.");
                 LoginAreaGrid.StartAnimation("FadeIn");
-
-                return;
+                await HideStatusMessageAsync(3000);
             }
+        }
 
-            ShowWaitingMessage();
+        private async Task DisplayStatusMessageAsync(string message)
+        {
+            var statusBar = StatusBar.GetForCurrentView();
+            statusBar.ProgressIndicator.Text = message;
+
+            await statusBar.ProgressIndicator.ShowAsync();
+        }
+
+        private async Task HideStatusMessageAsync(int waitingMilliseconds)
+        {
+            await Task.Delay(waitingMilliseconds);
+
+            var statusBar = StatusBar.GetForCurrentView();
+            await statusBar.ProgressIndicator.HideAsync();
         }
 
         private async Task<bool> TryLogin(Uri loginUri)
@@ -109,13 +122,6 @@ namespace Conflux.UI.Views
             return true;
         }
 
-        private void ShowWaitingMessage()
-        {
-            LoginAreaGrid.Hide();
-            WaitMessageTextBlock.Show();
-            WaitMessageTextBlock.Text = string.Format("Getting started...");
-        }
-
         private void OnMoreInfoHyperlinkClick(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(SharedInfo));
@@ -125,22 +131,14 @@ namespace Conflux.UI.Views
 
         private void StartGlyphAnimation()
         {
-            var glyphStoryboard = LogoGrid.Resources["GlyphStoryboard"] as Storyboard;
-
-            if (glyphStoryboard != null)
-            {
-                glyphStoryboard.Begin();
-            }
+            var glyphStoryboard = (Storyboard) LogoGrid.Resources["GlyphStoryboard"];
+            glyphStoryboard.Begin();
         }
 
         private void StopGlyphAnimation()
         {
-            var glyphStoryboard = LogoGrid.Resources["GlyphStoryboard"] as Storyboard;
-
-            if (glyphStoryboard != null)
-            {
-                glyphStoryboard.Stop();
-            }
+            var glyphStoryboard = (Storyboard) LogoGrid.Resources["GlyphStoryboard"];
+            glyphStoryboard.Stop();
         }
 
         #endregion
