@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="WhiteSmoke" RequestedTheme="Light">
 
     <Page.Transitions>
         <TransitionCollection>
@@ -40,11 +40,11 @@
                     </DoubleAnimation>
                 </Storyboard>
             </Grid.Resources>
-            <TextBlock x:Name="TopGlyph" Text="&#xE015;" FontFamily="Segoe Ui Symbol" FontSize="100"
+            <TextBlock x:Name="TopGlyph" Foreground="Teal" Text="&#xE015;" FontFamily="Segoe Ui Symbol" FontSize="100"
                                Margin="1, 70, 0, 0" HorizontalAlignment="Center"/>
-            <TextBlock x:Name="MiddleGlyph" Text="&#xE0A1;" FontFamily="Segoe Ui Symbol" FontSize="200"
+            <TextBlock x:Name="MiddleGlyph" Foreground="Teal" Text="&#xE0A1;" FontFamily="Segoe Ui Symbol" FontSize="200"
                                Margin="0, 0, 0, 0" HorizontalAlignment="Center"/>
-            <TextBlock x:Name="BottomGlyph" Text="&#xE015;" FontFamily="Segoe Ui Symbol" FontSize="150"
+            <TextBlock x:Name="BottomGlyph" Foreground="Teal" Text="&#xE015;" FontFamily="Segoe Ui Symbol" FontSize="150"
                                Margin="1, 80, 0, 0" HorizontalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="1">
