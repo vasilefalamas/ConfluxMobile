@@ -91,17 +91,25 @@ namespace Conflux.UI
                 //Facebook Authentication check. Navigate to next page accordingly.
                 Type startPage;
 
-                var savedAccessToken = AppSettings.GetAccessToken();
-
-                if (savedAccessToken != null && savedAccessToken.Expiry > DateTime.Now)
+                //TODO : Extract method GetStartPage()
+                var hasAcceptedTermsOfuse = AppSettings.GetTermsOfUseAcceptance();
+                if (!hasAcceptedTermsOfuse)
                 {
-                    startPage = typeof(LoadingPage);
+                    startPage = typeof (TermsOfUsePage);
                 }
                 else
                 {
-                    startPage = typeof(LoginPage);
-                }
+                    var savedAccessToken = AppSettings.GetAccessToken();
 
+                    if (savedAccessToken != null && savedAccessToken.Expiry > DateTime.Now)
+                    {
+                        startPage = typeof (LoadingPage);
+                    }
+                    else
+                    {
+                        startPage = typeof (LoginPage);
+                    }
+                }
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
