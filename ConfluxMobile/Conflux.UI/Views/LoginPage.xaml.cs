@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.System;
+using Windows.UI;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -21,6 +23,8 @@ namespace Conflux.UI.Views
             InitializeComponent();
 
             navigationHelper = new NavigationHelper(this);
+
+            InitializeStatusBar();
         }
 
         public NavigationHelper NavigationHelper
@@ -54,6 +58,16 @@ namespace Conflux.UI.Views
         }
 
         #endregion
+
+        private static async void InitializeStatusBar()
+        {
+            var applicationView = ApplicationView.GetForCurrentView();
+            applicationView.SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
+
+            var statusBar = StatusBar.GetForCurrentView();
+            statusBar.ForegroundColor = Colors.Teal;
+            await statusBar.ShowAsync();
+        }
 
         private async void OnLoginClick(object sender, RoutedEventArgs e)
         {

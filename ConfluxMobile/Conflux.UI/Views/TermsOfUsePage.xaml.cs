@@ -17,8 +17,8 @@ namespace Conflux.UI.Views
         {
             InitializeComponent();
 
-            var applicationView = ApplicationView.GetForCurrentView();
-            applicationView.SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
+            var statusBar = StatusBar.GetForCurrentView();
+            statusBar.HideAsync();
         }
 
         /// <summary>
