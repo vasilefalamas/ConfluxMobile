@@ -12,15 +12,17 @@ namespace Conflux.Core.Settings
         
         private const string AccessTokenExpiryKey = "Facebook_AccessToken_Expiry";
 
-        private const string LastKnownLocationNameKey = "Preferences_LastKnownLocation_Name";
+        private const string LastKnownLocationNameKey = "Settings_LastKnownLocation_Name";
 
-        private const string LastKnownLongitudeKey = "Preferences_LastKnownLocation_Longitude";
+        private const string LastKnownLongitudeKey = "Settings_LastKnownLocation_Longitude";
 
-        private const string LastKnownLatitudeKey = "Preferences_LastKnownLocation_Latitude";
+        private const string LastKnownLatitudeKey = "Settings_LastKnownLocation_Latitude";
 
-        private const string UseLastKnownLocationKey = "Preferences_UseLastKnownLocation";
+        private const string UseLastKnownLocationKey = "Settings_UseLastKnownLocation";
 
-        private const string AllowImagesDownloadKey = "Preferences_AllowImagesDownload";
+        private const string AllowImagesDownloadKey = "Settings_AllowImagesDownload";
+
+        private const string TermsOfUseAcceptedKey = "Settings_TermsOfUseAccepted";
 
         public static AccessToken GetAccessToken()
         {
@@ -93,6 +95,19 @@ namespace Conflux.Core.Settings
         {
             SetValue(AllowImagesDownloadKey, allowImageDownload);
         }
+
+        public static bool GetTermsOfUseAcceptance()
+        {
+            object hasTermsOfUseAccepted = GetValue(TermsOfUseAcceptedKey);
+            bool result = hasTermsOfUseAccepted != null && (bool) hasTermsOfUseAccepted;
+
+            return result;
+        }
+
+        public static void SetTermsOfUseAcceptance(bool isAccepted)
+        {
+            SetValue(TermsOfUseAcceptedKey, isAccepted);
+        } 
 
         private static object GetValue(string key)
         {
