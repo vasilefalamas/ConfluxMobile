@@ -23,7 +23,7 @@
         <Grid x:Name="ContentGrid">
             <Grid.Resources>
                 <Storyboard x:Key="FadeOut" TargetName="ContentGrid" TargetProperty="Opacity" Completed="OnFadeOutCompleted">
-                    <DoubleAnimation To="0" Duration="00:00:01">
+                    <DoubleAnimation To="0" Duration="00:00:01" SpeedRatio="4">
                         <DoubleAnimation.EasingFunction>
                             <CubicEase/>
                         </DoubleAnimation.EasingFunction>

@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="WhiteSmoke">
 
     <Page.Transitions>
         <TransitionCollection>
@@ -20,35 +20,35 @@
         </Grid.RowDefinitions>
 
         <!-- Title Panel -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="SEARCH PREFERENCES" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+        <StackPanel Grid.Row="0" Margin="19,25,0,0">
+            <TextBlock Text="SEARCH PREFERENCES" Foreground="Teal" 
+                       IsTextScaleFactorEnabled="False" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
         </StackPanel>
 
-        <Grid Grid.Row="1" Margin="0,-6.5, 0, 5">
-            <Pivot>
-                <PivotItem Header="location">
+        <Grid Grid.Row="1" Margin="0,0, 0, 5">
+            <Pivot Foreground="Teal">
+                <PivotItem Header="location" Foreground="Teal">
                     <StackPanel>
                         <CheckBox IsChecked="{Binding IsLastKnownLocationUsed, Mode=TwoWay}">
-                            <TextBlock Text="Use my last known location for finding events"
+                            <TextBlock Text="Use my last known location for finding events" Foreground="Black"
                                            TextWrapping="Wrap"/>
                         </CheckBox>
-                        <TextBlock Foreground="{StaticResource MidBrush}" FontSize="16"
+                        <TextBlock Foreground="DarkGray" FontSize="16"
                                    Text="Last known location might be different than your current one. To update to your new location, uncheck this option and then relog."
-                                   TextWrapping="Wrap"
-                                   Style="{StaticResource BaseTextBlockStyle}"/>
+                                   TextWrapping="Wrap" />
                     </StackPanel>
                 </PivotItem>
-                <PivotItem Header="data">
+                <PivotItem Header="data" Foreground="Teal">
                     <StackPanel>
                         <StackPanel>
-                            <ToggleSwitch Header="Save data transfer" IsOn="{Binding IsImageDownloadEnabled, Mode=TwoWay}">
+                            <ToggleSwitch Header="Save data transfer" Foreground="Black" IsOn="{Binding IsImageDownloadEnabled, Mode=TwoWay}">
                                 <ToggleSwitch.HeaderTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="Save data transfer" Foreground="{StaticResource MidBrush}"/>
+                                        <TextBlock Text="Save data transfer" Foreground="DarkGray"/>
                                     </DataTemplate>
                                 </ToggleSwitch.HeaderTemplate>
                             </ToggleSwitch>
-                            <TextBlock Foreground="{StaticResource MidBrush}" FontSize="16"
+                            <TextBlock Foreground="DarkGray" FontSize="16"
                                        Style="{StaticResource BaseTextBlockStyle}"
                                        Text="Applies to events. If this option is checked, images will not be downloaded."
                                        TextWrapping="Wrap"/>

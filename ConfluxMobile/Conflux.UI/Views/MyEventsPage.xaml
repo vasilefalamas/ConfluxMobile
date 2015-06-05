@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Conflux.UI.Converters"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="White">
 
     <Page.Transitions>
         <TransitionCollection>
@@ -26,8 +26,8 @@
 
         <!-- Title Panel -->
         <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="CONFLUX" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="my events" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+            <TextBlock Text="CONFLUX" Foreground="Teal" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="my events" Foreground="Teal" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="19,9.5,19,0">
@@ -52,26 +52,26 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="0, 5, 0, 3"
-                                              Background="{ThemeResource MidBrush}">
+                                              Background="DarkGray">
                             </Grid>
                             <TextBlock Grid.Row="0" Grid.Column="1"
                                                    Padding="10, 0, 5, 2"
                                                    TextTrimming="CharacterEllipsis"
                                                    FontSize="22"
-                                                   Text="{Binding Event.Title}"
+                                                   Text="{Binding Event.Title}" Foreground="Teal"
                                                    ContinuumNavigationTransitionInfo.IsExitElement="True"/>
                             <TextBlock Grid.Row="1" Grid.Column="1" Padding="10, 2, 5, 5"
                                                    Visibility="{Binding Event.StartTime, Converter={StaticResource NullToVisibilityConverter}}"
                                                    Text="{Binding Event.StartTime}"
-                                                   Foreground="{StaticResource MidBrush}"/>
+                                                   Foreground="Black"/>
                             <TextBlock Grid.Row="2" Grid.Column="1" Padding="10, 2, 5, 5"
                                                    Visibility="{Binding Event.EndTime, Converter={StaticResource NullToVisibilityConverter}}"
                                                    Text="{Binding Event.EndTime}"
-                                                   Foreground="{StaticResource MidBrush}"/>
+                                                   Foreground="Black"/>
                             <TextBlock Grid.Row="3" Grid.Column="1" Padding="10, 0, 5, 2"
                                                    Visibility="{Binding Event.Location, Converter={StaticResource NullToVisibilityConverter}}"
                                                    TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
-                                                   FontSize="16"
+                                                   FontSize="16" Foreground="Teal"
                                                    Text="{Binding Event.Location.Name}"
                                                    MaxLines="2"/>
                         </Grid>

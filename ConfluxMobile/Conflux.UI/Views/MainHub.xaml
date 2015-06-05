@@ -9,7 +9,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:local="using:Conflux.UI.ViewModels"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="White">
 
     <Page.Transitions>
         <TransitionCollection>
@@ -27,7 +27,7 @@
     </Page.Resources>
 
     <Page.BottomAppBar>
-        <CommandBar IsSticky="False" ClosedDisplayMode="Minimal">
+        <CommandBar Foreground="White" Background="Teal" IsSticky="False" ClosedDisplayMode="Minimal">
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="log out" Click="OnLogOutButtonClick"/>
             </CommandBar.SecondaryCommands>
@@ -45,23 +45,23 @@
             <Hub Header="conflux">
                 <Hub.HeaderTemplate>
                     <DataTemplate>
-                        <TextBlock Text="conflux" />
+                        <TextBlock Text="conflux"  Foreground="Teal"/>
                     </DataTemplate>
                 </Hub.HeaderTemplate>
-                <HubSection Header="ME">
+                <HubSection Header="ME" Foreground="Teal">
                     <DataTemplate>
                         <StackPanel>
                             <Image Width="150" Height="150"
                                    HorizontalAlignment="Left"
                                    Source="{Binding ProfilePicture}"/>
-                            <TextBlock Text="{Binding Name}" FontSize="22"/>
-                            <TextBlock Text="{Binding Location}" FontSize="20"/>
+                            <TextBlock Text="{Binding Name}" FontSize="22" Foreground="Teal"/>
+                            <TextBlock Text="{Binding Location}" FontSize="20" Foreground="Teal"/>
                             <ListView Margin="0, 30, 0, 0" 
                                       ItemsSource="{Binding UserSectionLinks}"
                                       SelectionChanged="OnLinkSelectionChanged">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Title}" 
+                                        <TextBlock Text="{Binding Title}" Foreground="Black"
                                                    Style="{StaticResource ListViewItemTextBlockStyle}">
                                         </TextBlock>
                                     </DataTemplate>
@@ -70,7 +70,7 @@
                         </StackPanel>
                     </DataTemplate>
                 </HubSection>
-                <HubSection Header="NEARBY">
+                <HubSection Header="NEARBY" Foreground="Teal">
                     <DataTemplate>
                         <ListView x:Name="NewestEventsListView" ItemsSource="{Binding NewestEvents}"
                                   SelectionChanged="OnNearbyEventsListSelectionChanged">
@@ -104,21 +104,21 @@
                                                    Margin="10, 0, 5, 2"
                                                    TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="3"
                                                    FontSize="22"
-                                                   Text="{Binding Event.Title}"
+                                                   Text="{Binding Event.Title}" Foreground="Teal"
                                                    ContinuumNavigationTransitionInfo.IsExitElement="True"/>
                                         <TextBlock Grid.Row="1" Grid.Column="1" Margin="10, 2, 5, 5"
                                                    Visibility="{Binding Event.StartTime, Converter={StaticResource NullToVisibilityConverter}}"
                                                    Text="{Binding Event.StartTime, Converter={StaticResource DateSentenceConverter}, ConverterParameter='Start'}"
-                                                   Foreground="{StaticResource MidBrush}"/>
+                                                   Foreground="Black"/>
                                         <TextBlock Grid.Row="2" Grid.Column="1" Margin="10, 2, 5, 5"
                                                    Visibility="{Binding Event.EndTime, Converter={StaticResource NullToVisibilityConverter}}"
                                                    Text="{Binding Event.EndTime, Converter={StaticResource DateSentenceConverter}, ConverterParameter='End'}"
-                                                   Foreground="{StaticResource MidBrush}"/>
+                                                   Foreground="Black"/>
                                         <TextBlock Grid.Row="3" Grid.Column="1" Margin="10, 0, 5, 2"
                                                    Visibility="{Binding Event.Location, Converter={StaticResource NullToVisibilityConverter}}"
                                                    TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
                                                    FontSize="16"
-                                                   Text="{Binding Event.Location.Name}"
+                                                   Text="{Binding Event.Location.Name}" Foreground="Teal"
                                                    MaxLines="2"/>
                                     </Grid>
                                 </DataTemplate>
@@ -126,7 +126,7 @@
                         </ListView>
                     </DataTemplate>
                 </HubSection>
-                <HubSection Header="MY FRIENDS">
+                <HubSection Header="MY FRIENDS" Foreground="Teal">
                     
                 </HubSection>
             </Hub>

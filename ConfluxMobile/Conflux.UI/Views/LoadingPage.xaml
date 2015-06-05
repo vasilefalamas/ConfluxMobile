@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Background="White"
     Loaded="OnPageLoaded">
     
     <Grid>
@@ -28,11 +28,11 @@
                     </DoubleAnimation>
                 </Storyboard>
             </Grid.Resources>
-            <TextBlock x:Name="TopGlyph" Text="&#xE015;" FontFamily="Segoe Ui Symbol" FontSize="100"
+            <TextBlock x:Name="TopGlyph" Text="&#xE015;" Foreground="Teal" FontFamily="Segoe Ui Symbol" FontSize="100"
                                Margin="1, 70, 0, 0" HorizontalAlignment="Center"/>
-            <TextBlock x:Name="MiddleGlyph" Text="&#xE0A1;" FontFamily="Segoe Ui Symbol" FontSize="200"
+            <TextBlock x:Name="MiddleGlyph" Text="&#xE0A1;" Foreground="Teal" FontFamily="Segoe Ui Symbol" FontSize="200"
                                Margin="0, 0, 0, 0" HorizontalAlignment="Center"/>
-            <TextBlock x:Name="BottomGlyph" Text="&#xE015;" FontFamily="Segoe Ui Symbol" FontSize="150"
+            <TextBlock x:Name="BottomGlyph" Text="&#xE015;" Foreground="Teal" FontFamily="Segoe Ui Symbol" FontSize="150"
                                Margin="1, 80, 0, 0" HorizontalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="1">
@@ -40,13 +40,13 @@
                 <RowDefinition Height="60"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="conflux"
+            <TextBlock Grid.Row="0" Text="conflux" Foreground="Black"
                        FontSize="50" FontFamily="Calibri" FontWeight="Light"
                        VerticalAlignment="Top" HorizontalAlignment="Center"/>
             <StackPanel Grid.Row="1" 
                         Margin="0, 0, 0, 100"
                         VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock x:Name="StatusTextBlock" Text="Getting ready..."
+                <TextBlock x:Name="StatusTextBlock" Foreground="Black" Text="Getting ready..."
                            FontSize="20" FontFamily="Calibri" FontWeight="Light"/>
             </StackPanel>
         </Grid>
