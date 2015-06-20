@@ -4,8 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d" Background="WhiteSmoke">
 
     <Page.Transitions>
         <TransitionCollection>
@@ -13,7 +12,7 @@
         </TransitionCollection>
     </Page.Transitions>
 
-    <Grid>
+    <Grid Margin="0, 22, 0, 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -21,14 +20,16 @@
 
         <!-- Title Panel -->
         <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock Text="CONFLUX" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="blacklist" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+            <TextBlock Text="CONFLUX" Foreground="Teal"
+                       Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+            <TextBlock Text="blacklist" Foreground="Teal"
+                       Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="19,9.5,19,0">
-            <RichTextBlock TextWrapping="Wrap"
+            <RichTextBlock TextWrapping="Wrap" Foreground="{StaticResource MediumForegroundBrush}"
                        IsTextSelectionEnabled="False"
-                       FontSize="17" Opacity="0.5">
+                       FontSize="17">
                 <Paragraph>
                     Fake or spam-like events will be displayed here. They are always ignored when you search them.
                 </Paragraph>

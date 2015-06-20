@@ -8,7 +8,7 @@
     xmlns:local="using:Conflux.UI"
     xmlns:converters="using:Conflux.UI.Converters"
     mc:Ignorable="d"
-    Background="White"
+    Background="WhiteSmoke"
     Loaded="OnPageLoaded">
 
     <Page.Resources>
@@ -31,7 +31,7 @@
         </CommandBar>
     </Page.BottomAppBar>
 
-    <Grid>
+    <Grid Margin="0, 22, 0, 0">
         <!-- Modal Loading Grid -->
         <Grid x:Name="LoadingModalGrid"
               Canvas.ZIndex="1" Grid.RowSpan="2" >
@@ -61,7 +61,7 @@
                     </ObjectAnimationUsingKeyFrames>
                 </Storyboard>
             </Grid.Resources>
-            <Grid Background="White" Opacity="0.85" />
+            <Grid Background="WhiteSmoke" Opacity="0.85" />
             <StackPanel VerticalAlignment="Center" >
                 <ProgressBar IsIndeterminate="True" Foreground="Teal" />
                 <TextBlock Margin="0, 5, 0, 0"

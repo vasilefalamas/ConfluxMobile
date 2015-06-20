@@ -8,6 +8,11 @@
         <SolidColorBrush x:Key="ToggleSwitchCurtainPressedBackgroundThemeBrush" Color="#00ACAC" />
         <SolidColorBrush x:Key="ButtonPressedBackgroundThemeBrush" Color="#00ACAC"/>
         <SolidColorBrush x:Key="CheckBoxPressedBackgroundThemeBrush" Color="#00ACAC"/>
+        <SolidColorBrush x:Key="AppBarBackgroundThemeBrush" Color="#FFF0F0F0" />
+        <SolidColorBrush x:Key="AppBarBorderThemeBrush" Color="#FFF0F0F0" />
+
+        <SolidColorBrush x:Key="MediumForegroundBrush" Color="DimGray"/>
+
         <Style TargetType="Button">
             <Setter Property="Background" Value="Teal"/>
             <Setter Property="Foreground" Value="White"/>

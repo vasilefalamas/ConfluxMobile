@@ -4,15 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="WhiteSmoke">
+    mc:Ignorable="d" Background="WhiteSmoke">
 
     <Page.Transitions>
         <TransitionCollection>
             <NavigationThemeTransition/>
         </TransitionCollection>
     </Page.Transitions>
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -20,20 +19,20 @@
         </Grid.RowDefinitions>
 
         <!-- Title Panel -->
-        <StackPanel Grid.Row="0" Margin="19,25,0,0">
+        <StackPanel Grid.Row="0" Margin="19, 22, 0, 0">
             <TextBlock Text="SEARCH PREFERENCES" Foreground="Teal" 
                        IsTextScaleFactorEnabled="False" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,0, 0, 5">
-            <Pivot Foreground="Teal">
-                <PivotItem Header="location" Foreground="Teal">
+            <Pivot Foreground="Teal" IsTextScaleFactorEnabled="False">
+                <PivotItem Header="location">
                     <StackPanel>
                         <CheckBox IsChecked="{Binding IsLastKnownLocationUsed, Mode=TwoWay}">
                             <TextBlock Text="Use my last known location for finding events" Foreground="Black"
                                            TextWrapping="Wrap"/>
                         </CheckBox>
-                        <TextBlock Foreground="DarkGray" FontSize="16"
+                        <TextBlock Foreground="{StaticResource MediumForegroundBrush}" FontSize="16"
                                    Text="Last known location might be different than your current one. To update to your new location, uncheck this option and then relog."
                                    TextWrapping="Wrap" />
                     </StackPanel>
@@ -48,7 +47,7 @@
                                     </DataTemplate>
                                 </ToggleSwitch.HeaderTemplate>
                             </ToggleSwitch>
-                            <TextBlock Foreground="DarkGray" FontSize="16"
+                            <TextBlock  FontSize="16"
                                        Style="{StaticResource BaseTextBlockStyle}"
                                        Text="Applies to events. If this option is checked, images will not be downloaded."
                                        TextWrapping="Wrap"/>

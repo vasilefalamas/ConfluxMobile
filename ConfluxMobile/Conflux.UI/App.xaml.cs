@@ -7,6 +7,7 @@ using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Conflux.Connectivity;
 using Conflux.Connectivity.Authentication;
@@ -65,7 +66,8 @@ namespace Conflux.UI
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame
                 {
-                    CacheSize = 1
+                    CacheSize = 1,
+                    Background = new SolidColorBrush(Colors.WhiteSmoke)
                 };
                 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
@@ -181,7 +183,10 @@ namespace Conflux.UI
 
             if (rootFrame == null)
             {
-                rootFrame = new Frame();
+                rootFrame = new Frame()
+                {
+                    Background = new SolidColorBrush(Colors.WhiteSmoke)
+                };
                 Window.Current.Content = rootFrame;
             }
 

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI;
-using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
@@ -140,7 +139,6 @@ namespace Conflux.UI.Views
             var glyphStoryboard = (Storyboard) LogoGrid.Resources["GlyphStoryboard"];
             glyphStoryboard.Stop();
         }
-
         #endregion
     }
 }

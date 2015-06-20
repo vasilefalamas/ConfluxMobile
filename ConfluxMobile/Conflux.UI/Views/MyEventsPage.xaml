@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Conflux.UI.Converters"
     mc:Ignorable="d"
-    Background="White">
+    Background="WhiteSmoke">
 
     <Page.Transitions>
         <TransitionCollection>
@@ -18,7 +18,7 @@
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </Page.Resources>
 
-    <Grid>
+    <Grid Margin="0, 22, 0, 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

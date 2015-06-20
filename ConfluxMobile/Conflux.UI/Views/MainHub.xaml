@@ -9,7 +9,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:local="using:Conflux.UI.ViewModels"
     mc:Ignorable="d"
-    Background="White">
+    Background="WhiteSmoke">
 
     <Page.Transitions>
         <TransitionCollection>
@@ -27,7 +27,7 @@
     </Page.Resources>
 
     <Page.BottomAppBar>
-        <CommandBar Foreground="White" Background="Teal" IsSticky="False" ClosedDisplayMode="Minimal">
+        <CommandBar IsSticky="False" ClosedDisplayMode="Minimal">
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="log out" Click="OnLogOutButtonClick"/>
             </CommandBar.SecondaryCommands>
