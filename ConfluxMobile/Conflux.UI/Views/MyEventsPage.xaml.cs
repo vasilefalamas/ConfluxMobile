@@ -8,7 +8,7 @@ namespace Conflux.UI.Views
 {
     public sealed partial class MyEventsPage
     {
-        private MyEventsViewModel viewModel;
+        private readonly MyEventsViewModel viewModel;
 
         private readonly NavigationHelper navigationHelper;
 
@@ -34,7 +34,10 @@ namespace Conflux.UI.Views
             navigationHelper.OnNavigatedTo(e);
 
             //TODO : avoid getting the items each time the View is loaded. Perhaps cache view.
-            await viewModel.GetMyEvents();
+            if (viewModel.MyEvents.Count == 0)
+            {
+                await viewModel.GetMyEvents();    
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -57,7 +60,11 @@ namespace Conflux.UI.Views
 
             if (selectedItem != null)
             {
+                selectedItem.Visited = true;
+
                 Frame.Navigate(typeof(EventDetails), selectedItem);
+
+                listView.SelectedItem = null;
             }
         }
     }
