@@ -1,0 +1,67 @@
+﻿<UserControl
+    x:Class="Conflux.UI.Controls.EventItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Conflux.UI.Converters" 
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:local="using:Conflux.UI.ViewModels"
+    mc:Ignorable="d"
+    Background="Transparent">
+
+    <UserControl.Resources>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <converters:BoolToColorConverter x:Key="VisitedEventColorConverter"/>
+        <converters:DateSentenceConverter x:Key="DateSentenceConverter"/>
+        <MenuFlyout x:Key="EventFlyout">
+            <MenuFlyoutItem Text="add to blacklist" Click="OnAddToBlacklist"/>
+        </MenuFlyout>
+    </UserControl.Resources>
+
+    <Grid Margin="0, 10" FlyoutBase.AttachedFlyout="{StaticResource EventFlyout}">
+        <interactivity:Interaction.Behaviors>
+            <core:EventTriggerBehavior EventName="Holding">
+                <local:OpenEventFlyoutAction />
+            </core:EventTriggerBehavior>
+        </interactivity:Interaction.Behaviors>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <AddDeleteThemeTransition />
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="0, 5, 0, 3"
+                                              Background="{Binding Visited, Converter={StaticResource VisitedEventColorConverter}}">
+        </Grid>
+        <TextBlock Grid.Row="0" Grid.Column="1" Margin="10, 0, 5, 2"
+                   TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="3"
+                   FontSize="22" 
+                   Text="{Binding Title}" 
+                   Foreground="Teal"
+                   ContinuumNavigationTransitionInfo.IsExitElement="True"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="10, 2, 5, 5"
+                   Visibility="{Binding StartTime, Converter={StaticResource NullToVisibilityConverter}}"
+                   Text="{Binding StartTime, Converter={StaticResource DateSentenceConverter}, ConverterParameter='Start'}"
+                   Foreground="Black"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="10, 2, 5, 5"
+                   Visibility="{Binding EndTime, Converter={StaticResource NullToVisibilityConverter}}"
+                   Text="{Binding EndTime, Converter={StaticResource DateSentenceConverter}, ConverterParameter='End'}"
+                   Foreground="Black"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Margin="10, 0, 5, 2"
+                   Visibility="{Binding Location, Converter={StaticResource NullToVisibilityConverter}}"
+                   TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                   FontSize="16" Text="{Binding Location.Name}" Foreground="Teal"
+                   MaxLines="2"/>
+    </Grid>
+</UserControl>
