@@ -66,7 +66,7 @@ namespace Conflux.UI
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame
                 {
-                    CacheSize = 1,
+                    CacheSize = 2,
                     Background = new SolidColorBrush(Colors.WhiteSmoke)
                 };
                 
@@ -183,9 +183,10 @@ namespace Conflux.UI
 
             if (rootFrame == null)
             {
-                rootFrame = new Frame()
+                rootFrame = new Frame
                 {
-                    Background = new SolidColorBrush(Colors.WhiteSmoke)
+                    Background = new SolidColorBrush(Colors.WhiteSmoke),
+                    CacheSize = 2
                 };
                 Window.Current.Content = rootFrame;
             }

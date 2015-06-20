@@ -16,6 +16,8 @@ namespace Conflux.UI.Views
         {
             InitializeComponent();
 
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+
             viewModel = new MyEventsViewModel(App.FacebookProvider, App.AccessToken);
             DataContext = viewModel;
 
