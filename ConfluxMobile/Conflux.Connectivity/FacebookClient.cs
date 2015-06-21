@@ -102,6 +102,12 @@ namespace Conflux.Connectivity
             return events;
         }
 
+        public async Task<bool> PostEventAttendance(string eventId)
+        {
+            var response = await facebookRequestHandler.PostEventAttendance(eventId);
+
+            return response.ToLower().Contains("error");
+        }
 
         private async Task<IEnumerable<Event>> GetEventsFromResponse(string response)
         {

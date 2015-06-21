@@ -52,5 +52,13 @@ namespace Conflux.Connectivity
             var response = await httpClient.GetStringAsync(FacebookUriCollection.GetMyEventsUri(accessToken));
             return response;
         }
+
+        public async Task<string> PostEventAttendance(string eventId)
+        {
+            var response = await httpClient.PostAsync(FacebookUriCollection.GetEventAttendanceUri(accessToken, eventId), null);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            return responseString;
+        }
     }
 }

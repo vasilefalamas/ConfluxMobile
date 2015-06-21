@@ -52,5 +52,10 @@ namespace Conflux.Tests
         {
             throw new NotImplementedException();
         }
+
+        public Task<bool> PostEventAttendance(string eventId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
