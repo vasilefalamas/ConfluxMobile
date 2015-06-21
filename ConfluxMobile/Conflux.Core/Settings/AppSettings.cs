@@ -96,7 +96,7 @@ namespace Conflux.Core.Settings
             SetValue(AllowImagesDownloadKey, allowImageDownload);
         }
 
-        public static bool GetTermsOfUseAcceptance()
+        public static bool GetTermsOfUseAcceptStatus()
         {
             object hasTermsOfUseAccepted = GetValue(TermsOfUseAcceptedKey);
             bool result = hasTermsOfUseAccepted != null && (bool) hasTermsOfUseAccepted;
@@ -104,7 +104,7 @@ namespace Conflux.Core.Settings
             return result;
         }
 
-        public static void SetTermsOfUseAcceptance(bool isAccepted)
+        public static void SetTermsOfUseAcceptStatus(bool isAccepted)
         {
             SetValue(TermsOfUseAcceptedKey, isAccepted);
         } 

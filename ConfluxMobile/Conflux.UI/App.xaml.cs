@@ -92,7 +92,7 @@ namespace Conflux.UI
                 Type startPage;
 
                 //TODO : Extract method GetStartPage()
-                var hasAcceptedTermsOfuse = AppSettings.GetTermsOfUseAcceptance();
+                var hasAcceptedTermsOfuse = AppSettings.GetTermsOfUseAcceptStatus();
                 if (!hasAcceptedTermsOfuse)
                 {
                     startPage = typeof (TermsOfUsePage);
