@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
@@ -22,7 +21,7 @@ namespace Conflux.UI.Views
 
             navigationHelper = new NavigationHelper(this);
 
-            InitializeStatusBar();
+            StatusBarHandler.InitializeAsync(Colors.Teal);
         }
 
         public NavigationHelper NavigationHelper
@@ -57,25 +56,14 @@ namespace Conflux.UI.Views
 
         #endregion
 
-        private static async void InitializeStatusBar()
-        {
-            var applicationView = ApplicationView.GetForCurrentView();
-            applicationView.SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
-
-            var statusBar = StatusBar.GetForCurrentView();
-            statusBar.ForegroundColor = Colors.Teal;
-            await statusBar.ShowAsync();
-        }
-
         private async void OnLoginClick(object sender, RoutedEventArgs e)
         {
             LoginAreaGrid.StartAnimation("FadeOut");
 
             if (!NetworkManager.HasInternetAccess)
             {
-                await DisplayStatusMessageAsync("Please check your connection before you login.");
+                await StatusBarHandler.ShowMessageAsync("Please check your connection before you login.", 3000);
                 LoginAreaGrid.StartAnimation("FadeIn");
-                await HideStatusMessageAsync(3000);
 
                 return;
             }
@@ -84,26 +72,9 @@ namespace Conflux.UI.Views
 
             if (!loginResult)
             {
-                await DisplayStatusMessageAsync("Couldn't launch Facebook. Please retry.");
+                await StatusBarHandler.ShowMessageAsync("Couldn't launch Facebook. Please retry.", 3000);
                 LoginAreaGrid.StartAnimation("FadeIn");
-                await HideStatusMessageAsync(3000);
             }
-        }
-
-        private async Task DisplayStatusMessageAsync(string message)
-        {
-            var statusBar = StatusBar.GetForCurrentView();
-            statusBar.ProgressIndicator.Text = message;
-
-            await statusBar.ProgressIndicator.ShowAsync();
-        }
-
-        private async Task HideStatusMessageAsync(int waitingMilliseconds)
-        {
-            await Task.Delay(waitingMilliseconds);
-
-            var statusBar = StatusBar.GetForCurrentView();
-            await statusBar.ProgressIndicator.HideAsync();
         }
 
         private async Task<bool> TryLogin(Uri loginUri)

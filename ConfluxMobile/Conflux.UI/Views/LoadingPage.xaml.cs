@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Connectivity.GraphApi;
@@ -30,6 +31,7 @@ namespace Conflux.UI.Views
         
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            StatusBarHandler.InitializeAsync(Colors.Teal);
             navigationHelper.OnNavigatedTo(e);
         }
 

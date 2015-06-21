@@ -15,8 +15,7 @@ namespace Conflux.UI.Views
         {
             InitializeComponent();
 
-            var statusBar = StatusBar.GetForCurrentView();
-            statusBar.HideAsync();
+            StatusBar.GetForCurrentView().HideAsync();
         }
 
         /// <summary>

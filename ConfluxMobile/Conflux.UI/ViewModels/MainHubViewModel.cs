@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Media.Imaging;
 using Conflux.Core.Models;
+using Conflux.UI.Common;
 using Conflux.UI.Views;
 
 namespace Conflux.UI.ViewModels
@@ -135,17 +135,12 @@ namespace Conflux.UI.ViewModels
         
         private async void OnLoadMoreItemsStarted()
         {
-            var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-
-            statusBar.ProgressIndicator.Text = "Searching events...";
-            await statusBar.ProgressIndicator.ShowAsync();
+            await StatusBarHandler.ShowMessageAsync(string.Format("Searching events in {0}...", Location), true);
         }
         
         private async void OnLoadMoreItemsCompleted()
         {
-            var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-
-            await statusBar.ProgressIndicator.HideAsync();
+            await StatusBarHandler.HideAsync();
         }
 
         #region INotifyPropertyChanged members
