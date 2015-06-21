@@ -25,7 +25,7 @@
     <Page.BottomAppBar>
         <CommandBar ClosedDisplayMode="Minimal">
             <CommandBar.PrimaryCommands>
-                <AppBarButton Icon="Go" Label="Attend"/>
+                <AppBarButton Icon="Go" Label="Attend" Click="OnAttendClicked"/>
                 <AppBarButton Icon="Map" Label="Directions" Click="OnGetEventDirectionClicked"/>
             </CommandBar.PrimaryCommands>
         </CommandBar>

@@ -144,6 +144,11 @@ namespace Conflux.UI.Views
         {
             HideMapSelection();
         }
+
+        private async void OnAttendClicked(object sender, RoutedEventArgs e)
+        {
+            var result = await App.FacebookClient.PostEventAttendance(viewModel.Id);
+        }
         
         //TODO : Extract this into a separate helper class. Solve dependency with VM usage.
         private void ShowMapSelection()
@@ -201,6 +206,5 @@ namespace Conflux.UI.Views
 
             HideMapSelection();
         }
-
     }
 }

@@ -11,7 +11,7 @@ namespace Conflux.Connectivity.GraphApi
 
         public static Uri GetConnectionUri()
         {
-            var defaultPermissions = string.Join(",", new[] { Permissions.PublicProfile, Permissions.ReadStream, Permissions.UserEvents, Permissions.UserLocation });
+            var defaultPermissions = string.Join(",", new[] { Permissions.PublicProfile, Permissions.ReadStream, Permissions.UserEvents, Permissions.RsvpEvent, Permissions.UserLocation });
 
             return new Uri(string.Format(@"fbconnect://authorize?client_id={0}&scope={1}&redirect_uri=msft-{2}://authorize", AppId, defaultPermissions, ProductId));
 
@@ -68,7 +68,7 @@ namespace Conflux.Connectivity.GraphApi
 
         public static Uri GetEventAttendanceUri(AccessToken accessToken, string eventId)
         {
-            return new Uri(string.Format("https://graph.facebook/com/{0}/attending?access_token={1}", eventId, accessToken));
+            return new Uri(string.Format("https://graph.facebook.com/{0}/attending?access_token={1}", eventId, accessToken.Value));
         }
     }
 }

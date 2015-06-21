@@ -36,5 +36,10 @@
         {
             get { return "user_location"; }
         }
+
+        public static string RsvpEvent
+        {
+            get { return "rsvp_event"; }
+        }
     }
 }
