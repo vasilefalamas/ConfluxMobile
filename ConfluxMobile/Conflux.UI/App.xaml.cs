@@ -88,35 +88,8 @@ namespace Conflux.UI
 
                 rootFrame.ContentTransitions  = new TransitionCollection();
 
-                //Facebook Authentication check. Navigate to next page accordingly.
-                Type startPage;
+                var startPage = GetStartPage();
 
-                //TODO : Extract method GetStartPage()
-                var hasAcceptedTermsOfuse = AppSettings.GetTermsOfUseAcceptStatus();
-                if (!hasAcceptedTermsOfuse)
-                {
-                    startPage = typeof (TermsOfUsePage);
-                }
-                else
-                {
-                    //var savedAccessToken = AppSettings.GetAccessToken();
-
-                    startPage = InitializeFacebookClient() ? typeof (LoadingPage) : typeof(LoginPage);
-
-                    //if (savedAccessToken != null && savedAccessToken.Expiry > DateTime.Now)
-                    //{
-                    //    FacebookClient = new FacebookClient(savedAccessToken);
-
-                    //    startPage = typeof (LoadingPage);
-                    //}
-                    //else
-                    //{
-                    //    startPage = typeof (LoginPage);
-                    //}
-                }
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
                 if (!rootFrame.Navigate(startPage, e.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
@@ -149,27 +122,20 @@ namespace Conflux.UI
             if (args.Kind == ActivationKind.Protocol)
             {
                 var eventArgs = args as ProtocolActivatedEventArgs;
-
                 if (eventArgs != null)
                 {
                     Uri responseUri = eventArgs.Uri;
 
                     var freshAcessToken = AccessToken.Create(responseUri.Query);
                     StoreAccessToken(freshAcessToken);
-                    FacebookClient = new FacebookClient(freshAcessToken);
-
-                    ContinueNavigation(typeof (LoadingPage));
                 }
             }
-            else if (args.Kind == ActivationKind.VoiceCommand)
-            {
-                   ContinueNavigation(typeof(LoadingPage)); 
-            } 
-            else
-            {
-                ContinueNavigation(typeof(LoginPage));
-            }
+            
+            //if (args.Kind == ActivationKind.VoiceCommand) { } //Resume from Cortana
 
+            var startPage = GetStartPage();
+            ContinueNavigation(startPage);
+            
             Window.Current.Activate();
 
         }
@@ -189,6 +155,18 @@ namespace Conflux.UI
             }
 
             rootFrame.Navigate(navigationPage);
+        }
+
+        private Type GetStartPage()
+        {
+            var hasAcceptedTermsOfuse = AppSettings.GetTermsOfUseAcceptStatus();
+            if (!hasAcceptedTermsOfuse)
+            {
+                return typeof(TermsOfUsePage);
+            }
+            
+            var startPage = InitializeFacebookClient() ? typeof(LoadingPage) : typeof(LoginPage);
+            return startPage;
         }
 
         private static bool InitializeFacebookClient()
