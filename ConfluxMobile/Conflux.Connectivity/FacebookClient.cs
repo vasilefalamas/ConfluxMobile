@@ -9,18 +9,18 @@ using Conflux.Connectivity.JsonExtensions;
 
 namespace Conflux.Connectivity
 {
-    public class FacebookDataAccess
+    public class FacebookClient : IFacebookClient
     {
-        private IFacebookProvider facebookProvider;
+        private readonly IFacebookRequestHandler facebookRequestHandler;
 
-        public FacebookDataAccess(IFacebookProvider facebookProvider)
+        public FacebookClient(AccessToken accessToken)
         {
-            this.facebookProvider = facebookProvider;
+            facebookRequestHandler = new FacebookRequestHandler(accessToken);
         }
 
-        public async Task<User> GetUserNameInfoAsync(AccessToken accessToken)
+        public async Task<User> GetUserNameInfoAsync()
         {
-            var response = await facebookProvider.GetUserNameInfoAsync(accessToken);
+            var response = await facebookRequestHandler.GetUserNameInfoAsync();
 
             JsonObject jsonObject = JsonValue.Parse(response).GetObject();
 
@@ -36,7 +36,7 @@ namespace Conflux.Connectivity
 
         public async Task<LocationInfo> GetLocationInfoAsync(long locationId)
         {
-            var response = await facebookProvider.GetLocationInfoAsync(locationId);
+            var response = await facebookRequestHandler.GetLocationInfoAsync(locationId);
 
             JsonObject jsonObject = JsonValue.Parse(response).GetObject();
 
@@ -49,9 +49,9 @@ namespace Conflux.Connectivity
             };
         }
 
-        public async Task<BitmapImage> GetProfilePictureAsync(AccessToken accessToken, PictureSize pictureSize = PictureSize.Size160x160)
+        public async Task<BitmapImage> GetProfilePictureAsync(PictureSize pictureSize = PictureSize.Size160x160)
         {
-            var response = await facebookProvider.GetProfilePictureAsync(accessToken, pictureSize);
+            var response = await facebookRequestHandler.GetProfilePictureAsync(pictureSize);
 
             JsonObject jsonObject = JsonValue.Parse(response).GetObject().GetNamedObject("data");
 
@@ -67,17 +67,17 @@ namespace Conflux.Connectivity
             return null;
         }
 
-        public async Task<IEnumerable<Event>> GetEventsByKeywordAsync(AccessToken accessToken, string locationKeyword, uint offset = 0, uint? limit = null)
+        public async Task<IEnumerable<Event>> GetEventsByKeywordAsync(string locationKeyword, uint offset = 0, uint? limit = null)
         {
-            var response = await facebookProvider.GetEventsByKeywordAsync(accessToken, locationKeyword, offset, limit);
+            var response = await facebookRequestHandler.GetEventsByKeywordAsync(locationKeyword, offset, limit);
 
             var events = await GetEventsFromResponse(response);
             return events;
         }
 
-        public async Task<Event> GetEventAsync(AccessToken accessToken, string eventId)
+        public async Task<Event> GetEventAsync(string eventId)
         {
-            var response = await facebookProvider.GetEventAsync(accessToken, eventId);
+            var response = await facebookRequestHandler.GetEventAsync(eventId);
             
             JsonObject jsonObject = JsonValue.Parse(response).GetObject();
 
@@ -94,9 +94,9 @@ namespace Conflux.Connectivity
             return detailedEvent;
         }
 
-        public async Task<IEnumerable<Event>> GetMyEvents(AccessToken accessToken)
+        public async Task<IEnumerable<Event>> GetMyEvents()
         {
-            var response = await facebookProvider.GetMyEvents(accessToken);
+            var response = await facebookRequestHandler.GetMyEvents();
 
             var events = await GetEventsFromResponse(response);
             return events;

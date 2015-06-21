@@ -86,11 +86,12 @@
     <Compile Include="Authentication\AuthenticationResult.cs" />
     <Compile Include="Authentication\AuthenticationState.cs" />
     <Compile Include="Authentication\Permissions.cs" />
-    <Compile Include="FacebookDataAccess.cs" />
-    <Compile Include="FacebookProvider.cs" />
+    <Compile Include="FacebookClient.cs" />
+    <Compile Include="FacebookRequestHandler.cs" />
     <Compile Include="GraphApi\Event.cs" />
-    <Compile Include="GraphApi\FacebookUriProvider.cs" />
-    <Compile Include="GraphApi\IFacebookProvider.cs" />
+    <Compile Include="GraphApi\FacebookUriCollection.cs" />
+    <Compile Include="GraphApi\IFacebookClient.cs" />
+    <Compile Include="GraphApi\IFacebookRequestHandler.cs" />
     <Compile Include="GraphApi\LocationInfo.cs" />
     <Compile Include="GraphApi\PictureSize.cs" />
     <Compile Include="GraphApi\User.cs" />

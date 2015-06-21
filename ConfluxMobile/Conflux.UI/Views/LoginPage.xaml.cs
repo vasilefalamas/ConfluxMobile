@@ -80,7 +80,7 @@ namespace Conflux.UI.Views
                 return;
             }
 
-            var loginResult = await TryLogin(FacebookUriProvider.GetConnectionUri());
+            var loginResult = await TryLogin(FacebookUriCollection.GetConnectionUri());
 
             if (!loginResult)
             {

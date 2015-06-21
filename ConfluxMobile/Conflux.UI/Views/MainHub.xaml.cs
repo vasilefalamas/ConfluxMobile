@@ -25,7 +25,7 @@ namespace Conflux.UI.Views
             navigationHelper = new NavigationHelper(this);
 
             var currentLocation = App.User.LocationInfo.Name;
-            confluxHubViewModel = new MainHubViewModel(App.FacebookProvider, App.AccessToken, currentLocation);
+            confluxHubViewModel = new MainHubViewModel(currentLocation);
             
             DataContext = confluxHubViewModel;
         }

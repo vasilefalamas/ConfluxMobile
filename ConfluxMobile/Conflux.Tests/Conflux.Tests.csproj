@@ -75,7 +75,8 @@
   <ItemGroup>
     <Compile Include="DataSentenceComposerTests.cs" />
     <Compile Include="DateTimeExtensionsTests.cs" />
-    <Compile Include="FacebookProviderMock.cs" />
+    <Compile Include="FacebookRequestHandlerMock.cs" />
+    <Compile Include="IFacebookClientMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FacebookProviderTests.cs" />
   </ItemGroup>

@@ -3,7 +3,7 @@ using Conflux.Connectivity.Authentication;
 
 namespace Conflux.Connectivity.GraphApi
 {
-    public class FacebookUriProvider
+    public class FacebookUriCollection
     {
         private const string AppId = "278580629014544";
 
@@ -61,7 +61,7 @@ namespace Conflux.Connectivity.GraphApi
             return new Uri(string.Format("https://graph.facebook.com/{0}?access_token={1}", eventId, accessToken.Value));
         }
 
-        public static Uri GetMyEvents(AccessToken accessToken)
+        public static Uri GetMyEventsUri(AccessToken accessToken)
         {
             return new Uri(string.Format("https://graph.facebook.com/me/events?access_token={0}", accessToken.Value));
         }

@@ -1,22 +1,24 @@
 ﻿using System.Threading.Tasks;
-using Conflux.Connectivity;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using Conflux.Connectivity.GraphApi;
 
 namespace Conflux.Tests
 {
     [TestClass]
-    public class FacebookProviderTests
+    public class FacebookClientTests
     {
+        private IFacebookClient fbClient;
+
+        [TestInitialize]
+        public void InitializeTest()
+        {
+            fbClient = new FacebookClientMock();
+        }
+
         [TestMethod]
         public async Task WhenUserDataRetrieved_NamePopulated()
         {
-            
-             FacebookDataAccess fbDataAccess;
-
-             var fbProviderMock = new FacebookProviderMock();
-             fbDataAccess = new FacebookDataAccess(fbProviderMock);
-
-            var userInfo = await fbDataAccess.GetUserNameInfoAsync(null);
+            var userInfo = await fbClient.GetUserNameInfoAsync();
 
             Assert.AreEqual(userInfo.FirstName, "John");
             Assert.AreEqual(userInfo.LastName, "Doe");

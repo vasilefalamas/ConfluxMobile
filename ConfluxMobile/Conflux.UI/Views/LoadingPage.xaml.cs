@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
-using Conflux.Connectivity;
-using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Maps;
 using Conflux.Core.Settings;
@@ -13,8 +11,6 @@ namespace Conflux.UI.Views
 {
     public sealed partial class LoadingPage
     {
-        private FacebookDataAccess facebookDataAccess;
-
         private readonly NavigationHelper navigationHelper;
 
         public NavigationHelper NavigationHelper
@@ -30,8 +26,6 @@ namespace Conflux.UI.Views
             navigationHelper = new NavigationHelper(this);
 
             InitializeComponent();
-            
-            facebookDataAccess = new FacebookDataAccess(App.FacebookProvider);
         }
         
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -48,7 +42,7 @@ namespace Conflux.UI.Views
         {
             try
             {
-                await GetUserData(App.AccessToken);
+                await GetUserData();
 
                 Frame.Navigate(typeof(MainHub));
             }
@@ -59,15 +53,12 @@ namespace Conflux.UI.Views
             
         }
 
-        private async Task GetUserData(AccessToken accessToken)
+        private async Task GetUserData()
         {
-            var userInfoTask = facebookDataAccess.GetUserNameInfoAsync(accessToken);
-            var profilePictureTask = facebookDataAccess.GetProfilePictureAsync(accessToken);
-
             NotifyStatus("Connecting to Facebook...");
 
-            var userInfo = await userInfoTask;
-            var profilePicture = await profilePictureTask;
+            var userInfo = await App.FacebookClient.GetUserNameInfoAsync();
+            var profilePicture = await App.FacebookClient.GetProfilePictureAsync();
 
             NotifyStatus("Finding your location...");
 

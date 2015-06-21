@@ -5,9 +5,9 @@ using Conflux.Connectivity.GraphApi;
 
 namespace Conflux.Tests
 {
-    public class FacebookProviderMock : IFacebookProvider
+    public class FacebookRequestHandlerMock : IFacebookRequestHandler
     {
-        public async Task<string> GetUserNameInfoAsync(AccessToken accessToken)
+        public async Task<string> GetUserNameInfoAsync()
         {
             const string responseString = @"{
 	                                         ""id"" : ""123456"",
@@ -40,22 +40,22 @@ namespace Conflux.Tests
             throw new NotImplementedException();
         }
 
-        public Task<string> GetProfilePictureAsync(AccessToken accessToken, PictureSize pictureSize = PictureSize.Size160x160)
+        public Task<string> GetProfilePictureAsync(PictureSize pictureSize = PictureSize.Size160x160)
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> GetEventsByKeywordAsync(AccessToken accessToken, string locationKeyword, uint offset = 0, uint? limit = null)
+        public Task<string> GetEventsByKeywordAsync(string locationKeyword, uint offset = 0, uint? limit = null)
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> GetEventAsync(AccessToken accessToken, string eventId)
+        public Task<string> GetEventAsync(string eventId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> GetMyEvents(AccessToken accessToken)
+        public Task<string> GetMyEvents()
         {
             throw new NotImplementedException();
         }

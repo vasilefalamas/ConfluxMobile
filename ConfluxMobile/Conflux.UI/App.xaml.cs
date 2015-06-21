@@ -24,10 +24,8 @@ namespace Conflux.UI
     {
         private TransitionCollection transitions;
         
-        public static AccessToken AccessToken { get; set; }
-
-        public static IFacebookProvider FacebookProvider { get; private set; }
-
+        public static IFacebookClient FacebookClient { get; private set; }
+        
         public static User User { get; set; }
 
         /// <summary>
@@ -41,10 +39,7 @@ namespace Conflux.UI
 
             RequestedTheme = ApplicationTheme.Light;
             
-            FacebookProvider = new FacebookProvider();
             User = new User();
-
-            LoadSettings();
         }
 
         /// <summary>
@@ -104,16 +99,20 @@ namespace Conflux.UI
                 }
                 else
                 {
-                    var savedAccessToken = AppSettings.GetAccessToken();
+                    //var savedAccessToken = AppSettings.GetAccessToken();
 
-                    if (savedAccessToken != null && savedAccessToken.Expiry > DateTime.Now)
-                    {
-                        startPage = typeof (LoadingPage);
-                    }
-                    else
-                    {
-                        startPage = typeof (LoginPage);
-                    }
+                    startPage = InitializeFacebookClient() ? typeof (LoadingPage) : typeof(LoginPage);
+
+                    //if (savedAccessToken != null && savedAccessToken.Expiry > DateTime.Now)
+                    //{
+                    //    FacebookClient = new FacebookClient(savedAccessToken);
+
+                    //    startPage = typeof (LoadingPage);
+                    //}
+                    //else
+                    //{
+                    //    startPage = typeof (LoginPage);
+                    //}
                 }
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
@@ -155,11 +154,9 @@ namespace Conflux.UI
                 {
                     Uri responseUri = eventArgs.Uri;
 
-                    //Set AccessToken at App level:
-                    AccessToken = AccessToken.Create(responseUri.Query);
-
-                    //Save AccessToken for further use:
-                    AppSettings.SetAccessToken(AccessToken);
+                    var freshAcessToken = AccessToken.Create(responseUri.Query);
+                    StoreAccessToken(freshAcessToken);
+                    FacebookClient = new FacebookClient(freshAcessToken);
 
                     ContinueNavigation(typeof (LoadingPage));
                 }
@@ -194,11 +191,24 @@ namespace Conflux.UI
             rootFrame.Navigate(navigationPage);
         }
 
-        private void LoadSettings()
+        private static bool InitializeFacebookClient()
         {
-            AccessToken = AppSettings.GetAccessToken();
+            var storedAccessToken = AppSettings.GetAccessToken();
+
+            if (storedAccessToken != null && storedAccessToken.Expiry > DateTime.Now)
+            {
+                FacebookClient = new FacebookClient(storedAccessToken);
+                return true;
+            }
+
+            return false;
         }
 
+        private void StoreAccessToken(AccessToken accessToken)
+        {
+            AppSettings.SetAccessToken(accessToken);
+        }
+        
         private async Task RegisterVoiceCommands()
         {
             try

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Media.Imaging;
-using Conflux.Connectivity.Authentication;
-using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Models;
 using Conflux.UI.Views;
 
@@ -87,11 +85,11 @@ namespace Conflux.UI.ViewModels
             }
         }
 
-        public MainHubViewModel(IFacebookProvider facebookProvider, AccessToken accessToken, string location)
+        public MainHubViewModel(string location)
         {
             Location = location;
 
-            var eventsSource = new EventsSource(facebookProvider, accessToken, location);
+            var eventsSource = new EventsSource(App.FacebookClient, location);
 
             NewestEvents = new IncrementalLoadingCollection<EventDisplayItem>(eventsSource);
             NewestEvents.LoadMoreItemsStarted += OnLoadMoreItemsStarted;
