@@ -1,10 +1,8 @@
-﻿using System;
-using Windows.UI;
-using Windows.UI.ViewManagement;
+﻿using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Conflux.Core.Settings;
 
 namespace Conflux.UI.Views
 {
@@ -32,6 +30,7 @@ namespace Conflux.UI.Views
 
         private void OnContinueClick(object sender, RoutedEventArgs e)
         {
+            AppSettings.SetTermsOfUseAcceptStatus(true);
             FadeOut();
         }
 
