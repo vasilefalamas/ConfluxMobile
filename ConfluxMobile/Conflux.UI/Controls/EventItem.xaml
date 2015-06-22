@@ -35,7 +35,7 @@
         </Grid>
         <TextBlock Grid.Row="0" Grid.Column="1" Margin="10, 0, 5, 2"
                    TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="3"
-                   FontSize="22" 
+                   FontSize="22" LineStackingStrategy="MaxHeight"
                    Text="{Binding Title}" 
                    Foreground="Teal"
                    ContinuumNavigationTransitionInfo.IsExitElement="True"/>
