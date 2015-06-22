@@ -73,18 +73,16 @@
                                   SelectionChanged="OnNearbyEventsListSelectionChanged">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid FlyoutBase.AttachedFlyout="{StaticResource EventFlyout}">
+                                    <controls:EventItem FlyoutBase.AttachedFlyout="{StaticResource EventFlyout}"
+                                                        Title="{Binding Event.Title}" 
+                                                        StartTime="{Binding Event.StartTime}" EndTime="{Binding Event.EndTime}"
+                                                        Location="{Binding Event.Location}" Visited="{Binding Visited}">
                                         <interactivity:Interaction.Behaviors>
                                             <core:EventTriggerBehavior EventName="Holding">
                                                 <local:OpenEventFlyoutAction />
                                             </core:EventTriggerBehavior>
                                         </interactivity:Interaction.Behaviors>
-                                        <controls:EventItem Title="{Binding Event.Title}" 
-                                                        StartTime="{Binding Event.StartTime}"
-                                                        EndTime="{Binding Event.EndTime}"
-                                                        Location="{Binding Event.Location}"
-                                                        Visited="{Binding Visited}"/>
-                                    </Grid>
+                                    </controls:EventItem>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
