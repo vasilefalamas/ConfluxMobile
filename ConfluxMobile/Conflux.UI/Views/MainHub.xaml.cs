@@ -84,7 +84,7 @@ namespace Conflux.UI.Views
             Frame.Navigate(typeof(LoginPage));
         }
 
-        private void OnNewestEventContextMenuClicked(object sender, RoutedEventArgs e)
+        private void OnAddToBlacklist(object sender, RoutedEventArgs e)
         {
             var item = (e.OriginalSource as FrameworkElement);
 

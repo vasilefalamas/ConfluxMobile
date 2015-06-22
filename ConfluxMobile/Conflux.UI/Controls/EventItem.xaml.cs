@@ -83,12 +83,7 @@ namespace Conflux.UI.Controls
             InitializeComponent();
             ((FrameworkElement) Content).DataContext = this;
         }
-
-        private void OnAddToBlacklist(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        
         private event PropertyChangedEventHandler PropertyChanged;
         
         private void SetDependencyPropertyValue(DependencyProperty dependencyProperty, object value, [CallerMemberName] String p = null)

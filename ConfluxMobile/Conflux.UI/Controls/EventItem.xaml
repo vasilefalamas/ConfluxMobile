@@ -5,9 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Conflux.UI.Converters" 
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:local="using:Conflux.UI.ViewModels"
     mc:Ignorable="d"
     Background="Transparent">
 
@@ -15,18 +12,10 @@
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <converters:BoolToColorConverter x:Key="VisitedEventColorConverter"/>
         <converters:DateSentenceConverter x:Key="DateSentenceConverter"/>
-        <MenuFlyout x:Key="EventFlyout">
-            <MenuFlyoutItem Text="add to blacklist" Click="OnAddToBlacklist"/>
-        </MenuFlyout>
     </UserControl.Resources>
 
-    <Grid Margin="0, 10" FlyoutBase.AttachedFlyout="{StaticResource EventFlyout}">
-        <interactivity:Interaction.Behaviors>
-            <core:EventTriggerBehavior EventName="Holding">
-                <local:OpenEventFlyoutAction />
-            </core:EventTriggerBehavior>
-        </interactivity:Interaction.Behaviors>
-        <Grid.ChildrenTransitions>
+    <Grid Margin="0, 10">
+       <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <AddDeleteThemeTransition />
             </TransitionCollection>
