@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Media.Imaging;
@@ -84,7 +85,7 @@ namespace Conflux.UI.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        
         public MainHubViewModel(string location)
         {
             Location = location;

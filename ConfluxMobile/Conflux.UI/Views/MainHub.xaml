@@ -88,8 +88,10 @@
                         </ListView>
                     </DataTemplate>
                 </HubSection>
-                <HubSection Header="MY FRIENDS" Foreground="Teal">
-
+                <HubSection Header="HIGHLIGHTS" Foreground="Teal">
+                    <DataTemplate>
+                        <controls:HighlightEvents />
+                    </DataTemplate>
                 </HubSection>
             </Hub>
         </Grid>
