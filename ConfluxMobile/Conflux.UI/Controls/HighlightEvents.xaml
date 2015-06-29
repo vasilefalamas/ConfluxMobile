@@ -32,8 +32,10 @@
                             <!-- HidesIfEmpty="True" -->
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Key}"
-                                               FontSize="30" Foreground="Teal"/>
+                                    <Border BorderBrush="Teal" BorderThickness="2" Margin="5">
+                                        <TextBlock Text="{Binding Key}" Margin="5"
+                                               FontSize="25" Foreground="Teal"/>
+                                    </Border>
                                 </DataTemplate>
                             </GroupStyle.HeaderTemplate>
                         </GroupStyle>
@@ -43,7 +45,7 @@
             <SemanticZoom.ZoomedOutView>
                 <ListView ScrollViewer.IsVerticalScrollChainingEnabled="False"
                           ItemsSource="{Binding Source={StaticResource EventsGroupsCollectionViewSource},ElementName=CVS,Path=CollectionGroups}" 
-                          Background="#C0F5F5F5" Margin="10">
+                          Background="#C0F5F5F5" Padding="10">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid Background="Teal" Width="250" Height="85" Margin="0, 0, 5, 5">

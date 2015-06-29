@@ -17,10 +17,10 @@ namespace Conflux.Connectivity.GraphApi
 
         Task<Event> GetEventAsync(string eventId);
 
-        Task<IEnumerable<Event>> GetMyEvents();
+        Task<IEnumerable<Event>> GetMyEventsAsync();
 
-        Task<IEnumerable<Event>> GetHighlightsEvents(DateTime? since, DateTime? until);
+        Task<IEnumerable<Event>> GetHighlightsEventsAsync(DateTime? since, DateTime? until);
 
-        Task<bool> PostEventAttendance(string eventId);
+        Task<bool> PostEventAttendanceAsync(string eventId);
     }
 }

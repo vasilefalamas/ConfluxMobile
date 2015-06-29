@@ -32,7 +32,7 @@ namespace Conflux.UI.ViewModels
 
         public async Task GetMyEvents()
         {
-            var events = await App.FacebookClient.GetMyEvents();
+            var events = await App.FacebookClient.GetMyEventsAsync();
 
             foreach (var item in events)
             {

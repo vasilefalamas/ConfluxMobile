@@ -147,7 +147,7 @@ namespace Conflux.UI.Views
 
         private async void OnAttendClicked(object sender, RoutedEventArgs e)
         {
-            var result = await App.FacebookClient.PostEventAttendance(viewModel.Id);
+            var result = await App.FacebookClient.PostEventAttendanceAsync(viewModel.Id);
         }
         
         //TODO : Extract this into a separate helper class. Solve dependency with VM usage.

@@ -48,17 +48,17 @@ namespace Conflux.Tests
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Event>> GetMyEvents()
+        public Task<IEnumerable<Event>> GetMyEventsAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Event>> GetHighlightsEvents(DateTime? since, DateTime? until)
+        public Task<IEnumerable<Event>> GetHighlightsEventsAsync(DateTime? since, DateTime? until)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> PostEventAttendance(string eventId)
+        public Task<bool> PostEventAttendanceAsync(string eventId)
         {
             throw new NotImplementedException();
         }
