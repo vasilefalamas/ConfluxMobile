@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Conflux.Core.Models;
 
 namespace Conflux.UI.Models
 {
-    public class EventsGroup : List<EventDisplayItem>
+    public class EventsGroup : ObservableCollection<EventDisplayItem>
     {
         public string Key { get; set; }
 

@@ -51,8 +51,26 @@ namespace Conflux.UI.ViewModels
                 }
             });
         }
+        
+        public void Add(Event eventItem)
+        {
+            var newEvent = new EventDisplayItem
+            {
+                Event = eventItem
+            };
 
-        private async Task<List<EventsGroup>> GroupEvents(List<EventDisplayItem> events)
+            AddEventToGroup(newEvent, EventsGroups);
+        }
+
+        public void AddRange(IEnumerable<Event> events)
+        {
+            foreach (var item in events)
+            {
+                Add(item);
+            }
+        }
+
+        private async Task<List<EventsGroup>> GroupEvents(IEnumerable<EventDisplayItem> events)
         {
             return await Task.Run(() =>
             {
@@ -60,30 +78,42 @@ namespace Conflux.UI.ViewModels
 
                 foreach (var eventItem in events)
                 {
-                    var startTime = eventItem.Event.StartTime;
-                    var dayKey = startTime != null ? startTime.Value.ToString("dddd") : "Unknown";
-
-                    //Event doesn't fit in any existing group. Create a new one.
-                    if (resultGroups.All(g => g.Key != dayKey))
-                    {
-                        var newGroup = new EventsGroup { Key = dayKey };
-                        newGroup.Add(eventItem);
-
-                        resultGroups.Add(newGroup);
-                    }
-                    //Event can be be added to an existing group.
-                    else
-                    {
-                        var belongingGroup = resultGroups.SingleOrDefault(group => group.Key == dayKey);
-                        if (belongingGroup != null)
-                        {
-                            belongingGroup.Add(eventItem);
-                        }
-                    }
+                    AddEventToGroup(eventItem, resultGroups);
                 }
 
                 return resultGroups;
             });
+        }
+
+        private void AddEventToGroup(EventDisplayItem eventItem, ICollection<EventsGroup> eventsGroup)
+        {
+            var dayKey = GetDayKey(eventItem);
+
+            //Event doesn't fit in any existing group. Create a new one.
+            if (eventsGroup.All(g => g.Key != dayKey))
+            {
+                var newGroup = new EventsGroup { Key = dayKey };
+                newGroup.Add(eventItem);
+
+                eventsGroup.Add(newGroup);
+            }
+            //Event can be be added to an existing group.
+            else
+            {
+                var belongingGroup = eventsGroup.SingleOrDefault(group => group.Key == dayKey);
+                if (belongingGroup != null)
+                {
+                    belongingGroup.Add(eventItem);
+                }
+            }
+        }
+
+        private string GetDayKey(EventDisplayItem eventItem)
+        {
+            var startTime = eventItem.Event.StartTime;
+            var dayKey = startTime != null ? startTime.Value.ToString("dddd") : "Unknown";
+
+            return dayKey;
         }
 
         public List<EventDisplayItem> GetMockEvents()

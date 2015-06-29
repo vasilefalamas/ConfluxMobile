@@ -1,11 +1,12 @@
-﻿using Windows.UI.Xaml;
+﻿using System.Linq;
+using Windows.UI.Xaml;
 using Conflux.UI.ViewModels;
 
 namespace Conflux.UI.Controls
 {
     public sealed partial class HighlightEvents
     {
-        private HighlightsViewModel viewModel;
+        private readonly HighlightsViewModel viewModel;
 
         public HighlightEvents()
         {
@@ -20,6 +21,9 @@ namespace Conflux.UI.Controls
         {
             var mockEvents = viewModel.GetMockEvents();
             await viewModel.BuildGroupsAsync(mockEvents);
+
+            viewModel.AddRange(mockEvents.Select(item => item.Event));
+
         }
     }
 }
