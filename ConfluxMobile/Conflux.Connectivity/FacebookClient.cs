@@ -102,6 +102,14 @@ namespace Conflux.Connectivity
             return events;
         }
 
+        public async Task<IEnumerable<Event>> GetHighlightsEvents(DateTime? since, DateTime? until)
+        {
+            var response = await facebookRequestHandler.GetHighlightsEvents(since, until);
+
+            var events = await GetEventsFromResponse(response);
+            return events;
+        }
+
         public async Task<bool> PostEventAttendance(string eventId)
         {
             var response = await facebookRequestHandler.PostEventAttendance(eventId);

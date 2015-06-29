@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -17,6 +18,8 @@ namespace Conflux.Connectivity.GraphApi
         Task<Event> GetEventAsync(string eventId);
 
         Task<IEnumerable<Event>> GetMyEvents();
+
+        Task<IEnumerable<Event>> GetHighlightsEvents(DateTime? since, DateTime? until);
 
         Task<bool> PostEventAttendance(string eventId);
     }

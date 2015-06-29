@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
@@ -50,6 +51,12 @@ namespace Conflux.Connectivity
         public async Task<string> GetMyEvents()
         {
             var response = await httpClient.GetStringAsync(FacebookUriCollection.GetMyEventsUri(accessToken));
+            return response;
+        }
+
+        public async Task<string> GetHighlightsEvents(DateTime? since = null, DateTime? until = null)
+        {
+            var response = await httpClient.GetStringAsync(FacebookUriCollection.GetHighlightEvents(accessToken, since, until));
             return response;
         }
 

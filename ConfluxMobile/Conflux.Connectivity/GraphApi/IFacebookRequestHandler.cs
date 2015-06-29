@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Conflux.Connectivity.GraphApi
 {
@@ -15,6 +16,8 @@ namespace Conflux.Connectivity.GraphApi
         Task<string> GetEventAsync(string eventId);
 
         Task<string> GetMyEvents();
+
+        Task<string> GetHighlightsEvents(DateTime? since, DateTime? until);
 
         Task<string> PostEventAttendance(string eventId);
     }

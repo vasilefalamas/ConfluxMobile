@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Conflux.Connectivity.Authentication;
 
 namespace Conflux.Connectivity.GraphApi
@@ -69,6 +70,23 @@ namespace Conflux.Connectivity.GraphApi
         public static Uri GetEventAttendanceUri(AccessToken accessToken, string eventId)
         {
             return new Uri(string.Format("https://graph.facebook.com/{0}/attending?access_token={1}", eventId, accessToken.Value));
+        }
+
+        public static Uri GetHighlightEvents(AccessToken accessToken, DateTime? since = null, DateTime? until = null)
+        {
+            var uriString = new StringBuilder("https://graph.facebook.com/search?q={0}&type=event");
+
+            if (since != null)
+            {
+                uriString.Append(string.Format("&since={0}-{1}-{2}", since.Value.Year, since.Value.Month, since.Value.Day));
+            }
+
+            if (until != null)
+            {
+                uriString.Append(string.Format("&until={0}-{1}-{2}", until.Value.Year, until.Value.Month, until.Value.Day));
+            }
+
+            return new Uri(string.Format("https://graph.facebook.com/search?q={0}&type=event"));
         }
     }
 }
