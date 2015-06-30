@@ -38,7 +38,7 @@ namespace Conflux.Tests
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Event>> GetEventsByKeywordAsync(string locationKeyword, uint offset = 0, uint? limit = null)
+        public Task<IEnumerable<Event>> GetEventsByKeywordAsync(string locationKeyword, uint offset = 0, uint? limit = null, DateTime? since = null, DateTime? until = null)
         {
             throw new NotImplementedException();
         }

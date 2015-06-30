@@ -67,9 +67,9 @@ namespace Conflux.Connectivity
             return null;
         }
 
-        public async Task<IEnumerable<Event>> GetEventsByKeywordAsync(string locationKeyword, uint offset = 0, uint? limit = null)
+        public async Task<IEnumerable<Event>> GetEventsByKeywordAsync(string locationKeyword, uint offset = 0, uint? limit = null, DateTime? since = null, DateTime? until = null)
         {
-            var response = await facebookRequestHandler.GetEventsByKeywordAsync(locationKeyword, offset, limit);
+            var response = await facebookRequestHandler.GetEventsByKeywordAsync(locationKeyword, offset, limit, since, until);
 
             var events = await GetEventsFromResponse(response);
             return events;
@@ -101,15 +101,7 @@ namespace Conflux.Connectivity
             var events = await GetEventsFromResponse(response);
             return events;
         }
-
-        public async Task<IEnumerable<Event>> GetHighlightsEventsAsync(DateTime? since, DateTime? until)
-        {
-            var response = await facebookRequestHandler.GetHighlightsEvents(since, until);
-
-            var events = await GetEventsFromResponse(response);
-            return events;
-        }
-
+        
         public async Task<bool> PostEventAttendanceAsync(string eventId)
         {
             var response = await facebookRequestHandler.PostEventAttendance(eventId);

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Conflux.UI.ViewModels;
 
 namespace Conflux.UI.Controls
@@ -17,12 +16,12 @@ namespace Conflux.UI.Controls
 
         }
 
-        private void OnControlLoaded(object sender, RoutedEventArgs e)
+        private async void OnControlLoaded(object sender, RoutedEventArgs e)
         {
-            var mockEvents = viewModel.GetMockEvents();
-            
-            viewModel.AddRange(mockEvents.Select(item => item.Event));
-
+            if (viewModel.EventsGroups.Count == 0) //OneTime load of highlights on a cached page.
+            {
+                await viewModel.GetHighlights();
+            }
         }
     }
 }

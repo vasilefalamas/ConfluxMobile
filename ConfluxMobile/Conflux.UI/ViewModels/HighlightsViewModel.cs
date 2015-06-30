@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Models;
 using Conflux.UI.Models;
@@ -32,6 +33,17 @@ namespace Conflux.UI.ViewModels
         public HighlightsViewModel()
         {
             EventsGroups = new ObservableCollection<EventsGroup>();
+        }
+
+        public async Task GetHighlights()
+        {
+            var location = App.User.LocationInfo.Name;
+            var startDate = DateTime.Now.AddDays(-7);
+            var endDate = DateTime.Now.AddDays(7);
+
+            var events = await App.FacebookClient.GetEventsByKeywordAsync(location, 0, 50, startDate, endDate);
+
+            AddRange(events);
         }
 
         public void Add(Event eventItem)

@@ -13,14 +13,12 @@ namespace Conflux.Connectivity.GraphApi
 
         Task<BitmapImage> GetProfilePictureAsync(PictureSize pictureSize = PictureSize.Size160x160);
 
-        Task<IEnumerable<Event>> GetEventsByKeywordAsync(string locationKeyword, uint offset = 0, uint? limit = null);
+        Task<IEnumerable<Event>> GetEventsByKeywordAsync(string locationKeyword, uint offset = 0, uint? limit = null, DateTime? since = null, DateTime? until = null);
 
         Task<Event> GetEventAsync(string eventId);
 
         Task<IEnumerable<Event>> GetMyEventsAsync();
-
-        Task<IEnumerable<Event>> GetHighlightsEventsAsync(DateTime? since, DateTime? until);
-
+        
         Task<bool> PostEventAttendanceAsync(string eventId);
     }
 }

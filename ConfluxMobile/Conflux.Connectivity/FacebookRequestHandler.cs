@@ -36,9 +36,9 @@ namespace Conflux.Connectivity
             return response;
         }
 
-        public async Task<string> GetEventsByKeywordAsync(string locationKeyword, uint offset = 0, uint? limit = null)
+        public async Task<string> GetEventsByKeywordAsync(string locationKeyword, uint offset = 0, uint? limit = null, DateTime? since = null, DateTime? until = null)
         {
-            var response = await httpClient.GetStringAsync(FacebookUriCollection.GetEventsByLocationKeywordUri(accessToken, locationKeyword, offset, limit));
+            var response = await httpClient.GetStringAsync(FacebookUriCollection.GetEventsByLocationKeywordUri(accessToken, locationKeyword, offset, limit, since, until));
             return response;
         }
 
@@ -51,12 +51,6 @@ namespace Conflux.Connectivity
         public async Task<string> GetMyEvents()
         {
             var response = await httpClient.GetStringAsync(FacebookUriCollection.GetMyEventsUri(accessToken));
-            return response;
-        }
-
-        public async Task<string> GetHighlightsEvents(DateTime? since = null, DateTime? until = null)
-        {
-            var response = await httpClient.GetStringAsync(FacebookUriCollection.GetHighlightEvents(accessToken, since, until));
             return response;
         }
 
