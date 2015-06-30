@@ -4,9 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
 using Conflux.Connectivity.GraphApi;
 using Conflux.Core.Models;
 using Conflux.UI.Models;
@@ -37,21 +34,6 @@ namespace Conflux.UI.ViewModels
             EventsGroups = new ObservableCollection<EventsGroup>();
         }
 
-
-        public async Task BuildGroupsAsync(List<EventDisplayItem> events)
-        {
-            var groups = await GroupEvents(events);
-
-            var dispatcher = Window.Current.Dispatcher;
-            await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                foreach (var item in groups)
-                {
-                    EventsGroups.Add(item);
-                }
-            });
-        }
-        
         public void Add(Event eventItem)
         {
             var newEvent = new EventDisplayItem
@@ -68,21 +50,6 @@ namespace Conflux.UI.ViewModels
             {
                 Add(item);
             }
-        }
-
-        private async Task<List<EventsGroup>> GroupEvents(IEnumerable<EventDisplayItem> events)
-        {
-            return await Task.Run(() =>
-            {
-                var resultGroups = new List<EventsGroup>();
-
-                foreach (var eventItem in events)
-                {
-                    AddEventToGroup(eventItem, resultGroups);
-                }
-
-                return resultGroups;
-            });
         }
 
         private void AddEventToGroup(EventDisplayItem eventItem, ICollection<EventsGroup> eventsGroup)

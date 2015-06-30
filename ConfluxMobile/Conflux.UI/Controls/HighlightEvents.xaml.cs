@@ -17,11 +17,10 @@ namespace Conflux.UI.Controls
 
         }
 
-        private async void OnControlLoaded(object sender, RoutedEventArgs e)
+        private void OnControlLoaded(object sender, RoutedEventArgs e)
         {
             var mockEvents = viewModel.GetMockEvents();
-            await viewModel.BuildGroupsAsync(mockEvents);
-
+            
             viewModel.AddRange(mockEvents.Select(item => item.Event));
 
         }
