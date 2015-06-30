@@ -7,11 +7,11 @@
     xmlns:controls="using:Conflux.UI.Controls"
     mc:Ignorable="d"
     Loaded="OnControlLoaded">
-    
+
     <UserControl.Resources>
         <CollectionViewSource x:Name="EventsGroupsCollectionViewSource" Source="{Binding EventsGroups}" IsSourceGrouped="True" />
     </UserControl.Resources>
-    
+
     <Grid>
         <SemanticZoom>
             <SemanticZoom.ZoomedInView>
@@ -20,21 +20,28 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <controls:EventItem Title="{Binding Event.Title}"
-                                                Location="{Binding Event.Location.Name}"
+                                                Location="{Binding Event.Location}"
                                                 Visited="{Binding Visited}"
                                                 StartTime="{Binding Event.StartTime}"
                                                 EndTime="{Binding Event.EndTime}">
                             </controls:EventItem>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-                    <ListView.GroupStyle> 
+                    <ListView.GroupStyle>
                         <GroupStyle>
                             <!-- HidesIfEmpty="True" -->
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="Teal" BorderThickness="2" Margin="5">
-                                        <TextBlock Text="{Binding Key}" Margin="5"
-                                               FontSize="25" Foreground="Teal"/>
+                                        <StackPanel Margin="2">
+                                            <TextBlock FontSize="12" Text="{Binding ShortDay}" Foreground="Teal"
+                                                       VerticalAlignment="Top" HorizontalAlignment="Right" 
+                                                       Padding="0, 2, 5, 0"/>
+                                            <TextBlock FontSize="28" Text="{Binding Key}"
+                                                       Foreground="Teal"
+                                                       VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                                                       Padding="5, 0, 5, 2"/>
+                                        </StackPanel>
                                     </Border>
                                 </DataTemplate>
                             </GroupStyle.HeaderTemplate>
@@ -43,19 +50,24 @@
                 </ListView>
             </SemanticZoom.ZoomedInView>
             <SemanticZoom.ZoomedOutView>
-                <ListView ScrollViewer.IsVerticalScrollChainingEnabled="False"
+                <GridView ScrollViewer.IsHorizontalScrollChainingEnabled="False"
                           ItemsSource="{Binding Source={StaticResource EventsGroupsCollectionViewSource},ElementName=CVS,Path=CollectionGroups}" 
                           Background="#C0F5F5F5" Padding="10">
-                    <ListView.ItemTemplate>
+                    <GridView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Background="Teal" Width="250" Height="85" Margin="0, 0, 5, 5">
-                                <TextBlock FontSize="30" Text="{Binding Group.Key}"
-                                           Foreground="WhiteSmoke" Margin="10"
-                                           VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                            </Grid>
+                            <StackPanel Background="Teal"
+                                        Width="100" Height="85" Margin="5">
+                                <TextBlock FontSize="12" Text="{Binding Group.ShortDay}" Foreground="White"
+                                           VerticalAlignment="Top" HorizontalAlignment="Right" 
+                                           Padding="0, 5, 5, 0"/>
+                                <TextBlock FontSize="28" Text="{Binding Group.Key}"
+                                           Foreground="WhiteSmoke"
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                                           Padding="5, 0, 5, 5"/>
+                            </StackPanel>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </GridView.ItemTemplate>
+                </GridView>
             </SemanticZoom.ZoomedOutView>
         </SemanticZoom>
     </Grid>

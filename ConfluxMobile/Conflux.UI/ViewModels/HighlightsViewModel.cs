@@ -39,7 +39,7 @@ namespace Conflux.UI.ViewModels
         {
             var location = App.User.LocationInfo.Name;
             var startDate = DateTime.Now.AddDays(-7);
-            var endDate = DateTime.Now.AddDays(7);
+            var endDate = DateTime.Now.AddDays(14);
 
             var events = await App.FacebookClient.GetEventsByKeywordAsync(location, 0, 50, startDate, endDate);
 
@@ -71,7 +71,11 @@ namespace Conflux.UI.ViewModels
             //Event doesn't fit in any existing group. Create a new one.
             if (eventsGroup.All(g => g.Key != dayKey))
             {
-                var newGroup = new EventsGroup { Key = dayKey };
+                var newGroup = new EventsGroup
+                {
+                    Key = dayKey,
+                    ShortDay = GetShortDay(eventItem)
+                };
                 newGroup.Add(eventItem);
 
                 eventsGroup.Add(newGroup);
@@ -90,9 +94,24 @@ namespace Conflux.UI.ViewModels
         private string GetDayKey(EventDisplayItem eventItem)
         {
             var startTime = eventItem.Event.StartTime;
-            var dayKey = startTime != null ? startTime.Value.ToString("dddd") : "Unknown";
+            var dayKey = startTime != null ? startTime.Value.ToString("dd MMM") : "Unknown";
 
             return dayKey;
+        }
+
+        private string GetShortDay(EventDisplayItem eventItem)
+        {
+            if (eventItem.Event != null)
+            {
+                var startDate = eventItem.Event.StartTime;
+
+                if (startDate.HasValue)
+                {
+                    return startDate.Value.ToString("ddd");
+                }
+            }
+
+            return "Unknown";
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
