@@ -89,7 +89,7 @@
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Models\DateSentenceComposer.cs" />
     <Compile Include="Models\EventDisplayItem.cs" />
-    <Compile Include="Models\EventsSource.cs" />
+    <Compile Include="Models\NewestEventsSource.cs" />
     <Compile Include="Models\IIncrementalSource.cs" />
     <Compile Include="Models\IncrementalLoadingCollection.cs" />
     <Compile Include="Settings\AppSettings.cs" />

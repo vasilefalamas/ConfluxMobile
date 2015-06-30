@@ -5,13 +5,13 @@ using Conflux.Connectivity.GraphApi;
 
 namespace Conflux.Core.Models
 {
-    public class EventsSource : IIncrementalSource<EventDisplayItem>
+    public class NewestEventsSource : IIncrementalSource<EventDisplayItem>
     {
         private readonly IFacebookClient facebookClient;
         
         private readonly string currentLocationKeyword;
 
-        public EventsSource(IFacebookClient facebookClient, string currentLocationKeyword)
+        public NewestEventsSource(IFacebookClient facebookClient, string currentLocationKeyword)
         {
             this.facebookClient = facebookClient;
             this.currentLocationKeyword = currentLocationKeyword;

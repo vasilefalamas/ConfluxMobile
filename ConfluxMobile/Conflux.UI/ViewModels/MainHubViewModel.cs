@@ -90,7 +90,7 @@ namespace Conflux.UI.ViewModels
         {
             Location = location;
 
-            var eventsSource = new EventsSource(App.FacebookClient, location);
+            var eventsSource = new NewestEventsSource(App.FacebookClient, location);
 
             NewestEvents = new IncrementalLoadingCollection<EventDisplayItem>(eventsSource);
             NewestEvents.LoadMoreItemsStarted += OnLoadMoreItemsStarted;
