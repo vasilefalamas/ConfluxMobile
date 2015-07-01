@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Media.Imaging;
 using Conflux.Core.Models;
+using Conflux.Core.Settings;
 using Conflux.UI.Common;
 using Conflux.UI.Views;
 
@@ -109,6 +110,7 @@ namespace Conflux.UI.ViewModels
             if (NewestEvents.Contains(eventItem))
             {
                 NewestEvents.Remove(eventItem);
+                AppSettings.AddBlacklistEvent(eventItem.Event.Id);
             }
         }
 

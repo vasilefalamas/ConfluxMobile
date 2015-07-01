@@ -88,14 +88,14 @@ namespace Conflux.UI.Views
         {
             var item = (e.OriginalSource as FrameworkElement);
 
-            if (item != null)
+            if (item == null)
             {
-                var selection = (EventDisplayItem) item.DataContext;
-
-                confluxHubViewModel.NewestEvents.Remove(selection);
-
-                AppSettings.AddBlacklistEvent(selection.Event.Id);
+                return;
             }
+
+            var selection = (EventDisplayItem) item.DataContext;
+
+            confluxHubViewModel.MarkBlacklistEvent(selection);
         }
 
         private void OnNearbyEventsListSelectionChanged(object sender, SelectionChangedEventArgs e)
