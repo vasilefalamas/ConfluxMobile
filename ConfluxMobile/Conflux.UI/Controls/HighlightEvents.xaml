@@ -16,7 +16,8 @@
         <SemanticZoom>
             <SemanticZoom.ZoomedInView>
                 <ListView ItemsSource="{Binding Source={StaticResource EventsGroupsCollectionViewSource}}"
-                        ScrollViewer.IsVerticalScrollChainingEnabled="False">
+                          ScrollViewer.IsVerticalScrollChainingEnabled="False" 
+                          SelectionChanged="OnHighlightsEventsListSelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <controls:EventItem Title="{Binding Event.Title}"
