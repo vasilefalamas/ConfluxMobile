@@ -8,7 +8,7 @@ using Conflux.Connectivity.GraphApi;
 
 namespace Conflux.Core.Settings
 {
-    public class AppSettings
+    public static class AppSettings
     {
         private const string AccessTokenKey = "Facebook_AccessToken_Value";
         
@@ -113,15 +113,15 @@ namespace Conflux.Core.Settings
             SetValue(TermsOfUseAcceptedKey, isAccepted);
         }
 
-        public List<string> GetBlacklistEventsIds()
+        public static List<string> GetBlacklistEventsIds()
         {
-            var rawString = (String) GetValue(BlacklistEventsKey); 
+            var rawString = (String) GetValue(BlacklistEventsKey) ?? string.Empty; 
 
             var resultList = rawString.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
             return resultList.ToList();
         }
 
-        public void AddBlacklistEvent(string eventId)
+        public static void AddBlacklistEvent(string eventId)
         {
             var rawString = (String)GetValue(BlacklistEventsKey);
 

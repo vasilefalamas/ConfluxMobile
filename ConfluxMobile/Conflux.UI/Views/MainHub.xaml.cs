@@ -94,7 +94,7 @@ namespace Conflux.UI.Views
 
                 confluxHubViewModel.NewestEvents.Remove(selection);
 
-                //TODO : Remove from serialized data
+                AppSettings.AddBlacklistEvent(selection.Event.Id);
             }
         }
 
