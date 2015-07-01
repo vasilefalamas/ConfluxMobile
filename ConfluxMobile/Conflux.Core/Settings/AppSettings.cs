@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Windows.Storage;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
 
 namespace Conflux.Core.Settings
 {
-    public static class AppSettings
+    public class AppSettings
     {
         private const string AccessTokenKey = "Facebook_AccessToken_Value";
         
@@ -23,6 +25,8 @@ namespace Conflux.Core.Settings
         private const string AllowImagesDownloadKey = "Settings_AllowImagesDownload";
 
         private const string TermsOfUseAcceptedKey = "Settings_TermsOfUseAccepted";
+
+        private const string BlacklistEventsKey = "Storage_BlackListEvents";
 
         public static AccessToken GetAccessToken()
         {
@@ -107,7 +111,23 @@ namespace Conflux.Core.Settings
         public static void SetTermsOfUseAcceptStatus(bool isAccepted)
         {
             SetValue(TermsOfUseAcceptedKey, isAccepted);
-        } 
+        }
+
+        public List<string> GetBlacklistEventsIds()
+        {
+            var rawString = (String) GetValue(BlacklistEventsKey); 
+
+            var resultList = rawString.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+            return resultList.ToList();
+        }
+
+        public void AddBlacklistEvent(string eventId)
+        {
+            var rawString = (String)GetValue(BlacklistEventsKey);
+
+            var joinedString = string.Format("{0},{1}", rawString, eventId);
+            SetValue(BlacklistEventsKey, joinedString);
+        }
 
         private static object GetValue(string key)
         {
