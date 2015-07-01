@@ -6,7 +6,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Conflux.Connectivity.GraphApi;
+using Conflux.Core;
 using Conflux.Core.Models;
+using Conflux.Core.Settings;
 using Conflux.UI.Models;
 
 namespace Conflux.UI.ViewModels
@@ -42,8 +44,10 @@ namespace Conflux.UI.ViewModels
             var endDate = DateTime.Now.AddDays(14);
 
             var events = await App.FacebookClient.GetEventsByKeywordAsync(location, 0, 50, startDate, endDate);
+            //Eliminate blacklist events :
+            var filteredEvents = events.Where(item => !AppSettings.GetBlacklistEventsIds().Contains(item.Id));
 
-            AddRange(events);
+            AddRange(filteredEvents);
         }
 
         public void Add(Event eventItem)

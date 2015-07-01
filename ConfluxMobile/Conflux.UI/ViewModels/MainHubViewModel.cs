@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Media.Imaging;
 using Conflux.Core.Models;
@@ -95,7 +96,7 @@ namespace Conflux.UI.ViewModels
             NewestEvents = new IncrementalLoadingCollection<EventDisplayItem>(eventsSource);
             NewestEvents.LoadMoreItemsStarted += OnLoadMoreItemsStarted;
             NewestEvents.LoadMoreItemsCompleted += OnLoadMoreItemsCompleted;
-
+            
             UserSectionLinks = new List<NavigationLink>();
 
             AddUserSectionLinks(UserSectionLinks);

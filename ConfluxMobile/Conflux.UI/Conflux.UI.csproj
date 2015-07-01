@@ -116,6 +116,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextBlockExtension.cs" />
     <Compile Include="Text\TextFormatter.cs" />
+    <Compile Include="ViewModels\BlacklistViewModel.cs" />
     <Compile Include="ViewModels\EventDetailsViewModel.cs" />
     <Compile Include="ViewModels\HighlightsViewModel.cs" />
     <Compile Include="ViewModels\MainHubViewModel.cs" />

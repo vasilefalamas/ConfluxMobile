@@ -123,10 +123,17 @@ namespace Conflux.Core.Settings
 
         public static void AddBlacklistEvent(string eventId)
         {
-            var rawString = (String)GetValue(BlacklistEventsKey);
+            var rawString = (String)GetValue(BlacklistEventsKey) ?? string.Empty;
 
             var joinedString = string.Format("{0},{1}", rawString, eventId);
             SetValue(BlacklistEventsKey, joinedString);
+        }
+
+        public static void RemoveBlacklistEvent(string eventId)
+        {
+            var rawString = (String)GetValue(BlacklistEventsKey) ?? string.Empty;
+
+            SetValue(BlacklistEventsKey, rawString.Replace(eventId, string.Empty));
         }
 
         private static object GetValue(string key)
@@ -142,5 +149,6 @@ namespace Conflux.Core.Settings
 
             settings.Values[key] = settingsObject;
         }
+
     }
 }

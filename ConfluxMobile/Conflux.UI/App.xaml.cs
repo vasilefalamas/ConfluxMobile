@@ -28,9 +28,7 @@ namespace Conflux.UI
         public static IFacebookClient FacebookClient { get; private set; }
         
         public static User User { get; set; }
-
-        public List<string> BlacklistEvents { get; private set; }
-
+        
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -43,8 +41,6 @@ namespace Conflux.UI
             RequestedTheme = ApplicationTheme.Light;
             
             User = new User();
-
-            BlacklistEvents = AppSettings.GetBlacklistEventsIds();
         }
 
         /// <summary>

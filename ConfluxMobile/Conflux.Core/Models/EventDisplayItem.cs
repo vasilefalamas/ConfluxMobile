@@ -10,6 +10,8 @@ namespace Conflux.Core.Models
 
         private bool visited;
 
+        private bool selected;
+
         public bool Visited
         {
             get
@@ -19,6 +21,19 @@ namespace Conflux.Core.Models
             set
             {
                 visited = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool Selected
+        {
+            get
+            {
+                return selected;
+            }
+            set
+            {
+                selected = value;
                 OnPropertyChanged();
             }
         }
