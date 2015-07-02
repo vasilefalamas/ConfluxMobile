@@ -110,8 +110,6 @@ namespace Conflux.Connectivity
 
             JsonObject jsonObject = JsonValue.Parse(response).GetObject();
 
-            //var photosArray = jsonObject.GetNamedObject("photos").GetNamedArray("data").GetObjectAt(0).GetNamedArray("images");
-
             var data = jsonObject.GetNamedObject("photos").GetNamedArray("data");
 
             foreach (var item in data)
