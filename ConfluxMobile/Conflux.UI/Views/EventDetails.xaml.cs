@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Storage.Streams;
 using Windows.System;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Core.Models;
 using Conflux.UI.Common;
@@ -65,7 +65,7 @@ namespace Conflux.UI.Views
             if (passedEventDetailedItem != null)
             {
                 LoadingModalGrid.StartAnimation("FadeIn");
-                
+
                 await viewModel.InitializeAsync(passedEventDetailedItem.Event.Id);
                 LoadingModalGrid.StartAnimation("FadeOut");
             }
@@ -89,7 +89,7 @@ namespace Conflux.UI.Views
             if (viewModel.IsMapSelectionActive)
             {
                 HideMapSelection();
-                
+
                 e.Cancel = true;
             }
 
@@ -148,9 +148,18 @@ namespace Conflux.UI.Views
 
         private async void OnAttendClicked(object sender, RoutedEventArgs e)
         {
-            var result = await App.FacebookClient.PostEventAttendanceAsync(viewModel.Id);
+            var attendSuccesful = await App.FacebookClient.PostEventAttendanceAsync(viewModel.Id);
+
+            if (attendSuccesful)
+            {
+                await new MessageDialog("Your request to attend this event has been handled with success. You're now one of the attendees!", "Attend status").ShowAsync();
+            }
+            else
+            {
+                await new MessageDialog("There was a problem trying to attend to this event. Please try again later.", "Attend status").ShowAsync();
+            }
         }
-        
+
         //TODO : Extract this into a separate helper class. Solve dependency with VM usage.
         private void ShowMapSelection()
         {
@@ -201,7 +210,7 @@ namespace Conflux.UI.Views
             }
 
             listView.SelectedItem = null;
-            
+
             var mapUri = new Uri(selectedItem.UriString);
             await Launcher.LaunchUriAsync(mapUri);
 
