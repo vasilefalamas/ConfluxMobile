@@ -4,8 +4,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
+using Windows.UI.Xaml.Media.Imaging;
 using Conflux.Connectivity.GraphApi;
 using Conflux.UI.Models;
 
@@ -45,9 +46,15 @@ namespace Conflux.UI.ViewModels
         
         private ObservableCollection<MapAppItem> mapAppsOptions;
 
+        private ObservableCollection<BitmapImage> images;
+
+        private bool isImageSlideAvailable;
+
         private string hereMapsIncompleteUriString = "explore-maps://v2.0/show/place/?latlon={0},{1}&title={2}&zoom={3}";
 
         private string defaultMapsIncompleteUriString = "bingmaps:?collection=point.{0}_{1}_{2}&lvl={3}";
+
+        private IFacebookClient facebookClient;
         
         public string Id
         {
@@ -219,11 +226,6 @@ namespace Conflux.UI.ViewModels
         
         public bool IsMapSelectionActive { get; set; }
         
-        public EventDetailsViewModel()
-        {
-            MapAppsOptions = new ObservableCollection<MapAppItem>();
-        }
-
         public ObservableCollection<MapAppItem> MapAppsOptions
         {
             get
@@ -236,11 +238,47 @@ namespace Conflux.UI.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public ObservableCollection<BitmapImage> Images
+        {
+            get
+            {
+                return images;
+            }
+            set
+            {
+                images = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsImageSlideAvailable
+        {
+            get
+            {
+                return isImageSlideAvailable;
+            }
+            set
+            {
+                isImageSlideAvailable = value;
+                OnPropertyChanged();
+            }
+        }
         
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void Build(Event eventItem)
+        public EventDetailsViewModel()
         {
+            MapAppsOptions = new ObservableCollection<MapAppItem>();
+            Images = new ObservableCollection<BitmapImage>();
+
+            facebookClient = App.FacebookClient;
+        }
+
+        public async Task InitializeAsync(string eventId)
+        {
+            var eventItem = await facebookClient.GetEventAsync(eventId);
+
             AddEventData(eventItem);
 
             if (eventItem.Location != null)
@@ -348,6 +386,23 @@ namespace Conflux.UI.ViewModels
                 Uri.EscapeDataString(longitude.ToString()),
                 Uri.EscapeDataString(title),
                 Uri.EscapeDataString(zoomLevel.ToString()));
+        }
+
+        public async Task LoadPhotosAsync()
+        {
+            var imagesUriList = await facebookClient.GetEventPhotosAsync(Id);
+
+            foreach (var imageUri in imagesUriList)
+            {
+                Images.Add(new BitmapImage(new Uri(imageUri)));
+            }
+
+            SetImageSlideAvailability();
+        }
+
+        private void SetImageSlideAvailability()
+        {
+            IsImageSlideAvailable = Images.Count > 0;
         }
     }
 }

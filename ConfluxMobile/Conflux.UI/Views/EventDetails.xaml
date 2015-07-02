@@ -154,7 +154,7 @@
                                     <Grid Grid.Row="0" Visibility="{Binding IsDescriptionAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}">
                                         <TextBlock Text="This event is provided with no description."
                                                    TextWrapping="Wrap"
-                                                   FontSize="16" Foreground="DarkGray"/>
+                                                   FontSize="16" Foreground="{StaticResource MediumForegroundBrush}"/>
                                     </Grid>
                                     <Grid x:Name="ShortDescriptionPanel" Grid.Row="0">
                                         <Grid.RowDefinitions>
@@ -209,7 +209,7 @@
                                                         <TextBlock Grid.Column="0" Text="Start time :" FontSize="16" Foreground="Black"/>
                                                         <TextBlock Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding StartTime}" FontSize="16" Foreground="Black"/>
                                                     </Grid>
-                                                    <TextBlock Text="Start time is not defined." FontSize="16" Foreground="DarkGray"
+                                                    <TextBlock Text="Start time is not defined." FontSize="16" Foreground="{StaticResource MediumForegroundBrush}"
                                                                Visibility="{Binding IsStartTimeAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
                                                 </StackPanel>
                                                 <StackPanel Grid.Row="1" Orientation="Horizontal">
@@ -221,7 +221,7 @@
                                                         <TextBlock Grid.Column="0" Text="End time :" FontSize="16" Foreground="Black"/>
                                                         <TextBlock Grid.Column="1" Margin="5, 0, 0, 0" Text="{Binding EndTime}" FontSize="16" Foreground="Black"/>
                                                     </Grid>
-                                                    <TextBlock Text="End time is undefined." FontSize="16" Foreground="DarkGray"
+                                                    <TextBlock Text="End time is undefined." FontSize="16" Foreground="{StaticResource MediumForegroundBrush}"
                                                                Visibility="{Binding IsEndTimeAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
                                                 </StackPanel>
                                             </Grid>
@@ -242,7 +242,7 @@
                                                 <TextBlock Grid.Row="0" Text="Location :" Foreground="Black" FontSize="16"/>
                                                 <TextBlock Grid.Row="1" Text="{Binding Location}" Foreground="Black" FontSize="16" TextWrapping="Wrap"
                                                            Visibility="{Binding IsLocationAvailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                                                <TextBlock Grid.Row="1" Foreground="DarkGray"
+                                                <TextBlock Grid.Row="1" Foreground="{StaticResource MediumForegroundBrush}"
                                                            Text="This event's location is undefined." FontSize="16" TextWrapping="Wrap"
                                                            Visibility="{Binding IsLocationAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
                                             </Grid>
@@ -251,12 +251,24 @@
                                 </ScrollViewer>
                             </DataTemplate>
                         </HubSection>
-                        <HubSection Header="SIMILAR" Foreground="Teal" Margin="0, 0, 0, 50">
+                        <HubSection Header="PHOTOS" Foreground="Teal" Margin="0, 0, 0, 50">
                             <DataTemplate>
-                                <ScrollViewer>
-                                    <TextBlock FontSize="16" TextWrapping="Wrap" Foreground="Black"
-                                    Text="[Not yet implemented] Search for events with similar Start Date or Location to this event's ones."/>
-                                </ScrollViewer>
+                                <Grid>
+                                    <TextBlock Text="There are no photos associated with this event." 
+                                               Foreground="{StaticResource MediumForegroundBrush}"
+                                               Visibility="{Binding IsImageSlideAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
+                                    <FlipView ItemsSource="{Binding Images}" 
+                                              VerticalAlignment="Top" HorizontalAlignment="Center"
+                                              UseTouchAnimationsForAllNavigation="True"
+                                              ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                                              Visibility="{Binding IsImageSlideAvailable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <FlipView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding}"/>
+                                            </DataTemplate>
+                                        </FlipView.ItemTemplate>
+                                    </FlipView>
+                                </Grid>
                             </DataTemplate>
                         </HubSection>
                     </Hub>

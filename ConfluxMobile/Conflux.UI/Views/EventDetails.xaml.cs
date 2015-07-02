@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Core.Models;
 using Conflux.UI.Common;
@@ -65,9 +66,7 @@ namespace Conflux.UI.Views
             {
                 LoadingModalGrid.StartAnimation("FadeIn");
                 
-                var eventItem = await App.FacebookClient.GetEventAsync(passedEventDetailedItem.Event.Id);
-
-                viewModel.Build(eventItem);
+                await viewModel.InitializeAsync(passedEventDetailedItem.Event.Id);
                 LoadingModalGrid.StartAnimation("FadeOut");
             }
 
@@ -76,6 +75,8 @@ namespace Conflux.UI.Views
                 MapGrid.Visibility = Visibility.Visible;
                 await ShowEventOnMapAsync();
             }
+
+            await viewModel.LoadPhotosAsync();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
