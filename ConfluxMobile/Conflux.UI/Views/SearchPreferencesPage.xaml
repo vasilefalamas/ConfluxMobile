@@ -40,16 +40,10 @@
                 <PivotItem Header="data" Foreground="Teal">
                     <StackPanel>
                         <StackPanel>
-                            <ToggleSwitch Header="Save data transfer" Foreground="Black" IsOn="{Binding IsImageDownloadEnabled, Mode=TwoWay}">
-                                <ToggleSwitch.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="Save data transfer" Foreground="DarkGray"/>
-                                    </DataTemplate>
-                                </ToggleSwitch.HeaderTemplate>
-                            </ToggleSwitch>
+                            <ToggleSwitch Header="Allow image download" Foreground="Black" IsOn="{Binding IsImageDownloadEnabled, Mode=TwoWay}" OnContent="Yes" OffContent="No"/>
                             <TextBlock  FontSize="16"
                                        Style="{StaticResource BaseTextBlockStyle}"
-                                       Text="Applies to events. If this option is checked, images will not be downloaded."
+                                       Text="Save data transfer by preventing to download images. This applies for event details."
                                        TextWrapping="Wrap"/>
                         </StackPanel>
                     </StackPanel>
