@@ -254,10 +254,20 @@
                         <HubSection Header="PHOTOS" Foreground="Teal" Margin="0, 0, 0, 50">
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="There are no photos associated with this event." 
-                                               Foreground="{StaticResource MediumForegroundBrush}"
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="There are no photos to display here." 
+                                               FontSize="16" Foreground="{StaticResource MediumForegroundBrush}"
+                                               TextWrapping="Wrap"
                                                Visibility="{Binding IsImageSlideAvailable, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
-                                    <FlipView ItemsSource="{Binding Images}" 
+                                    <TextBlock Grid.Row="1" Text="Images download is not allowed for the moment due to your search preferences. Review them, and please try again."
+                                               FontSize="16" Foreground="{StaticResource MediumForegroundBrush}"
+                                               TextWrapping="Wrap"
+                                               Visibility="{Binding IsImageDownloadAllowed, Converter={StaticResource NegatedBoolToVisibilityConverter}}"/>
+                                    <FlipView Grid.Row="2" ItemsSource="{Binding Images}"
                                               VerticalAlignment="Top" HorizontalAlignment="Center"
                                               UseTouchAnimationsForAllNavigation="True"
                                               ScrollViewer.IsHorizontalScrollChainingEnabled="False"

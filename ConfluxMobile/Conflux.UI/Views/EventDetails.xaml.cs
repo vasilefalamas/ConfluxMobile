@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Conflux.Core.Models;
+using Conflux.Core.Settings;
 using Conflux.UI.Common;
 using Conflux.UI.Helpers;
 using Conflux.UI.Models;
@@ -32,7 +33,7 @@ namespace Conflux.UI.Views
         {
             InitializeComponent();
 
-            viewModel = new EventDetailsViewModel();
+            viewModel = new EventDetailsViewModel(AppSettings.GetAllowImagesDownloadStatus());
             DataContext = viewModel;
 
             navigationHelper = new NavigationHelper(this);
@@ -76,7 +77,10 @@ namespace Conflux.UI.Views
                 await ShowEventOnMapAsync();
             }
 
-            await viewModel.LoadPhotosAsync();
+            if (AppSettings.GetAllowImagesDownloadStatus())
+            {
+                await viewModel.LoadPhotosAsync();
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)

@@ -50,6 +50,8 @@ namespace Conflux.UI.ViewModels
 
         private bool isImageSlideAvailable;
 
+        private bool isImageDownloadAllowed;
+
         private string hereMapsIncompleteUriString = "explore-maps://v2.0/show/place/?latlon={0},{1}&title={2}&zoom={3}";
 
         private string defaultMapsIncompleteUriString = "bingmaps:?collection=point.{0}_{1}_{2}&lvl={3}";
@@ -264,11 +266,26 @@ namespace Conflux.UI.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
+        public bool IsImageDownloadAllowed
+        {
+            get
+            {
+                return isImageDownloadAllowed;
+            }
+            set
+            {
+                isImageDownloadAllowed = value;
+                OnPropertyChanged();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public EventDetailsViewModel()
+        public EventDetailsViewModel(bool isImageDownloadAllowed)
         {
+            IsImageDownloadAllowed = isImageDownloadAllowed;
+
             MapAppsOptions = new ObservableCollection<MapAppItem>();
             Images = new ObservableCollection<BitmapImage>();
 
@@ -297,6 +314,18 @@ namespace Conflux.UI.ViewModels
 
             var geopoint = new Geopoint(geoposition);
             return geopoint;
+        }
+
+        public async Task LoadPhotosAsync()
+        {
+            var imagesUriList = await facebookClient.GetEventPhotosAsync(Id);
+
+            foreach (var imageUri in imagesUriList)
+            {
+                Images.Add(new BitmapImage(new Uri(imageUri)));
+            }
+
+            SetImageSlideAvailability();
         }
         
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -386,18 +415,6 @@ namespace Conflux.UI.ViewModels
                 Uri.EscapeDataString(longitude.ToString()),
                 Uri.EscapeDataString(title),
                 Uri.EscapeDataString(zoomLevel.ToString()));
-        }
-
-        public async Task LoadPhotosAsync()
-        {
-            var imagesUriList = await facebookClient.GetEventPhotosAsync(Id);
-
-            foreach (var imageUri in imagesUriList)
-            {
-                Images.Add(new BitmapImage(new Uri(imageUri)));
-            }
-
-            SetImageSlideAvailability();
         }
 
         private void SetImageSlideAvailability()
