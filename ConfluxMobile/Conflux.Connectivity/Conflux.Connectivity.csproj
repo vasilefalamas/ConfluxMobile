@@ -92,6 +92,7 @@
     <Compile Include="GraphApi\FacebookUriCollection.cs" />
     <Compile Include="GraphApi\IFacebookClient.cs" />
     <Compile Include="GraphApi\IFacebookRequestHandler.cs" />
+    <Compile Include="GraphApi\Image.cs" />
     <Compile Include="GraphApi\LocationInfo.cs" />
     <Compile Include="GraphApi\PictureSize.cs" />
     <Compile Include="GraphApi\User.cs" />

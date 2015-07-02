@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Conflux.Connectivity.Authentication;
@@ -51,6 +52,12 @@ namespace Conflux.Connectivity
         public async Task<string> GetMyEvents()
         {
             var response = await httpClient.GetStringAsync(FacebookUriCollection.GetMyEventsUri(accessToken));
+            return response;
+        }
+
+        public async Task<string> GetEventPhotos(string eventId)
+        {
+            var response = await httpClient.GetStringAsync(FacebookUriCollection.GetEventPhotos(accessToken, eventId));
             return response;
         }
 

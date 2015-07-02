@@ -53,6 +53,11 @@ namespace Conflux.Tests
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<string>> GetEventPhotosAsync(string eventId, uint minWidth = 500, uint minHeight = 500)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Event>> GetHighlightsEventsAsync(DateTime? since, DateTime? until)
         {
             throw new NotImplementedException();

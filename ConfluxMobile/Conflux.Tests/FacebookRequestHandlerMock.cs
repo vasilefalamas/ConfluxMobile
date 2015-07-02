@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Conflux.Connectivity.Authentication;
 using Conflux.Connectivity.GraphApi;
@@ -56,6 +57,11 @@ namespace Conflux.Tests
         }
 
         public Task<string> GetMyEvents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetEventPhotos(string eventId)
         {
             throw new NotImplementedException();
         }

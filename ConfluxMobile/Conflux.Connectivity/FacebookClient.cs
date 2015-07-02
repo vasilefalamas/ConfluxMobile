@@ -101,7 +101,46 @@ namespace Conflux.Connectivity
             var events = await GetEventsFromResponse(response);
             return events;
         }
-        
+
+        public async Task<IEnumerable<string>> GetEventPhotosAsync(string eventId, uint minWidth = 500, uint minHeight = 500)
+        {
+            var resultList = new List<string>();
+
+            var response = await facebookRequestHandler.GetEventPhotos(eventId);
+
+            JsonObject jsonObject = JsonValue.Parse(response).GetObject();
+
+            //var photosArray = jsonObject.GetNamedObject("photos").GetNamedArray("data").GetObjectAt(0).GetNamedArray("images");
+
+            var data = jsonObject.GetNamedObject("photos").GetNamedArray("data");
+
+            foreach (var item in data)
+            {
+                var imagesJsonArray = item.GetObject().GetNamedArray("images");
+
+
+                foreach (var imageJson in imagesJsonArray)
+                {
+                    var imageJsonObject = imageJson.GetObject();
+
+                    var image = new Image
+                    {
+                        Width = imageJsonObject.GetNamedValue<double?>("width") ?? 0,
+                        Height = imageJsonObject.GetNamedValue<double?>("height") ?? 0,
+                        Uri = imageJsonObject.GetNamedValue<string>("source")
+                    };
+
+                    if (image.Width >= minWidth || image.Height >= minHeight)
+                    {
+                        resultList.Add(image.Uri);
+                        break;
+                    }
+                }
+            }
+
+            return resultList;
+        }
+
         public async Task<bool> PostEventAttendanceAsync(string eventId)
         {
             var response = await facebookRequestHandler.PostEventAttendance(eventId);

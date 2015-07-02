@@ -18,7 +18,9 @@ namespace Conflux.Connectivity.GraphApi
         Task<Event> GetEventAsync(string eventId);
 
         Task<IEnumerable<Event>> GetMyEventsAsync();
-        
+
+        Task<IEnumerable<string>> GetEventPhotosAsync(string eventId, uint minWidth = 500, uint minHeight = 500);
+
         Task<bool> PostEventAttendanceAsync(string eventId);
     }
 }
