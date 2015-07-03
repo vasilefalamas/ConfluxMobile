@@ -38,7 +38,8 @@ namespace Conflux.UI.ViewModels
             {
                 MyEvents.Add(new EventDisplayItem
                 {
-                    Event = item
+                    Event = item,
+                    Visited = true
                 });
             }
         }

@@ -16,8 +16,6 @@ namespace Conflux.UI.Views
         {
             InitializeComponent();
 
-            NavigationCacheMode = NavigationCacheMode.Enabled;
-
             viewModel = new MyEventsViewModel();
             DataContext = viewModel;
 
@@ -35,11 +33,7 @@ namespace Conflux.UI.Views
         {
             navigationHelper.OnNavigatedTo(e);
 
-            //TODO : avoid getting the items each time the View is loaded. Perhaps cache view.
-            if (viewModel.MyEvents.Count == 0)
-            {
-                await viewModel.GetMyEvents();    
-            }
+            await viewModel.GetMyEvents();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
