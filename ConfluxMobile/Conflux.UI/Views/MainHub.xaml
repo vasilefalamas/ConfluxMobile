@@ -74,9 +74,11 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <controls:EventItem FlyoutBase.AttachedFlyout="{StaticResource EventFlyout}"
-                                                        Title="{Binding Event.Title}" 
-                                                        StartTime="{Binding Event.StartTime}" EndTime="{Binding Event.EndTime}"
-                                                        Location="{Binding Event.Location}" Visited="{Binding Visited}">
+                                                        Title="{Binding Event.Title}"
+                                                        StartTime="{Binding Event.StartTime}"
+                                                        EndTime="{Binding Event.EndTime}"
+                                                        Location="{Binding Event.Location}" 
+                                                        Visited="{Binding Visited}">
                                         <interactivity:Interaction.Behaviors>
                                             <core:EventTriggerBehavior EventName="Holding">
                                                 <local:OpenEventFlyoutAction />

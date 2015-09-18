@@ -21,10 +21,10 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <controls:EventItem Title="{Binding Event.Title}"
-                                                Location="{Binding Event.Location}"
-                                                Visited="{Binding Visited}"
                                                 StartTime="{Binding Event.StartTime}"
-                                                EndTime="{Binding Event.EndTime}">
+                                                EndTime="{Binding Event.EndTime}"
+                                                Location="{Binding Event.Location}"
+                                                Visited="{Binding Visited}">
                             </controls:EventItem>
                         </DataTemplate>
                     </ListView.ItemTemplate>

@@ -7,13 +7,14 @@ namespace Conflux.UI.Converters
 {
     public class BoolToColorConverter : IValueConverter
     {
-        private static readonly SolidColorBrush ReadEventColor = new SolidColorBrush(Colors.Orange);
+        private static readonly SolidColorBrush ReadEventColor = new SolidColorBrush(Colors.Black);
 
-        private static readonly SolidColorBrush UnreadEventColor = new SolidColorBrush(Colors.DarkGray);
+        private static readonly SolidColorBrush UnreadEventColor = new SolidColorBrush(Colors.Teal);
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return ((bool)value) ? UnreadEventColor : ReadEventColor;
+            var boolValue = (bool) value;
+            return boolValue ? ReadEventColor : UnreadEventColor;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Conflux.Connectivity.GraphApi;
 
@@ -23,12 +24,12 @@ namespace Conflux.UI.Controls
         }
 
         public static readonly DependencyProperty StartTimeProperty = DependencyProperty.Register("StartTime", typeof(object), typeof(EventItem), null);
-        
+
         public DateTime? StartTime
         {
             get
             {
-                return (DateTime?) GetValue(StartTimeProperty);
+                return (DateTime?)GetValue(StartTimeProperty);
             }
             set
             {
@@ -77,7 +78,7 @@ namespace Conflux.UI.Controls
                 SetDependencyPropertyValue(VisitedProperty, value);
             }
         }
-
+        
         public EventItem()
         {
             InitializeComponent();

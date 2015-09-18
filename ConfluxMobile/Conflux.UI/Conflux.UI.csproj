@@ -108,6 +108,8 @@
     <Compile Include="Converters\BoolToColorConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DateSentenceConverter.cs" />
+    <Compile Include="Converters\DateToDayConverter.cs" />
+    <Compile Include="Converters\DateToMonthConverter.cs" />
     <Compile Include="Converters\NegatedBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />
