@@ -42,15 +42,19 @@
             <Hub Header="conflux">
                 <Hub.HeaderTemplate>
                     <DataTemplate>
-                        <TextBlock Text="conflux"  Foreground="Teal"/>
+                        <TextBlock Text="conflux" 
+                                   Foreground="Teal"/>
                     </DataTemplate>
                 </Hub.HeaderTemplate>
                 <HubSection Header="ME" Foreground="Teal">
                     <DataTemplate>
                         <StackPanel>
-                            <Image Width="150" Height="150"
-                                   HorizontalAlignment="Left"
-                                   Source="{Binding ProfilePicture}"/>
+                            <Ellipse Width="150" Height="150"
+                                   HorizontalAlignment="Left">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding ProfilePicture}"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
                             <TextBlock Text="{Binding Name}" FontSize="22" Foreground="Teal"/>
                             <TextBlock Text="{Binding Location}" FontSize="20" Foreground="Teal"/>
                             <ListView Margin="0, 30, 0, 0" 
