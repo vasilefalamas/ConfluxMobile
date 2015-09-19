@@ -57,48 +57,7 @@
                        LineHeight="15" MaxLines="2"/>
             <TextBlock Grid.Row="2" Text="{Binding EndTime, Converter={StaticResource DateSentenceConverter}, ConverterParameter='End'}"
                        Foreground="{StaticResource PhoneMidBrush}" LineHeight="15"
-                       Visibility="{Binding EndTime, Converter={StaticResource NullToVisibilityConverter}}"/>
-            
+                       Visibility="{Binding EndTime, Converter={StaticResource NullToVisibilityConverter}}"/> 
         </Grid>
     </Grid>
-
-    <!--<Grid Margin="0, 10">
-       <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <AddDeleteThemeTransition />
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="0, 5, 0, 3"
-                                              Background="{Binding Visited, Converter={StaticResource VisitedEventColorConverter}}">
-        </Grid>
-        <TextBlock Grid.Row="0" Grid.Column="1" Margin="10, 0, 5, 2"
-                   TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxLines="3"
-                   FontSize="22" LineStackingStrategy="MaxHeight"
-                   Text="{Binding Title}" 
-                   Foreground="Teal"
-                   ContinuumNavigationTransitionInfo.IsExitElement="True"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" Margin="10, 2, 5, 5"
-                   Visibility="{Binding StartTime, Converter={StaticResource NullToVisibilityConverter}}"
-                   Text="{Binding StartTime, Converter={StaticResource DateSentenceConverter}, ConverterParameter='Start'}"
-                   Foreground="Black"/>
-        <TextBlock Grid.Row="2" Grid.Column="1" Margin="10, 2, 5, 5"
-                   Visibility="{Binding EndTime, Converter={StaticResource NullToVisibilityConverter}}"
-                   Text="{Binding EndTime, Converter={StaticResource DateSentenceConverter}, ConverterParameter='End'}"
-                   Foreground="Black"/>
-        <TextBlock Grid.Row="3" Grid.Column="1" Margin="10, 0, 5, 2"
-                   Visibility="{Binding Location, Converter={StaticResource NullToVisibilityConverter}}"
-                   TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
-                   FontSize="16" Text="{Binding Location.Name}" Foreground="Teal"
-                   MaxLines="2"/>
-    </Grid>-->
 </UserControl>
