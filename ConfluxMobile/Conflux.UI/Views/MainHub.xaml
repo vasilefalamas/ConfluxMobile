@@ -29,7 +29,8 @@
 
     <Page.Resources>
         <MenuFlyout x:Key="EventFlyout">
-            <MenuFlyoutItem Text="add to favorites"/> <!--TODO Implement favorites -->
+            <MenuFlyoutItem Text="add to favorites"/>
+            <!--TODO Implement favorites -->
         </MenuFlyout>
     </Page.Resources>
 
@@ -72,18 +73,24 @@
                                   SelectionChanged="OnNearbyEventsListSelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <controls:EventItem FlyoutBase.AttachedFlyout="{StaticResource EventFlyout}"
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <controls:EventItem Grid.Row="0"
+                                        FlyoutBase.AttachedFlyout="{StaticResource EventFlyout}"
                                                         Title="{Binding Event.Title}"
                                                         StartTime="{Binding Event.StartTime}"
                                                         EndTime="{Binding Event.EndTime}"
                                                         Location="{Binding Event.Location}" 
                                                         Visited="{Binding Visited}">
-                                    <interactivity:Interaction.Behaviors>
-                                        <core:EventTriggerBehavior EventName="Holding">
-                                            <local:OpenEventFlyoutAction />
-                                        </core:EventTriggerBehavior>
-                                    </interactivity:Interaction.Behaviors>
-                                </controls:EventItem>
+                                        <interactivity:Interaction.Behaviors>
+                                            <core:EventTriggerBehavior EventName="Holding">
+                                                <local:OpenEventFlyoutAction />
+                                            </core:EventTriggerBehavior>
+                                        </interactivity:Interaction.Behaviors>
+                                    </controls:EventItem>
+                                </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
@@ -95,7 +102,7 @@
                 </DataTemplate>
             </HubSection>
             <HubSection Header="FRIENDS">
-                
+
             </HubSection>
         </Hub>
     </Grid>

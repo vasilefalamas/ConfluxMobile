@@ -25,12 +25,12 @@
             </TransitionCollection>
         </Grid.Transitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="55"/>
+            <ColumnDefinition Width="45"/>
             <ColumnDefinition Width="15"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" 
-              HorizontalAlignment="Center" VerticalAlignment="Center">
+              HorizontalAlignment="Left" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -40,24 +40,27 @@
             <TextBlock Grid.Row="1" Text="{Binding StartTime, Converter={StaticResource DateToMonthConverter}}" Foreground="Teal"
                        FontSize="20" HorizontalAlignment="Center"/>
         </Grid>
-        <Grid Grid.Column="1" 
-              Margin="3, 5, 10, 5" Background="Goldenrod"/>
+        <Rectangle Grid.Column="1" Width="2" 
+                   HorizontalAlignment="Left"
+                   Fill="Goldenrod" />
         <Grid Grid.Column="2"
               VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="{Binding Title}" Foreground="{Binding Visited, Converter={StaticResource VisitedEventColorConverter}}"
+            <TextBlock Grid.Row="0" TextLineBounds="TrimToCapHeight" Text="{Binding Title}" Foreground="{Binding Visited, Converter={StaticResource VisitedEventColorConverter}}"
                        FontSize="26" TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
-                       LineHeight="26" MaxLines="3"/>
+                       LineHeight="30" MaxLines="3" LineStackingStrategy="BaselineToBaseline"/>
             <TextBlock Grid.Row="1" Text="{Binding Location.Name}" Foreground="Black"
                        TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
-                       LineHeight="15" MaxLines="2"/>
+                       LineHeight="17" LineStackingStrategy="BaselineToBaseline" MaxLines="2"/>
             <TextBlock Grid.Row="2" Text="{Binding EndTime, Converter={StaticResource DateSentenceConverter}, ConverterParameter='End'}"
-                       Foreground="{StaticResource PhoneMidBrush}" LineHeight="15"
-                       Visibility="{Binding EndTime, Converter={StaticResource NullToVisibilityConverter}}"/> 
+                       Foreground="{StaticResource PhoneMidBrush}"
+                       Visibility="{Binding EndTime, Converter={StaticResource NullToVisibilityConverter}}"
+                       TextWrapping="Wrap" TextTrimming="CharacterEllipsis"
+                       LineHeight="17" MaxLines="2" LineStackingStrategy="BaselineToBaseline"/> 
         </Grid>
     </Grid>
 </UserControl>
