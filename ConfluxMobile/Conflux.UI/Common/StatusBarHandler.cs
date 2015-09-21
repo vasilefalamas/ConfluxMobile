@@ -9,9 +9,6 @@ namespace Conflux.UI.Common
     {
         public static async void InitializeAsync(Color foregroundColor)
         {
-            var applicationView = ApplicationView.GetForCurrentView();
-            applicationView.SetDesiredBoundsMode(ApplicationViewBoundsMode.UseCoreWindow);
-
             var statusBar = StatusBar.GetForCurrentView();
             statusBar.ForegroundColor = foregroundColor;
             await statusBar.ShowAsync();

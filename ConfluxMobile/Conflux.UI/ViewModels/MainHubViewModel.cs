@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Media.Imaging;
 using Conflux.Core.Models;
-using Conflux.Core.Settings;
 using Conflux.UI.Common;
-using Conflux.UI.Views;
 
 namespace Conflux.UI.ViewModels
 {
@@ -17,8 +13,6 @@ namespace Conflux.UI.ViewModels
         private string location;
 
         private BitmapImage profilePicture;
-
-        private List<NavigationLink> userSectionLinks;
 
         private IncrementalLoadingCollection<EventDisplayItem> newestEvents;
 
@@ -61,19 +55,6 @@ namespace Conflux.UI.ViewModels
             }
         }
 
-        public List<NavigationLink> UserSectionLinks
-        {
-            get
-            {
-                return userSectionLinks;
-            }
-            set
-            {
-                userSectionLinks = value;
-                OnPropertyChanged();
-            }
-        }
-
         public IncrementalLoadingCollection<EventDisplayItem> NewestEvents
         {
             get
@@ -96,44 +77,6 @@ namespace Conflux.UI.ViewModels
             NewestEvents = new IncrementalLoadingCollection<EventDisplayItem>(eventsSource);
             NewestEvents.LoadMoreItemsStarted += OnLoadMoreItemsStarted;
             NewestEvents.LoadMoreItemsCompleted += OnLoadMoreItemsCompleted;
-            
-            UserSectionLinks = new List<NavigationLink>();
-
-            AddUserSectionLinks(UserSectionLinks);
-        }
-        
-        /// <summary>
-        /// Marks the event as "blacklisted" by removing events list.
-        /// </summary>
-        /// <param name="eventItem"></param>
-        public void MarkBlacklistEvent(EventDisplayItem eventItem)
-        {
-            if (NewestEvents.Contains(eventItem))
-            {
-                NewestEvents.Remove(eventItem);
-                AppSettings.AddBlacklistEvent(eventItem.Event.Id);
-            }
-        }
-
-        private void AddUserSectionLinks(IList<NavigationLink> links)
-        {
-            links.Add(new NavigationLink
-            {
-                Title = "my events",
-                Destination = typeof(MyEventsPage)
-            });
-
-            links.Add(new NavigationLink
-            {
-                Title = "blacklist",
-                Destination = typeof(BlacklistPage)
-            });
-
-            links.Add(new NavigationLink
-            {
-                Title = "search preferences",
-                Destination = typeof(SearchPreferencesPage)
-            });
         }
         
         private async void OnLoadMoreItemsStarted()

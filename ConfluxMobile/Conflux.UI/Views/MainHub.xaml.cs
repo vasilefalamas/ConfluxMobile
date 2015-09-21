@@ -58,44 +58,13 @@ namespace Conflux.UI.Views
         }
 
         #endregion
-
-        private void OnLinkSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var itemsList = sender as ListView;
-
-            if (itemsList != null)
-            {
-                var selectedLink = (NavigationLink)itemsList.SelectedItem;
-
-                if (selectedLink != null)
-                {
-                    Frame.Navigate(selectedLink.Destination);
-                }
-
-                itemsList.SelectedItem = null;
-            }
-        }
-
+        
         private void OnLogOutButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationCacheMode = NavigationCacheMode.Disabled;
 
             AppSettings.SetAccessToken(new AccessToken(string.Empty, DateTime.Now));
             Frame.Navigate(typeof(LoginPage));
-        }
-
-        private void OnAddToBlacklist(object sender, RoutedEventArgs e)
-        {
-            var item = (e.OriginalSource as FrameworkElement);
-
-            if (item == null)
-            {
-                return;
-            }
-
-            var selection = (EventDisplayItem) item.DataContext;
-
-            confluxHubViewModel.MarkBlacklistEvent(selection);
         }
 
         private void OnNearbyEventsListSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -117,6 +86,16 @@ namespace Conflux.UI.Views
 
                 listView.SelectedItem = null;
             }
+        }
+
+        private void OnMyEventsClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof (MyEventsPage));
+        }
+
+        private void OnSearchPreferencesClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof (SearchPreferencesPage));
         }
     }
 }

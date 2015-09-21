@@ -127,9 +127,6 @@
     <Compile Include="ViewModels\OpenEventFlyoutAction.cs" />
     <Compile Include="ViewModels\SearchPreferencesViewModel.cs" />
     <Compile Include="ViewModels\SharedInfoViewModel.cs" />
-    <Compile Include="Views\BlacklistPage.xaml.cs">
-      <DependentUpon>BlacklistPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\EventDetails.xaml.cs">
       <DependentUpon>EventDetails.xaml</DependentUpon>
     </Compile>
@@ -204,10 +201,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\HighlightEvents.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BlacklistPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

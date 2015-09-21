@@ -95,7 +95,6 @@
     <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Maps\Location.cs" />
     <Compile Include="Maps\LocationFinder.cs" />
-    <Compile Include="Models\NavigationLink.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

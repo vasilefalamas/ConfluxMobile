@@ -20,6 +20,8 @@
     <Page.BottomAppBar>
         <CommandBar IsSticky="False" ClosedDisplayMode="Minimal">
             <CommandBar.SecondaryCommands>
+                <AppBarButton Label="my events" Click="OnMyEventsClick"/>
+                <AppBarButton Label="search preferences" Click="OnSearchPreferencesClick"/>
                 <AppBarButton Label="log out" Click="OnLogOutButtonClick"/>
             </CommandBar.SecondaryCommands>
         </CommandBar>
@@ -27,79 +29,74 @@
 
     <Page.Resources>
         <MenuFlyout x:Key="EventFlyout">
-            <MenuFlyoutItem Text="add to blacklist" Click="OnAddToBlacklist"/>
+            <MenuFlyoutItem Text="add to favorites"/> <!--TODO Implement favorites -->
         </MenuFlyout>
     </Page.Resources>
 
-    <Grid>
+    <Grid Margin="15, 0, 0, 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--CONTENT-->
-        <Grid Grid.Row="1">
-            <Hub Header="conflux">
-                <Hub.HeaderTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="conflux" 
-                                   Foreground="Teal"/>
-                    </DataTemplate>
-                </Hub.HeaderTemplate>
-                <HubSection Header="ME" Foreground="Teal">
-                    <DataTemplate>
-                        <StackPanel>
-                            <Ellipse Width="150" Height="150"
-                                   HorizontalAlignment="Left">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="{Binding ProfilePicture}"/>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <TextBlock Text="{Binding Name}" FontSize="22" Foreground="Teal"/>
-                            <TextBlock Text="{Binding Location}" FontSize="20" Foreground="Teal"/>
-                            <ListView Margin="0, 30, 0, 0" 
-                                      ItemsSource="{Binding UserSectionLinks}"
-                                      SelectionChanged="OnLinkSelectionChanged">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Title}" Foreground="Black"
-                                                   Style="{StaticResource ListViewItemTextBlockStyle}">
-                                        </TextBlock>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </StackPanel>
-                    </DataTemplate>
-                </HubSection>
-                <HubSection Header="NEARBY" Foreground="Teal">
-                    <DataTemplate>
-                        <ListView x:Name="NewestEventsListView" ItemsSource="{Binding NewestEvents}"
+        <!--PAGE UPPER CONTENT-->
+        <Grid Grid.Row="0">
+            <Grid HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Name}"
+                               FontSize="22" Foreground="Teal"
+                               HorizontalAlignment="Right"/>
+                    <TextBlock Text="{Binding Location}" 
+                               FontSize="20" Foreground="{StaticResource PhoneMidBrush}"
+                               HorizontalAlignment="Right" />
+                </StackPanel>
+                <Ellipse Grid.Column="1" Margin="10, 0"
+                         Width="60" Height="60"
+                         HorizontalAlignment="Left">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{Binding ProfilePicture}"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Grid>
+        </Grid>
+        <!-- PAGE HUB CONTENT -->
+        <Hub Grid.Row="1" Margin="0, 25, 0, 0">
+            <HubSection Header="NEARBY" Foreground="Teal">
+                <DataTemplate>
+                    <ListView x:Name="NewestEventsListView" ItemsSource="{Binding NewestEvents}"
                                   SelectionChanged="OnNearbyEventsListSelectionChanged">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <controls:EventItem FlyoutBase.AttachedFlyout="{StaticResource EventFlyout}"
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <controls:EventItem FlyoutBase.AttachedFlyout="{StaticResource EventFlyout}"
                                                         Title="{Binding Event.Title}"
                                                         StartTime="{Binding Event.StartTime}"
                                                         EndTime="{Binding Event.EndTime}"
                                                         Location="{Binding Event.Location}" 
                                                         Visited="{Binding Visited}">
-                                        <interactivity:Interaction.Behaviors>
-                                            <core:EventTriggerBehavior EventName="Holding">
-                                                <local:OpenEventFlyoutAction />
-                                            </core:EventTriggerBehavior>
-                                        </interactivity:Interaction.Behaviors>
-                                    </controls:EventItem>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </DataTemplate>
-                </HubSection>
-                <HubSection Header="HIGHLIGHTS" Foreground="Teal">
-                    <DataTemplate>
-                        <controls:HighlightEvents />
-                    </DataTemplate>
-                </HubSection>
-            </Hub>
-        </Grid>
+                                    <interactivity:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="Holding">
+                                            <local:OpenEventFlyoutAction />
+                                        </core:EventTriggerBehavior>
+                                    </interactivity:Interaction.Behaviors>
+                                </controls:EventItem>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </DataTemplate>
+            </HubSection>
+            <HubSection Header="HIGHLIGHTS" Foreground="Teal">
+                <DataTemplate>
+                    <controls:HighlightEvents />
+                </DataTemplate>
+            </HubSection>
+            <HubSection Header="FRIENDS">
+                
+            </HubSection>
+        </Hub>
     </Grid>
 </Page>
