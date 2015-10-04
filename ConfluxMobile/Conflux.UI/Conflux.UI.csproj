@@ -102,6 +102,9 @@
     <Compile Include="Controls\EventItem.xaml.cs">
       <DependentUpon>EventItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\EventsCalendar.xaml.cs">
+      <DependentUpon>EventsCalendar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\HighlightEvents.xaml.cs">
       <DependentUpon>HighlightEvents.xaml</DependentUpon>
     </Compile>
@@ -113,12 +116,15 @@
     <Compile Include="Converters\NegatedBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />
+    <Compile Include="Models\Day.cs" />
     <Compile Include="Models\EventsGroup.cs" />
     <Compile Include="Models\MapAppItem.cs" />
+    <Compile Include="Models\Week.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextBlockExtension.cs" />
     <Compile Include="Text\TextFormatter.cs" />
     <Compile Include="ViewModels\BlacklistViewModel.cs" />
+    <Compile Include="ViewModels\EventCalendarViewModel.cs" />
     <Compile Include="ViewModels\EventDetailsViewModel.cs" />
     <Compile Include="ViewModels\HighlightsViewModel.cs" />
     <Compile Include="ViewModels\MainHubViewModel.cs" />
@@ -200,6 +206,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\EventsCalendar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\HighlightEvents.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -245,7 +255,6 @@
       <Name>Behaviors SDK %28XAML%29</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

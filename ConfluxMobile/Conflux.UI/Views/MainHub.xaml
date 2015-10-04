@@ -102,7 +102,9 @@
                 </DataTemplate>
             </HubSection>
             <HubSection Header="FRIENDS">
-
+                <DataTemplate>
+                    <controls:EventsCalendar />
+                </DataTemplate>
             </HubSection>
         </Hub>
     </Grid>
