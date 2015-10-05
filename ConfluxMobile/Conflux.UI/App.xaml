@@ -19,6 +19,7 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="IsTextScaleFactorEnabled" Value="False" />
         </Style>
+
         <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
             <Setter Property="IsTextSelectionEnabled" Value="False"/>
             <Setter Property="IsTextScaleFactorEnabled" Value="False"/>

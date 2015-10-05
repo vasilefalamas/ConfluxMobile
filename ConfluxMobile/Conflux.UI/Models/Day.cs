@@ -37,6 +37,8 @@ namespace Conflux.UI.Models
             }
         }
 
+        public bool IsActive { get; set; }
+
         public Day(string dayValue, Color color)
         {
             Value = dayValue;

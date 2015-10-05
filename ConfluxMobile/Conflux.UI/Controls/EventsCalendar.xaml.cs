@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Windows.UI;
-using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
+using Conflux.UI.Helpers;
 using Conflux.UI.Models;
 using Conflux.UI.ViewModels;
 
@@ -28,34 +29,57 @@ namespace Conflux.UI.Controls
         {
             viewModel.Weeks.Add(new Week
             {
-                Monday = new Day("1", Colors.Gray),
-                Tuesday = new Day("2", Colors.Gray),
-                Wednesday = new Day("3", Colors.Gray),
-                Thursday = new Day("4", Colors.Teal),
-                Friday = new Day("5", Colors.Teal),
-                Saturday = new Day("6", Colors.Teal),
-                Sunday = new Day("7", Colors.Teal)
+                Days = new List<Day>
+                {
+                    new Day("1", Colors.Gray),
+                    new Day("2", Colors.Gray),
+                    new Day("3", Colors.Gray),
+                    new Day("4", Colors.Teal),
+                    new Day("5", Colors.Teal),
+                    new Day("6", Colors.Teal),
+                    new Day("7", Colors.Teal),
+                }
             });
 
             viewModel.Weeks.Add(new Week
             {
-                Monday = new Day("8", Colors.Gray),
-                Tuesday = new Day("9", Colors.Gray),
-                Wednesday = new Day("10", Colors.Gray),
-                Thursday = new Day("11", Colors.Teal),
-                Friday = new Day("12", Colors.Teal),
-                Saturday = new Day("13", Colors.Teal),
-                Sunday = new Day("14", Colors.Teal)
+                Days = new List<Day>
+                {
+                    new Day("8", Colors.Teal),
+                    new Day("9", Colors.Teal),
+                    new Day("10", Colors.Teal),
+                    new Day("11", Colors.Teal),
+                    new Day("12", Colors.Teal),
+                    new Day("13", Colors.Gray),
+                    new Day("14", Colors.Gray),
+                }
             });
         }
 
-
-        private async void OnCalendarItemTapped(object sender, TappedRoutedEventArgs e)
+        private void OnCalendarItemClick(object sender, RoutedEventArgs e)
         {
-            var text = (sender as Button).Content;
+            var daysGrid = VisualTreeHelper.GetParent(sender as DependencyObject);
+            var weekGrid = VisualTreeHelper.GetParent(daysGrid);
+            
+            var eventsPanel = weekGrid.FindChildControl<StackPanel>("DayEvents");
 
-            await new MessageDialog(text.ToString()).ShowAsync();
+            if (eventsPanel == null)
+            {
+                return;
+            }
 
+            var element = (FrameworkElement)eventsPanel;
+
+            if (element.Height > 0)
+            {
+                var fadeOut = (Storyboard)element.Resources["FadeOut"];
+                fadeOut.Begin();
+            }
+            else
+            {
+                var fadeIn = (Storyboard)element.Resources["FadeIn"];
+                fadeIn.Begin();
+            }
         }
     }
 }

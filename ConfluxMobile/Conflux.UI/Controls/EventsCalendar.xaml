@@ -72,7 +72,7 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
@@ -80,55 +80,57 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="35"/>
-                            <RowDefinition MaxHeight="300"/>
+                            <RowDefinition Height="*" MaxHeight="300"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Tapped="OnCalendarItemTapped" 
-                                    Content="{Binding Monday.Value}" Foreground="{Binding Monday.Color}"
-                                    Style="{StaticResource CalendarItem}"/>
-                            <Button Grid.Column="1" Tapped="OnCalendarItemTapped" 
-                                    Content="{Binding Tuesday.Value}" Foreground="{Binding Tuesday.Color}"
-                                    Style="{StaticResource CalendarItem}"/>
-                            <Button Grid.Column="2" Tapped="OnCalendarItemTapped" 
-                                    Content="{Binding Wednesday.Value}" Foreground="{Binding Wednesday.Color}"
-                                    Style="{StaticResource CalendarItem}"/>
-                            <Button Grid.Column="3" Tapped="OnCalendarItemTapped" 
-                                    Content="{Binding Thursday.Value}" Foreground="{Binding Thursday.Color}"
-                                    Style="{StaticResource CalendarItem}"/>
-                            <Button Grid.Column="4" Tapped="OnCalendarItemTapped" 
-                                    Content="{Binding Friday.Value}" Foreground="{Binding Friday.Color}"
-                                    Style="{StaticResource CalendarItem}"/>
-                            <Button Grid.Column="5" Tapped="OnCalendarItemTapped" 
-                                    Content="{Binding Saturday.Value}" Foreground="{Binding Saturday.Color}"
-                                    Style="{StaticResource CalendarItem}"/>
-                            <Button Grid.Column="6" Tapped="OnCalendarItemTapped" 
-                                    Content="{Binding Sunday.Value}" Foreground="{Binding Sunday.Color}"
-                                    Style="{StaticResource CalendarItem}"/>
-                        </Grid>
-                        <StackPanel Grid.Row="1" x:Name="DayEvents">
+                        <GridView Grid.Row="0" x:Name="WeekGridView" ItemsSource="{Binding Days}">
+                            <GridView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapGrid Orientation="Horizontal" MaximumRowsOrColumns="7"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                              HorizontalChildrenAlignment="Stretch" VerticalChildrenAlignment="Stretch"/>
+                                </ItemsPanelTemplate>
+                            </GridView.ItemsPanel>
+                           <GridView.ItemTemplate>
+                               <DataTemplate>
+                                    <HyperlinkButton Content="{Binding Value}"
+                                                     FontSize="24" Foreground="{Binding Color}"
+                                                     VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                     Click="OnCalendarItemClick"/>
+                               </DataTemplate>
+                           </GridView.ItemTemplate>
+                            <GridView.ItemContainerStyle>
+                                <Style TargetType="GridViewItem">
+                                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </GridView.ItemContainerStyle>
+                        </GridView>
+                        <StackPanel Grid.Row="1" x:Name="DayEvents" Height="0" Background="PaleGoldenrod">
                             <StackPanel.Resources>
                                 <Storyboard x:Key="FadeIn" 
                                             TargetName="DayEvents" TargetProperty="Height">
-                                    <DoubleAnimation From="0"
-                                                     To="300">
+                                    <DoubleAnimation To="300"
+                                                     Duration="00:00:00.6" 
+                                                     EnableDependentAnimation="True">
+                                        <DoubleAnimation.EasingFunction>
+                                            <CubicEase EasingMode="EaseOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                                <Storyboard x:Key="FadeOut" 
+                                            TargetName="DayEvents" TargetProperty="Height">
+                                    <DoubleAnimation To="0" Duration="00:00:00.3"
+                                                     EnableDependentAnimation="True">
                                         <DoubleAnimation.EasingFunction>
                                             <CubicEase EasingMode="EaseOut"/>
                                         </DoubleAnimation.EasingFunction>
                                     </DoubleAnimation>
                                 </Storyboard>
                             </StackPanel.Resources>
+                            <TextBlock Text="Some events will show up here."/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
