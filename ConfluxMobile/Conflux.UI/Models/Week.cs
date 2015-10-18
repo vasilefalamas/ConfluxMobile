@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using Conflux.Core.Models;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -7,14 +7,59 @@ namespace Conflux.UI.Models
 {
     public class Week : INotifyPropertyChanged
     {
-        private List<Day> days;
+        private string monthPeriod;
 
-        public List<Day> Days
+        public string MonthPeriod
         {
-            get { return days; }
+            get
+            {
+                return monthPeriod;
+            }
             set
             {
-                days = value;
+                monthPeriod = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string daysPeriod;
+        
+        public string DaysPeriod
+        {
+            get
+            {
+                return daysPeriod;
+            }
+            set
+            {
+                daysPeriod = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isCompact;
+
+        public bool IsCompact
+        {
+            get
+            {
+                return isCompact;
+            }
+            set
+            {
+                isCompact = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private List<EventDisplayItem> events;
+
+        public List<EventDisplayItem> Events
+        {
+            get { return events; }
+            set
+            {
+                events = value;
                 OnPropertyChanged();
             }
         }

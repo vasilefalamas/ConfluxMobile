@@ -4,137 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:controls="using:Conflux.UI.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <Style x:Key="CalendarHeaderItem" TargetType="TextBlock">
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Foreground" Value="Teal" />
-            <Setter Property="FontSize" Value="18"/>
-        </Style>
-        <Style x:Key="CalendarItem" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Foreground" Value="Teal"/>
-            <Setter Property="FontSize" Value="18"/>
-        </Style>
-    </UserControl.Resources>
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="22"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Border Grid.Column="0">
-                <TextBlock Style="{StaticResource CalendarHeaderItem}" Text="Mon"/>
-            </Border>
-            <Border Grid.Column="1">
-                <TextBlock Style="{StaticResource CalendarHeaderItem}" Text="Tue"/>
-            </Border>
-            <Border Grid.Column="2">
-                <TextBlock Style="{StaticResource CalendarHeaderItem}" Text="Wed"/>
-            </Border>
-            <Border Grid.Column="3">
-                <TextBlock Style="{StaticResource CalendarHeaderItem}" Text="Thu"/>
-            </Border>
-            <Border Grid.Column="4">
-                <TextBlock Style="{StaticResource CalendarHeaderItem}" Text="Fri"/>
-            </Border>
-            <Border Grid.Column="5">
-                <TextBlock Style="{StaticResource CalendarHeaderItem}" Text="Sat"/>
-            </Border>
-            <Border Grid.Column="6">
-                <TextBlock Style="{StaticResource CalendarHeaderItem}" Text="Sun"/>
-            </Border>
-        </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Weeks}">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="35"/>
-                            <RowDefinition Height="*" MaxHeight="300"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <GridView Grid.Row="0" x:Name="WeekGridView" ItemsSource="{Binding Days}">
-                            <GridView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapGrid Orientation="Horizontal" MaximumRowsOrColumns="7"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                              HorizontalChildrenAlignment="Stretch" VerticalChildrenAlignment="Stretch"/>
-                                </ItemsPanelTemplate>
-                            </GridView.ItemsPanel>
-                           <GridView.ItemTemplate>
-                               <DataTemplate>
-                                    <HyperlinkButton Content="{Binding Value}"
-                                                     FontSize="24" Foreground="{Binding Color}"
-                                                     VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                     Click="OnCalendarItemClick"/>
-                               </DataTemplate>
-                           </GridView.ItemTemplate>
-                            <GridView.ItemContainerStyle>
-                                <Style TargetType="GridViewItem">
-                                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                </Style>
-                            </GridView.ItemContainerStyle>
-                        </GridView>
-                        <StackPanel Grid.Row="1" x:Name="DayEvents" Height="0" Background="PaleGoldenrod">
-                            <StackPanel.Resources>
-                                <Storyboard x:Key="FadeIn" 
-                                            TargetName="DayEvents" TargetProperty="Height">
-                                    <DoubleAnimation To="300"
-                                                     Duration="00:00:00.6" 
-                                                     EnableDependentAnimation="True">
-                                        <DoubleAnimation.EasingFunction>
-                                            <CubicEase EasingMode="EaseOut"/>
-                                        </DoubleAnimation.EasingFunction>
-                                    </DoubleAnimation>
-                                </Storyboard>
-                                <Storyboard x:Key="FadeOut" 
-                                            TargetName="DayEvents" TargetProperty="Height">
-                                    <DoubleAnimation To="0" Duration="00:00:00.3"
-                                                     EnableDependentAnimation="True">
-                                        <DoubleAnimation.EasingFunction>
-                                            <CubicEase EasingMode="EaseOut"/>
-                                        </DoubleAnimation.EasingFunction>
-                                    </DoubleAnimation>
-                                </Storyboard>
-                            </StackPanel.Resources>
-                            <TextBlock Text="Some events will show up here."/>
-                        </StackPanel>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+    <ListView ItemsSource="{Binding Weeks}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <controls:CalendarWeek MonthPeriod="{Binding MonthPeriod}"
+                                       DaysPeriod="{Binding DaysPeriod}"
+                                       Events="{Binding Events}"/>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    
 </UserControl>

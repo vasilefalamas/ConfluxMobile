@@ -99,6 +99,9 @@
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\StatusBarHandler.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Controls\CalendarWeek.xaml.cs">
+      <DependentUpon>CalendarWeek.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\EventItem.xaml.cs">
       <DependentUpon>EventItem.xaml</DependentUpon>
     </Compile>
@@ -116,7 +119,6 @@
     <Compile Include="Converters\NegatedBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Helpers\DependencyObjectExtensions.cs" />
-    <Compile Include="Models\Day.cs" />
     <Compile Include="Models\EventsGroup.cs" />
     <Compile Include="Models\MapAppItem.cs" />
     <Compile Include="Models\Week.cs" />
@@ -202,6 +204,10 @@
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\CalendarWeek.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\EventItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

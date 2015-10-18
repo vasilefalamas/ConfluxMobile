@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
-using Conflux.UI.Helpers;
 using Conflux.UI.Models;
 using Conflux.UI.ViewModels;
+using Conflux.Core.Models;
+using Conflux.Connectivity.GraphApi;
+using System;
 
 namespace Conflux.UI.Controls
 {
@@ -27,59 +23,43 @@ namespace Conflux.UI.Controls
 
         private void InitializeCalendarItems()
         {
+            var sampleEvent = new EventDisplayItem
+            {
+                Event = new Event
+                {
+                    StartTime = DateTime.Now,
+                    EndTime = DateTime.Now.AddDays(5),
+                    Title = "Some beautiful test event",
+                    Location = new LocationInfo
+                    {
+                        Name = "Sibiu",
+                        Longitude = 1,
+                        Latitude = 1,
+                        Id = 111
+                    }
+                }
+            };
+
+
             viewModel.Weeks.Add(new Week
             {
-                Days = new List<Day>
-                {
-                    new Day("1", Colors.Gray),
-                    new Day("2", Colors.Gray),
-                    new Day("3", Colors.Gray),
-                    new Day("4", Colors.Teal),
-                    new Day("5", Colors.Teal),
-                    new Day("6", Colors.Teal),
-                    new Day("7", Colors.Teal),
-                }
+               MonthPeriod = "October",
+               DaysPeriod = "10-17",
+               Events = new List<EventDisplayItem>
+               {
+                   sampleEvent
+               }
             });
 
             viewModel.Weeks.Add(new Week
             {
-                Days = new List<Day>
-                {
-                    new Day("8", Colors.Teal),
-                    new Day("9", Colors.Teal),
-                    new Day("10", Colors.Teal),
-                    new Day("11", Colors.Teal),
-                    new Day("12", Colors.Teal),
-                    new Day("13", Colors.Gray),
-                    new Day("14", Colors.Gray),
-                }
+                MonthPeriod = "October",
+                DaysPeriod = "17-24",
+                Events = new List<EventDisplayItem>
+               {
+                   sampleEvent
+               }
             });
-        }
-
-        private void OnCalendarItemClick(object sender, RoutedEventArgs e)
-        {
-            var daysGrid = VisualTreeHelper.GetParent(sender as DependencyObject);
-            var weekGrid = VisualTreeHelper.GetParent(daysGrid);
-            
-            var eventsPanel = weekGrid.FindChildControl<StackPanel>("DayEvents");
-
-            if (eventsPanel == null)
-            {
-                return;
-            }
-
-            var element = (FrameworkElement)eventsPanel;
-
-            if (element.Height > 0)
-            {
-                var fadeOut = (Storyboard)element.Resources["FadeOut"];
-                fadeOut.Begin();
-            }
-            else
-            {
-                var fadeIn = (Storyboard)element.Resources["FadeIn"];
-                fadeIn.Begin();
-            }
         }
     }
 }
