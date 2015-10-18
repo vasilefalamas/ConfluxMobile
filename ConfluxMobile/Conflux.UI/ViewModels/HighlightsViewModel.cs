@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Conflux.Connectivity.GraphApi;
-using Conflux.Core;
+using Conflux.Core.Extensions;
 using Conflux.Core.Models;
 using Conflux.Core.Settings;
 using Conflux.UI.Models;
@@ -15,26 +15,28 @@ namespace Conflux.UI.ViewModels
 {
     public class HighlightsViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<EventsGroup> eventsGroups;
+        private ObservableCollection<EventsGroup> weeks;
 
-        public ObservableCollection<EventsGroup> EventsGroups
+        public ObservableCollection<EventsGroup> Weeks
         {
             get
             {
-                return eventsGroups;
+                return weeks;
             }
             set
             {
-                eventsGroups = value;
+                weeks = value;
                 OnPropertyChanged();
             }
         }
+
+        public bool IsLoadComplete;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public HighlightsViewModel()
         {
-            EventsGroups = new ObservableCollection<EventsGroup>();
+            Weeks = CreateWeeks();
         }
 
         public async Task GetHighlights()
@@ -47,75 +49,77 @@ namespace Conflux.UI.ViewModels
             //Eliminate blacklist events :
             var filteredEvents = events.Where(item => !AppSettings.GetBlacklistEventsIds().Contains(item.Id));
 
-            AddRange(filteredEvents);
+            GroupEvents(filteredEvents.Select(item => new EventDisplayItem
+            {
+                Event = item
+            }));
+
+            OrderEvents();
+
+            IsLoadComplete = true;
         }
 
-        public void Add(Event eventItem)
+        private ObservableCollection<EventsGroup> CreateWeeks()
         {
-            var newEvent = new EventDisplayItem
+            // TODO : Refactor week (not weeks) creation in a separate method
+            var weeks = new ObservableCollection<EventsGroup>();
+
+            var startOfWeek = DateTimeExtensions.StartOfWeek();
+            var thisWeekStartTime = new DateTime(startOfWeek.Year, startOfWeek.Month, startOfWeek.Day);
+            var thisWeek = new EventsGroup
             {
-                Event = eventItem
+                WeekLabel = "this week",
+                StartTime = thisWeekStartTime,
+                EndTime = thisWeekStartTime.Date.AddDays(7)
             };
+            thisWeek.BuildDaysLabel();
+            
+            var previousWeek = new EventsGroup
+            {
+                WeekLabel = "previous week",
+                StartTime = thisWeek.StartTime.Date.AddDays(-7),
+                EndTime = thisWeek.EndTime.Date.AddDays(-7)
+            };
+            previousWeek.BuildDaysLabel();
 
-            AddEventToGroup(newEvent, EventsGroups);
+            var upcomingWeek = new EventsGroup
+            {
+                WeekLabel = "upcoming week",
+                StartTime = thisWeek.StartTime.Date.AddDays(7),
+                EndTime = thisWeek.EndTime.Date.AddDays(7)
+            };
+            upcomingWeek.BuildDaysLabel();
+
+            weeks.Add(previousWeek);
+            weeks.Add(thisWeek);
+            weeks.Add(upcomingWeek);
+
+            return weeks;
         }
 
-        public void AddRange(IEnumerable<Event> events)
+
+        private void GroupEvents(IEnumerable<EventDisplayItem> events)
         {
-            foreach (var item in events)
+            foreach(var eventItem in events)
             {
-                Add(item);
-            }
-        }
-
-        private void AddEventToGroup(EventDisplayItem eventItem, ICollection<EventsGroup> eventsGroup)
-        {
-            var dayKey = GetDayKey(eventItem);
-
-            //Event doesn't fit in any existing group. Create a new one.
-            if (eventsGroup.All(g => g.Key != dayKey))
-            {
-                var newGroup = new EventsGroup
+                foreach(var week in weeks)
                 {
-                    Key = dayKey,
-                    ShortDay = GetShortDay(eventItem)
-                };
-                newGroup.Add(eventItem);
-
-                eventsGroup.Add(newGroup);
-            }
-            //Event can be be added to an existing group.
-            else
-            {
-                var belongingGroup = eventsGroup.SingleOrDefault(group => group.Key == dayKey);
-                if (belongingGroup != null)
-                {
-                    belongingGroup.Add(eventItem);
+                    if (eventItem.Event.StartTime > week.StartTime &&
+                        eventItem.Event.StartTime < week.EndTime)
+                    {
+                        week.Add(eventItem);
+                        break;
+                    }
                 }
             }
         }
 
-        private string GetDayKey(EventDisplayItem eventItem)
+        private void OrderEvents()
         {
-            var startTime = eventItem.Event.StartTime;
-            var dayKey = startTime != null ? startTime.Value.ToString("dd MMM") : "Unknown";
-
-            return dayKey;
-        }
-
-        private string GetShortDay(EventDisplayItem eventItem)
-        {
-            if (eventItem.Event != null)
+            foreach (var eventsInWeek in Weeks)
             {
-                var startDate = eventItem.Event.StartTime;
-
-                if (startDate.HasValue)
-                {
-                    return startDate.Value.ToString("ddd");
-                }
+                eventsInWeek.OrderBy(eventItem => eventItem.Event.StartTime);
             }
-
-            return "Unknown";
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

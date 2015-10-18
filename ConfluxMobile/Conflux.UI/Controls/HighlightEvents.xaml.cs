@@ -21,7 +21,7 @@ namespace Conflux.UI.Controls
 
         private async void OnControlLoaded(object sender, RoutedEventArgs e)
         {
-            if (viewModel.EventsGroups.Count == 0) //OneTime load of highlights on a cached page.
+            if (!viewModel.IsLoadComplete) //OneTime load of highlights on a cached page.
             {
                 await viewModel.GetHighlights();
             }

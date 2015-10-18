@@ -27,5 +27,19 @@ namespace Conflux.Core.Extensions
 
             return today.AddDays(1).Equals(supposedTomorrow);
         }
+
+        /// <summary>
+        /// Gets the start of the current week.
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime StartOfWeek()
+        {
+            System.Globalization.CultureInfo cultureInfo = System.Globalization.CultureInfo.CurrentCulture;
+            DayOfWeek firstDayOfWeek = cultureInfo.DateTimeFormat.FirstDayOfWeek;
+
+            var today = DateTime.Today;
+
+            return today.AddDays(-(today.DayOfWeek - firstDayOfWeek));
+        }
     }
 }
